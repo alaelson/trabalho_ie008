@@ -1,0 +1,199 @@
+% ------------------------------------------------------------------------
+% Modelo de dissertação / tese
+% Autor: Gustavo Sousa Pavani
+% Junho de 2003.
+% ------------------------------------------------------------------------
+%\documentclass[12pt,titlepage,twoside,openright]{report}
+\documentclass[12pt,titlepage,oneside]{report}
+%\documentclass[12pt,titlepage,oneside]{report2}
+%\documentclass[12pt,titlepage]{report}
+\usepackage[latin1]{inputenc}
+\usepackage[brazilian]{babel}
+%\usepackage[none]{hyphenat} % Para não hifenizar
+\usepackage[T1]{fontenc} 
+\usepackage{ae} 
+%\usepackage[ansinew]{inputenc} 
+\usepackage[active]{srcltx} % Permite fazer busca inversa do dvi para o tex
+\usepackage{graphicx} %for figures
+\usepackage[tight]{subfigure} %for multiple figures in one figure
+\usepackage{fancyhdr} % fancy headings
+\usepackage{vmargin}   % Page layout
+\usepackage{setspace} % for doublespace
+\usepackage{array} % for tabular
+\usepackage[normal]{threeparttable} % for footnotes on tables
+\usepackage{amsfonts} % fonts and symbols for math mode
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{fancybox} % for fancy box
+%\usepackage{packages/algorithmic} % for pseudo-code
+%\usepackage{packages/algorithm}
+\usepackage{algorithmic} % for pseudo-code
+\usepackage{algorithm}
+\usepackage{rotating} %for rotating material (Companion - pg. 320)
+\usepackage{listings} %for XML code
+\usepackage{multicol} %multiple columns
+\usepackage{color,colortbl} % Permite "pintar" tabelas
+\usepackage[printonlyused,withpage]{acronym}
+\usepackage[editors,firstabbrev]{authorindex} %list all authors cited in this thesis.
+\let\cite=\aicite
+\usepackage{multirow}
+\usepackage{indentfirst} % Indent fist line - Brazilian Portuguese style
+\usepackage{tweaklist} % Modify enumerate, itemize and description
+\usepackage{verse}
+\usepackage{hyperref}
+ \usepackage{wrapfig}
+\usepackage{makeidx}
+\usepackage{pdfsync}
+\usepackage[final]{pdfpages}
+\makeindex
+%   \topsep - amount of extra vertical space at top of list
+%   \partopsep - extra length at top if environment is preceded by a blank line
+%                (it should be a rubber length)
+%   \itemsep - amount of extra vertical space between items
+%   \parsep - amount of vertical space between paragraphs within an item
+%   \leftmargin / \rightmargin - horizontal distance between the left/right margins of
+%                                the environment  and the list; must be nonnegative
+%   \listparindent - amount of extra space for paragraph indent after the first in an item;
+%                   can be negative
+%   \itemindent - indentation of first line of an item; can be negative
+%   \labelsep - separation between end of the box containing the label and the
+%               text of the first line of an item
+%   \labelwidth - normal width of the box containing the label; if the actual label
+%                 is bigger, the natural width is used, extending into the space for
+%                 the first line of the item's text
+%   \makelabel{label} - generates the label printed by the \item command
+%   \usecounter{ctr} enables the counter ctr to be used for numbering items;
+%                     it is initialized to zero and stepped when executing an \item command
+%                     that has no optional label argument.
+% -----------------------------------------------------------------
+% Set new paragraph indentation
+\setlength{\parindent}{1cm}
+% Modify the descrition environment
+\renewcommand{\descripthook}{%
+  %\setlength{\leftmargin}{0em}%  1em
+  \setlength{\itemindent}{0cm}%
+  %\setlength{\rightmargin}{0em}%
+  \setlength{\listparindent}{\parindent}%
+  %\setlength{\itemsep}{0em}%
+  \setlength{\labelsep}{5mm}%
+  %\setlength{\parsep}{0em}%
+}
+% Modify the itemize environment
+\renewcommand{\itemhook}{%
+   \setlength{\leftmargin}{17mm}%
+   %\setlength{\itemindent}{0cm}%
+   %\setlength{\rightmargin}{0em}%
+   \setlength{\listparindent}{\parindent}%
+   %\setlength{\itemsep}{-0.5ex}%
+   \setlength{\labelsep}{5mm}%
+}
+% Modify the enumerate environment
+\renewcommand{\enumhook}{%
+   \setlength{\leftmargin}{18mm}%
+   %\setlength{\itemindent}{0cm}%
+   %\setlength{\rightmargin}{0em}%
+   \setlength{\listparindent}{\parindent}%
+   %\setlength{\itemsep}{-0.5ex}%
+   \setlength{\labelsep}{5mm}%
+}%%% ----------------------------------------------------------------------
+% Tamanho da página e margens
+%\setmarginsrb{left}{top}{right}{bottom}{headhgt}{headsep}{foothgt}{footskip}
+%\setpapersize{USletter}
+\setpapersize{A4}
+\setmarginsrb{22mm}{25mm}{22mm}{25mm}{16pt}{4mm}{0pt}{0mm}
+% Estilo dos headings
+\pagestyle{fancyplain}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection{} #1}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+% Seta numero e aparicao na TOC ateh subsubsection
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+% Redefinição de comandos para o apendice de algoritmo
+\renewcommand{\algorithmiccomment}[1]{/$\ast$ #1 $\ast$/}
+\newcommand{\RETURN}{\STATE \textbf{return} }
+\floatname{algorithm}{Algoritmo}
+% Generate a complete blank page
+\newcommand{\clearemptydoublepage}{%
+        \newpage{\pagestyle{empty}\cleardoublepage}}
+% Substitute dot for comma in math mode and give rigth spacing
+\DeclareMathSymbol{,}{\mathpunct}{letters}{"3B}
+\DeclareMathSymbol{.}{\mathord}{letters}{"3B}
+\DeclareMathSymbol{\decimal}{\mathord}{letters}{"3A}
+
+%%% ----------------------------------------------------------------------
+%Inicio do documento
+\begin{document}
+%%% ---------------------------------------------------------------------
+%Pagina da capa
+\begin{titlepage}
+\include{capa}
+%\include{paginaembranco}
+%\include{rosto}
+%\include{assinaturas}
+\end{titlepage}
+%\includepdf[offset=2.5cm -2.5cm]{assinaturas.pdf}
+%\include{declaracao}
+%\include{agradecimentos}
+%insere a ficha de catalogação
+%\include{catalogo}
+% ------------------------------------------------------------------------
+%Insere a numeração em romano para as primeiras páginas da tese
+%\newpage
+\pagenumbering{roman}
+% ------------------------------------------------------------------------
+%insere o resumo e abstract
+%\addcontentsline{toc}{chapter}{\numberline{}Resumo \& Abstract}
+\addcontentsline{toc}{chapter}{\numberline{}Resumo}
+\include{resumo}
+\clearemptydoublepage
+\addcontentsline{toc}{chapter}{\numberline{}Abstract}
+\include{abstract}
+
+\clearemptydoublepage
+%------------------------------------------------------------------------
+%insere TOC, lista de figuras e tabelas
+\tableofcontents
+\clearemptydoublepage
+\addcontentsline{toc}{chapter}{\numberline{}Lista de Figuras}
+\listoffigures
+\clearemptydoublepage
+\addcontentsline{toc}{chapter}{\numberline{}Lista de Tabelas}
+\listoftables
+\clearemptydoublepage
+% ------------------------------------------------------------------------
+% Corpo da tese - numeração começa da página 1
+\doublespacing
+\pagenumbering{arabic}
+%\include{cap1/cap1}
+%\include{cap2/cap2}
+\include{cap3/cap3}
+\include{cap4/cap4}
+%\include{cap5/cap5a}
+%\include{cap6/cap6a}
+%\include{cap7/cap7a}
+
+%\clearemptydoublepage
+% Apendices
+\appendix
+%\include{app/app1}
+%\include{app/app2}
+%\include{app/app3}
+\singlespacing
+\include{app4}
+% ----------------------------------------------------------------------
+% Bibliografia
+%author index
+%\chapter{Índice Remissivo de Autores}
+%\begin{multicols}{2}
+%\printauthorindex
+%\end{multicols}
+%\singlespacing
+%\clearemptydoublepage
+\addcontentsline{toc}{chapter}{\numberline{}Referências Bibliográficas}
+\bibliographystyle{IEEEtran}
+\bibliography{artigos,referencias,rfc}
+\end{document} 
