@@ -1,0 +1,278 @@
+\chapter{A Rede de Transporte Ótica}
+\label{cap:g709}
+
+Apesar das altas taxa de transmissão e escalabilidade de largura de banda proporcionada pelas redes óticas, a tecnologia de comunicações ótica atual possui limitações de supervisão e avaliação de desempenho. Com o objetivo de contornar essas limitações a \ac{ITU-T} definiu a Rede de Transporte Ótica, Recomendação ITU-T G.870 (\textit{Terms and Definitions for Optical Transport Networks})~\cite{G870}, para padronizar o método de transmissão de sinais em redes óticas. 
+
+O foco deste capítulo é o padrão \ac{ITU-T} G.709, que define as interfaces utilizadas na rede de transporte ótica. Assim, este capítulo apresenta uma breve descrição sobre arquitetura da \ac{OTN}, o padrão G.709 e suas camadas, os principais alarmes deste padrão e o algoritmo de correção de erros (\aclu{FEC} -- \ac{FEC}).
+
+\section{Arquitetura da OTN}
+\label{sec:otn_arquitetura}
+
+A rede de transporte ótica fornece opções de gerenciamento e de desempenho dos caminhos óticos através de um conjunto de cabeçalhos (\aclu{OH}s -- \ac{OH}) que são processados à medida que o sinal é propagado nas camadas da sua arquitetura, Recomendação \ac{ITU-T} G.872 (\textit{Architecture of Transport Optical Networks})~\cite{G872}, a qual é composta por camadas independentes e que refletem o escopo da transmissão do sinal no meio ótico. A Figura~\ref{fig:otn_architecture} ilustra a subdivisão das camadas da \ac{OTN} e os seus domínios de operação. As funções de cada camada estão relacionadas da seguinte forma: 
+
+\begin{figure}[H]
+	\begin{center}
+	\subfigure{
+		\includegraphics[scale=.9]{cap3/otn_architecture_camadas.png}
+		\label{fig:otn_arq_camadas}
+		}
+		\subfigure{
+		\includegraphics[scale=.9]{cap3/otn_architecture_terminations.png}
+		\label{fig:otn_escopoarquitecture}
+		}
+		\caption{(a) Esquema da arquitetura de camadas da OTN e (b) Escopo de operação de cada camada em uma conexão, que possui amplificadores e regeneradores no percurso do sinal ótico entre os terminais G.709.}
+		\label{fig:otn_architecture}
+	\end{center}
+\end{figure}
+
+\begin{itemize}
+	\item Canal Ótico (\aclu{OCh} -- \ac{OCh}): responsável por estabelecer a comunicação ótica fim a fim. É nesta camada que o sinal cliente é encapsulado. Suas principais características são: (\textit{i}) o roteamento flexível para rearranjar conexões; (\textit{ii}) cabeçalho que assegura a integridade do canal e (\textit{iii}) aplicação de funções de operação, administração, manutenção e provisionamento (\aclu{OAMP} -- \ac{OAMP}), como troca de parâmetros de qualidade de serviço e funções de sobrevivência do canal ótico;
+	
+	\item Sessão de multiplexação ótica (\aclu{OMS} -- \ac{OMS}): provê funcionalidades para multiplexar e gerenciar um ou vários comprimentos de onda dentro do sinal ótico no transmissor, bem como, funções para separá-los no receptor. Dentre as capacidades desta camada podemos citar: o processamento do cabeçalho que assegura a integridade da informação de multiplexação multi-comprimento de onda e a aplicação de funções de operação e gerenciamento, como sobrevivência da sessão de multiplexação, por exemplo;
+
+	\item Sessão de transporte ótica (\aclu{OTS} -- \ac{OTS}): possui a capacidade de transmissão sobre vários tipos de mídia ótica, como as fibras monomodo \ac{ITU-T} G.652, G.653 e G.655. Também possui um \textit{overhead} usado para funções de gerenciamento e sobrevivência dentro desta camada;
+	\item Meio físico: definido pelo tipo de fibra ótica usada na rede ótica, é o servidor da transmissão ótica.
+\end{itemize}
+
+Para permitir uma análise de desempenho otimizada para a transmissão de dados em uma rede de transporte ótica, foi desenvolvido o padrão \textit{Digital Wrapper} ou G.709, especificado na Recomendação \ac{ITU-T} G.709 (\textit{Interfaces for Optical Transporte Network})~\cite{G709}, que define as interfaces, o formato do quadro e a maneira como o sinal cliente é transportado. Esse padrão suporta diversos tipos de tecnologias clientes, tais como: \ac{SONET}/\ac{SDH}, \textit{Ethernet}, \ac{ATM}, \ac{VCAT}, \ac{GFP}. 
+
+A recomendação G.709 tem recursos próprios de gerência, monitoramento e funções de \ac{OAMP} baseados na experiência adquirida com o uso da tecnologia \ac{SONET}/\ac{SDH}, mas foram aprimorados, o que tornou o padrão menos complexo e mais extensível, pois provê uma estrutura de cabeçalhos que permite efetuar o monitoramento e a análise do desempenho da rede de forma mais adequada. Além disso, esse padrão emprega um robusto código corretor de erros, que permite que ele seja usado em redes óticas de longa distância. 
+
+A arquitetura da \ac{OTN} define duas classes de interfaces de acordo com os domínios de aplicação: inter-domínio (\aclu{IrDI} -- \ac{IrDI}) e intra-domínio (\aclu{IaDI} -- \ac{IaDI}), como ilustrados na Figura~\ref{fig:otn_interfaces}. Por outro lado, o \textit{digital wrapper} descreve somente as interfaces lógicas necessárias para transmitir a informação, o que não garante que ela seja realmente transmitida, uma vez que as especificações das interfaces físicas (óticas e elétricas) não são contempladas pelo padrão~\cite{Walker2007}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.6]{./cap3/interfaces.png}
+ % otn_interfaces.png: 3273x873 pixel, 300dpi, 27.71x7.39 cm, bb=
+ \caption{Exemplo de uma estrutura de domínios para interfaces da rede de transporte ótico (OTN).}
+ \label{fig:otn_interfaces}
+\end{figure}
+
+Os domínios de aplicação das interfaces são~\cite{G872}:
+
+\begin{itemize}
+      \item \ac{IrDI}: caracterizada pelo processamento 3R (regeneração, reformatação e retemporização ou ressincronização) do sinal ótico em cada uma de suas terminações. Por exemplo, na Figura~\ref{fig:otn_interfaces}, interfaces \ac{IrDI} conectam enlaces entre as operadoras A e B ou entre a rede do usuário X e a operadora A.
+      \item \ac{IaDI}: pertencem a um domínio administrativo, no qual não deve haver conversão \ac{O-E-O}. Por exemplo, na Figura~\ref{fig:otn_interfaces}, são as interfaces internas dos domínios das operadoras (A e B) e dos usuários (X e Y).
+\end{itemize}
+
+\section{O Padrão ITU-T G.709}
+\label{sec:otn_g.709}
+
+Além de tomar como exemplo a experiência de monitoramento e análise de desempenho da tecnologia \ac{SONET}/\ac{SDH}, o G.709 também tem as taxas de transferência de suas interfaces derivadas dessa tecnologia, como é apresentado na Tabela~\ref{tab:taxas}~\cite{G709}. As interface tratam o sinal cliente como carga útil (\textit{payload}), antes de transmiti-lo pela rede ótica. Após ser transmitido, o sinal ótico passa transparentemente pelos componentes do núcleo da rede, sendo somente convertido para o domínio elétrico e processado digitalmente quando alcança o destino.
+
+\begin{table}[H]
+\begin{center}
+\begin{threeparttable}
+\caption{Comparação entre as interfaces e taxas de transmissão das redes OTN e SONET/SDH.}
+\label{tab:taxas}
+\begin{tabular}{lclc} \hline
+\textbf{OTN OTU$_k$} & \textbf{Taxa (Gbps)} & \textbf{SONET/SDH} & \textbf{Taxa (Gbps)}\\ \hline
+OTU-1 & $2.666$ & OC-48/STM-16 & $2.488$\\ 
+OTU-2 & $10.709$ & OC-192/STM-64 & $9.953$\\ 
+OTU-3 & $43.018$ & OC-768/STM-256 & $39.812$\\ 
+\hline
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Antes de enviar um sinal cliente pela \ac{OTN} é feito um processamento que converte a taxa de transmissão do sinal cliente para a taxa da interface G.709. Por exemplo, um cliente \ac{SONET} OC-192, que possui taxa de dados de $9.953~Gbps$, será convertida para a interface OTU-2 (\acl{OTU} 2), que transmite dados a $10.709~Gbps$. Outras interfaces da OTN e SONET/SDH são comparadas na Tabela~\ref{tab:taxas}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.9]{cap3/otn_frame2.png}
+	\caption{Desenho esquemático do quadro da rede de transporte ótica ITU-T G.709.}
+	\label{fig:otn_quadro}
+\end{figure}
+
+
+O G.709 armazena as informações sobre o sinal e seu conteúdo em uma estrutura de dados chamada de quadro da \ac{OTN} (Figura~\ref{fig:otn_quadro}), que é dividido em três partes principais: cabeçalho, carga útil e \ac{FEC}. O cabeçalho do quadro da \ac{OTN} possui uma área em que é feito o alinhamento do sinal e outros campos que correspondem a um conjunto de cabeçalhos menores, que são estruturados de forma hierárquica. Esses pequenos cabeçalhos são definidos analisando o sinal no domínio elétrico ao longo do caminho e funcionam como as camadas digitais da hierarquia da \ac{OTN}. A carga útil é responsável por guardar as informações do sinal cliente e a \ac{FEC} guarda as informações geradas pelo código corretor de erros. 
+
+\begin{figure}[H]
+	\begin{center}
+		\subfigure{
+			\includegraphics[scale=.8]{cap3/otn_encapsulamento.png}
+			\label{fig:otn_encapsulamento}
+		}
+		\subfigure{
+			\includegraphics[scale=.8]{cap3/otn_g_709_terminations.png}
+			\label{fig:otn_hierarchy_terminations}
+		}
+	\caption{(a) Estrutura de encapsulamento/desencapsulamento do sinal cliente na Hierarquia de Transporte Ótica (OTH) da OTN e (b) Domínios de operação das camadas da OTH.}
+	\end{center}
+\end{figure}
+
+De uma forma simples, o quadro da \ac{OTN} fornece opções de monitoramento digital enquanto a arquitetura da OTN trata das opções de monitoramento ainda no domínio ótico. Toda essa infraestrutura forma a Hierarquia de Transporte Ótico (\aclu{OTH} -- \ac{OTH}), que é organizada em camadas como ilustrado na Figura~\ref{fig:otn_encapsulamento}, com os domínios de operação de cada camada exibidos na Figura~\ref{fig:otn_hierarchy_terminations}. As camadas da \ac{OTH} são divididas em:
+
+\begin{itemize}
+  \item Unidade de carga útil do canal ótico (\aclu{OPU} -- \ac{OPU});
+  \item Unidade de dados do canal ótico (\aclu{ODU}-- \ac{ODU});
+  \item Unidade de transporte do canal ótico (\aclu{OTU} -- \ac{OTU});
+  \item Canal ótico (\acs{OCh});
+  \item Sessão de multiplexação ótica (\acs{OMS});
+  \item Sessão de transporte ótico (\acs{OTS}).
+\end{itemize}
+
+O protocolo G.709 encapsula o sinal do cliente no quadro na OTN. Para isto, o sinal é adicionado na área de carga útil \ac{OPU} e tem suas informações inseridas no cabeçalho da unidade de carga útil (OPU-OH). Logo, o OPU e seu cabeçalho são mapeados no cabeçalho do \ac{ODU} (ODU-OH), que por sua vez, tem suas informações mapeadas no cabeçalho do \ac{OTU} (OTU-OH). O encapsulamento é ilustrado na Figura~\ref{fig:otn_encapsulamento}. Após essa etapa, o sinal é transmitido utilizando-se um dado comprimento de onda. À medida que o domínio de operação de camada da OTH é atingido, os cabeçalhos são desencapsulados e suas funções são ativadas. 
+
+A Figura~\ref{fig:otn_hierarchy_terminations} apresenta os domínios de operação das camadas da OTH. O domínio de operação do \ac{OPU} limita-se aos terminais cliente da OTN. A unidade de dados (\ac{ODU}) é utilizada somente por terminais que suportam o G.709 e tem a função de monitorar caminho ótico fim a fim. Por outro lado, a unidade de transporte (\ac{OTU}) tem a habilidade de converter o sinal cliente para o domínio ótico e fazer o monitoramento entre os terminais G.709 e regeneradores. Além disso, o OTU permite que o sinal ótico seja regenerado eletronicamente sem que seja necessário ler o sinal cliente. Desta forma, o OTU preocupa-se somente com o monitoramento da sessão entre terminais G.709 e regeneradores, bem como entre regeneradores. Ao visualizar a Figura~\ref{fig:otn_hierarchy_terminations} ainda pode-se observar os escopos de transmissão das camadas que estão no domínio ótico (\ac{OCh}, \ac{OMS} e \ac{OTS}). Assim, ao alcançar o terminal de destino G.709 o sinal cliente é desencapsulado encaminhado para o terminal de destino da tecnologia cliente da \ac{OTN}. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=1]{./cap3/otn_hierarchy_reduction}
+	\caption{Comparativo entre as Hierarquias da OTN: (a) Estrutura camadas da OTH com funcionalidades reduzidas do padrão ITU-T G.709 e (b) camadas da OTH baseadas na arquitetura da OTN definida na recomendação ITU-T G.872.}
+	\label{fig:otn_hierarchy_reduction}
+\end{figure}
+
+O G.709 também especifica uma hierarquia de transporte com capacidade e funções de gerenciamento reduzida na camada ótica. Para isto, uma nova camada Sessão Física Ótica (\aclu{OPS} -- \ac{OPS}), que substitui as camadas \ac{OMS} e \ac{OTS} da \ac{OTH}. A \ac{OPS} também utiliza um canal ótico com capacidade reduzida (\aclu{OChr} -- \ac{OChr}). A Figura~\ref{fig:otn_hierarchy_reduction} exibe as estruturas das hierarquias suportadas. Consequentemente, a infraestrutura do G.709 traz as seguintes vantagens para as redes óticas~\cite{Walker2007}: (\textit{i}) menor complexidade no transporte de aplicações em relação a tecnologia SONET\slash SDH; (\textit{ii}) cabeçalho otimizado para transportar o sinal cliente sobre um canal \ac{WDM}; (\textit{iii}) redução dos custos operacionais; (\textit{iv}) capacidade de multiplexar duas vezes mais largura de banda que a tecnologia SONET\slash SDH, tornando-se mais escalável para taxas maiores e (\textit{v}) maior custo-benefício por suportar diferentes tipos de tecnologias de transporte como \textit{Ethernet} e \ac{SAN}; (\textit{vi}) utilização de código corretor de erros; (\textit{vii}) maior quantidade de níveis de monitoramento por meio do \ac{TCM} e (\textit{viii}) preservação do cabeçalho e transmissão transparente do sinal cliente.
+
+\subsection{Área de Alinhamento do Quadro da OTN}
+
+A área de alinhamento do quadro (\aclu{FA} -- \ac{FA}) é o campo de cabeçalho (FA-OH) utilizado para identificar o início e o fim dos quadros da \ac{OTN} recebidos. A figura Figura~\ref{fig:otn_fa_oh} ilustra a estrutura de cabeçalhos do quadro da OTN e apresenta em detalhes os subcampos do FA-OH. Tais subcampos são:
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.9]{./cap3/otn_fa_oh.png}
+ \caption{Estrutura dos subcampos (FAS e MFAS) da área de alinhamento (FA-OH) em evidência no quadro da OTN.}
+ \label{fig:otn_fa_oh}
+\end{figure}
+
+\begin{itemize}
+	\item \ac{FAS}: campo de seis \textit{bytes} que permite identificar o tamanho do quadro, bem como tem a habilidade de detectar condições como \ac{OOF} e \ac{LOS}, caso os dados recebidos não cumpram os requisitos do equipamento. Este \textit{bytes} não são embaralhados na transmissão;
+	\item \ac{MFAS}: campo de um \textit{byte} que é usado para contar a quantidade de quadros da \ac{OTN} que são gerados a partir do sinal cliente. Com esse recurso é possível a criação de um ``grande quadro'' formado por 256 quadros.
+\end{itemize}
+
+Durante o processamento do sinal para o seu envio, todos dados nos campos do quadro da \ac{OTN} são serializados por um método de embaralhamento (\textit{scrambling}), exceto os \textit{bytes} contidos no campo \ac{FAS}.
+
+
+\subsection{A unidade de transporte do canal ótico (OTU)}
+\label{sub:otu}
+
+O cabeçalho da unidade de transporte do canal ótico (OTU-OH) é capaz de fazer o monitoramento de uma sessão da conexão, que é definida como o segmento da conexão compreendido entre pontos de conversão \ac{O-E-O}. O OTU-OH está organizado da seguinte forma (Figura~\ref{fig:otn_otu_oh}):
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.7]{./cap3/otn_otu_oh.png}
+ \caption{Estrutura de campos do cabeçalho do OTU com o subcampo SM em evidência.}
+ \label{fig:otn_otu_oh}
+\end{figure}
+
+\begin{itemize}
+ \item \ac{SM}: faz o monitoramento entre conexões totalmente óticas. Possui os seguintes subcampos: (\textit{i}) o \ac{TTI} contém os identificadores para terminais de acesso de origem e destino da conexão;
+(\textit{ii}) o \ac{BIP-8} transporta um código de paridade contendo 8 \textit{bits}. Este código é calculado sobre os \textit{bytes} que compõem o \ac{OPU}. Se erros forem encontrados ao recuperar a informação do \ac{BIP-8}, o número de \textit{bits} errados são transmitidos para o transmissor dentro segundo quadro subsequente ($frame~i+2$) através do campo \acs{BEI}; (\textit{iii}) o \ac{BEI} / \ac{BIAE} informa ao transmissor a quantidade de blocos do \ac{BIP-8} que estão com erros ou sobre o status do campo \acs{IAE}; (\textit{iv}) o \ac{BDI} é usado pelo destinatário para informar ao transmissor sobre o status do sinal recebido e (\textit{v}) o \ac{IAE} permite que o terminal transmissor informe ao receptor sobre o alinhamento do sinal. Este campo contém somente um \textit{bit}, o valor 1 é utilizado em caso de erro;
+  \item \aclu{GCC} 0 (\ac{GCC}0): este campo serve como um canal de comunicação que pode ser usado para transmitir informações entre terminações \ac{OTU};
+  \item RES: campo reservado para futura padronização.
+ \end{itemize}
+
+\subsection{A unidade de dados do canal ótico (ODU)}
+\label{sub:odu}
+
+Diferentemente do OTU-OH, o cabeçalho da unidade de dados do canal ótico (ODU-OH) tem como função analisar o caminho fim a fim entre uma fonte e um destino, sem se preocupar em monitorar regenerações \ac{O-E-O} do sinal. Assim, o método de monitoramento executado pelo \ac{ODU} é bem semelhante ao \ac{OTU}, possuindo inclusive, os mesmos campos utilizados para alarmes. A organização do ODU-OH é ilustrado na Figura~\ref{fig:otn_odu_oh} e seus campos são:
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.7]{./cap3/otn_odu_oh.png}
+ \caption{Estrutura de subcampos do cabeçalho do ODU com os subcampos do PM e TCM3 em evidência.}
+ \label{fig:otn_odu_oh}
+\end{figure}
+
+\begin{itemize}
+	\item \ac{PM}: possui uma estrutura similar ao campo \acf{SM} do \ac{OTU}, exceto pelo subcampo STATS, que indica o status do caminho e consiste em informar se há presença ou ausência de sinal;
+	\item \ac{TCM}$i$: Consiste em seis diferentes níveis de monitoramento que podem ser utilizados de acordo com os domínios administrativos utilizados pelo que sinal ótico. Esses campos possuem a mesma estrutura do \acf{PM}. Assim, cada \ac{TCM} pode ser usado para monitorar um subcaminho que pertence a um ou mais domínios administrativos dentro do caminho fim a fim.
+	\item \ac{TCM} ACT (\ac{TCM} \textit{activation/deactivation}): foi proposto de ser usado para ativação ou desativação dos campos \ac{TCM}, sendo que esta funcionalidade ainda não está definida no padrão G.709;
+	\item \ac{FTFL}: é usado para informar sobre o tipo e o local da falha. Este campo contém 256 \textit{bytes} e informa se a falha ocorreu durante o encaminhamento (\textit{forward}) ou durante o retorno (\textit{backward}) do sinal;
+	\item EXP (Experimental): Não é definido no G.709 e pode ser usado pelo operador da rede para aplicações experimentais;
+	\item \ac{GCC}1/\ac{GCC}2 (\aclp{GCC} 1 e 2): fornecem opções comunicação que podem ser usados para trocar informações entre os terminais da conexão.
+	\item \ac{APS-PCC}: suporta diferentes estratégias de comutação para proteção do caminho fim a fim ou das conexões dedicadas monitoradas pelo TCM$i$. Este campo permite até oito níveis de monitoramento.
+\end{itemize}
+
+\subsection{A unidade de carga útil do canal ótico (OPU)}
+\label{sub:opu}
+
+A unidade de carga útil do canal ótico (\ac{OPU}) é responsável por fazer a adaptação da taxa de transmissão do sinal para uma taxa da interface k, com k = {1,2,3}.
+A Figura~\ref{fig:otn_opu_oh} ilustra o conteúdo do cabeçalho do OPU (OPU-OH). O primeiro campo do OPU-OH é o identificador da estrutura de carga útil (\aclu{PSI} -- \ac{PSI}), este campo possui $256~bytes$ dos quais somente o primeiro é utilizado para identificar o tipo de \textit{payload}. Os $255~bytes$ restantes estão reservados para futura padronização.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.7]{./cap3/otn_opu_oh.png}
+ % sistema_fec.png: 2786x729 pixel, 600dpi, 11.79x3.09 cm, bb=
+ \caption{Estrutura do cabeçalho da unidade de carga útil do canal ótico.}
+ \label{fig:otn_opu_oh}
+\end{figure}
+
+
+O padrão G.709 suporta tanto sinais com taxa de \textit{bit} constante (\ac{CBR} -- \ac{CBR}) como sinais baseados em pacotes ou células. Assim, para tratar o sinal cliente de forma transparente dentro da \ac{OTN} é necessário fazer o mapeamento da taxa deste sinal no OPU-OH. Isto é feito de forma diferente dependendo da taxa de transmissão do cliente em relação à taxa da interface \ac{OTU}$k$, caso haja assincronia entre os \textit{clocks} das interfaces cliente e \ac{OTU}$k$. Neste caso, para fazer o mapeamento são utilizados os subcampos \ac{JC} que compensam a diferença entre os \textit{clocks}. No caso de sinais síncronos, os campos \ac{JC} são preenchidos com zeros.
+
+O tipo de carga útil transportada no quadro da \ac{OTN} é identificado pelo campo \ac{PT}. A Tabela~\ref{tab:payload_type} apresenta alguns dos tipos de sinais suportados~\cite{Gorshe2009}, para mais detalhes sobre cada tipo de \textit{payload} recomenda-se ler a documentação do G.709~\cite{G709}.
+
+\begin{table}[H]
+\begin{center}
+\begin{threeparttable}
+\caption{Tipos de sinais suportados pelo padrão ITU-T G.709}
+\label{tab:payload_type}
+\begin{tabular}{ll} \hline
+Código (Hex) & Tipo de \textit{payload}\\ \hline
+01 & Mapeamento experimental\\ 
+02 & \ac{CBR} assíncrono\\ 
+03 & \ac{CBR} síncrono\\ 
+04 & \ac{ATM}\\ 
+05 & \ac{GFP}\\ 
+06 & \ac{VCAT}\\ 
+07 & \textit{Ethernet} 1000BASE-X dentro do ODU0\\ 
+08 & \ac{FC1200} dentro do ODU2e\\ 
+09 & Mapeamento GFP dentro do \textit{payload} do OPU2\\ 
+10 & \textit{Bit stream} com mapeamento de \textit{clock} em octetos\\ 
+11 & \textit{Bit stream} sem mapeamento de \textit{clock} em octetos\\  
+20 & estrutura de multiplexação do ODU\\ 
+21 & estrutura tributária para $1,25~Gbps$ em OPU2 ou OPU3 \\ 
+80-8F & códigos reservados para uso proprietário\\ 
+\hline
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\section{Principais Falhas e Alarmes}
+\label{sec:alarmes_g709}
+
+A principal indicação de falhas da \ac{OTN} está relacionada ao alinhamento do sinal, ou seja, quando o início e/ou fim do quadro não é identificado. Os \textit{bytes} da área de alinhamento do sinal podem indicar condições como: \ac{OOF}, \ac{OOM}, \ac{LOF} e \ac{LOM}. Quando os  \textit{bytes} campo \ac{FAS} não são reconhecidos durante cinco quadros consecutivos ou persiste durante $3~ms$, o protocolo G.709 alerta sobre eventos de \ac{OOF} e \ac{LOF}, respectivamente. Além disso, os eventos de \ac{OOM} ou \ac{LOM} acontecem quanto há falhas no reconhecimento de cinco quadros consecutivos ou durante $3~ms$ com erros no campo \ac{MFAS}, respectivamente. 
+
+Outros indicadores de erros que correspondem à qualidade de transmissão digital estão presentes nos subcampos \ac{BIP-8}, \ac{BEI}, \ac{BDI} dos campos \acl{SM} no OTU-OH, e nos campos \acl{PM} e \ac{TCM}$i$ do ODU-OH. O \ac{BIP-8} armazena \textit{bytes} de paridade que são calculados sobre a carga útil e o OPU-OH. O cálculo do \ac{BIP-8} é realizado antes de ser aplicada a \ac{FEC} na direção de transmissão e verificado depois da \ac{FEC} na direção de recepção. Os valores calculados do \ac{BIP-8} são inseridos no segundo quadro posterior ao utilizado para o cálculo. A capacidade de detecção de erros de paridade é de 8 bits por 15.$240~bytes$, o que corresponde a uma taxa erros de bit máxima de $6,56$x$10^{-5}$. O campo \ac{BEI} é utilizado no sentido inverso, ou seja, para informar ao transmissor que erros de \ac{BIP-8} foram encontrados nos quadros recebidos. O campo \ac{BDI} é usado para indicar \textit{upstream} que  há  um  problema  de  conectividade,  continuidade  ou  um  sinal  de  manutenção ativo~\cite{Barlow2004, G709}. 
+
+\section{O Código Corretor de Erros (FEC)}
+
+O padrão G.709 suporta a correção de erros a partir do campo \ac{FEC} contido no quadro da OTN (Figura~\ref{fig:otn_quadro}). A \ac{FEC} reduz o número de erros transmitidos devido ao ruído e fenômenos óticos que ocorrem na fibra operando em altas taxas de transmissão (vide Sessão~\ref{sec:ro_impairments}). Assim, o G.709 permite que o sinal seja transmitido por grandes distâncias entre repetidores óticos sem a necessidade de regeneração. Isso torna a FEC um importante recurso da OTN. O cálculo é definido a partir de um esquema de $16~bytes$ entrelaçados utilizando o algoritmo \ac{RS}. Tal algoritmo usa $1024~bytes$ de informação de verificação por quadro ODU. Além disso, vários esquemas de proprietários de \ac{FEC} também são permitidos e são amplamente utilizados~\cite{Walker2007}. 
+
+O algoritmo \acl{RS} empregado pelo padrão G.709 melhora a relação sinal ruído (\aclu{SNR} -- \ac{SNR}) em até $6.2~dB$ para sistemas que exigem \ac{BER} de até $10^{-15}$~\cite{Walker2007}. A melhoria da \ac{SNR} fornecida pela \ac{FEC} é chamada de ganho de codificação, em que os benefícios por trás deste ganho, além do alcance do sinal, são: (\textit{i}) parâmetros menos restritos para potência de saída, razão de extinção, presença de ruído e filtros isolantes, reduzindo o custo dos componentes do enlace ótico; (\textit{ii}) aumentar o número de canais em sistemas \ac{WDM}, os quais estão limitados pela potência de saída dos amplificadores e (\textit{iii}) consolidação das redes totalmente óticas, pois permite que o sinal atravesse transparentemente um maior números de componentes óticos (\acp{OXC} e \acp{OADM}) sem a necessidade de regeneração, visto que tais componentes adicionam uma quantidade significante de degradações do sinal~\cite{Walker2007}.
+
+O \acl{RS} é denominado como \ac{RS}$(n,k)$. Nesse algoritmo são utilizados $n$ símbolos por palavra-código, mas somente uma parte $k$ desses $n$ símbolos contém a informação propriamente dita e cada símbolo deve possui um número $s$ de bits. Desta forma, uma palavra-código consiste de uma parte de dados que contém a informação e outra parte de símbolos de checagem ou paridade. São justamente os símbolos de paridade que permitem que o algoritmo possa corrigir e recuperar a informação em sinais com erros detectados. A {FEC} empregada pelo G.709, faz uso do código \ac{RS}(255, 239). A Figura~\ref{fig:sistema_fec} apresenta um diagrama de blocos de aplicação da FEC baseada no algoritmo \ac{RS} em um sistema básico de comunicação.
+
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=1]{./cap3/sistema_fec.png}
+ % sistema_fec.png: 2786x729 pixel, 600dpi, 11.79x3.09 cm, bb=
+ \caption{Diagrama de blocos de aplicação da FEC no sistema.}
+ \label{fig:sistema_fec}
+\end{figure}
+
+
+O decodificador RS pode corrigir até $t$ símbolos que contenham erros na palavra-código, em que $2t=n-k$. No caso do código RS(255 ,239), tem-se: $2t = n-k = 255-239 = 16 $, logo o decodificador pode corrigir $t = 8$ símbolos por palavra. Como o código do RS utiliza os símbolos das palavra-código, assim ele tem o mesmo desempenho para corrigir um símbolo com todos os \textit{bits} errados que um símbolo com apenas um \textit{bit} errado. A Tabela~\ref{tab:parametros_fec} apresenta os parâmetros do RS(255,239).
+
+\begin{table}[H]
+\begin{center}
+\begin{threeparttable}
+\caption{Parâmetros do algoritmo \acl{RS}(255,239).}
+\label{tab:parametros_fec}
+\begin{tabular}{lcl} \hline
+\textbf{Descrição} & símbolo & valor \\ \hline
+Tamanho do símbolo & $s$ & $8~bits$\\ 
+Nº de símbolos por palavra-código & $n$ & $255~bytes$\\ 
+Símbolos de informação por palavra-código  & $k$ & $239~bytes$	\\ 
+\hline
+\end{tabular}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+A \ac{FEC} ainda entrelaça a informação, e assim, permite corrigir erros em rajada. Com o entrelaçamento,  erros encontrados em um \textit{stream} de \textit{bits} são compartilhados por diversas palavras-código, o que torna o algoritmo mais eficiente. Assim, o ganho de codificação é melhorado por unir o entrelaçamento da informação e a eficiência do algoritmo \ac{RS}(255, 239), permitindo que até 128 \textit{bytes} consecutivos recebidos com erros sejam corrigidos~\cite{G709, G975}.
