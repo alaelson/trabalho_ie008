@@ -23,3 +23,7 @@
 *.synctex.gz
 *.pdf
 *.pdfsync
+*.nav
+*.snm
+*.synctex
+*.eps_tex
