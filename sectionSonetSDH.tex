@@ -16,6 +16,25 @@ SONET e SDH guardam os mesmos conceitos tecnológicos e as principais diferenças 
 
 \end{enumerate} 
 
-A seguir, serão abordados características importantes que se aplicam a ambas as tecnologias de transporte, porém, optou-se por utilizar a nomenclatura referente a SDH.
+A seguir, serão abordadas características importantes referentes a SDH. Porém, os conceitos também se aplicam ao padrão SONET, visto que SDH foi desenvolvido a partir do mesmo.
 
-\subsection{Estrutura Básica de SDH}
+\subsection{Estrutura do \textit{frame} SDH}
+
+Uma das principais características do \textit{frame} SDH é sua bidimensionalidade, já que tal \textit{frame} é definido por uma quantidade de linhas e colunas como ilustrado na Figura~\ref{fig:FrameSDH}. O \textit{frame} SDH possui 9 linhas e 270 \(\cdot\) N colunas, de forma que cada linha é tratada como um \textit{bit} enquanto cada coluna é tratada como um \textit{byte}. N é justamente o parâmetro que identifica a qual hierarquia se está referenciando e pode ser obtido observando que as hierarquias são definidas seguindo o padrão STM-N, para N igual a 1, 4, 16, 64 e 256 e é interessante ressaltar que para o caso STM-0 existem apenas 9 linhas e 90 colunas como já indicado na Figura~\ref{fig:FrameSDH}, correspondendo ao \textit{frame} STS-1 do padrão SONET. Outra característica importante é que independentemente do tamanho e consequentemente do número de bits do \textit{frame}, sua duração é sempre de 125 \(\mu s\), representando uma taxa de repetição de 8000 kHz herdada dos antigos sistemas PDH. Nessa estrutura, os bits são transmitidos, da esquerda para a direita, em cada linha até se alcançar o fim do \textit{frame}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.6]{FrameSDH.png}
+  \caption{Estrutura do \textit{frame} SDH - ITU-T G.707.}
+ \label{fig:FrameSDH}
+\end{figure}
+
+%Através da Figura~\ref{fig:FrameSDH} pode ser visto que o \textit{frame} SDH é formado por 2 principais partes, sendo elas o cabeçalho, que se subdivide em \textit{Section Overhead} (SOH), \textit{Administrative Unit Pointers} e \textit{}
+
+
+
+
+
+
+
+
