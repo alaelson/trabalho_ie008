@@ -29,7 +29,18 @@ Uma das principais características do \textit{frame} SDH é sua bidimensionalidad
  \label{fig:FrameSDH}
 \end{figure}
 
-%Através da Figura~\ref{fig:FrameSDH} pode ser visto que o \textit{frame} SDH é formado por 2 principais partes, sendo elas o cabeçalho, que se subdivide em \textit{Section Overhead} (SOH), \textit{Administrative Unit Pointers} e \textit{}
+O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalho ou \textit{overhead}, que é composto por 9 \(\cdot\) N colunas (sendo N o nível da hierarquia) e 9 linhas e o \textit{payload}, composto por 261 \(\cdot\) N colunas e 9 linhas. O \textit{payload} é a parte onde os dados dos clientes são inseridos para a transmissão. O cabeçalho, por sua vez, contém as informações do quadro STM-N referentes a desempenho, manutenção, monitoramento e indicações das localidades dos tributários multiplexados nos \textit{frames}, além de funções operacionais, permitindo uma gerência maior por parte dos nós da rede. Esta parte do \textit{frame} se subdivide em três unidades básicas como enumerado a seguir:
+
+\begin{enumerate}
+
+\item{\bf \textit{Regenerator Section Overhead} (RSOH):} Parte do cabeçalho que é processada em cada nó destinado a regeneração. De forma mais específica, essa é uma região do quadro SDH que contém informações que permitem o alinhamento e identificação de \textit{frame}, monitoramento de erro de regeneração, alarmes físicos externos ao equipamento e supervisão de sistema.
+
+\item{\bf \textit{Administrative Unit Pointers}:} Esta é uma parte do cabeçalho destinada a prover informações de posição dos dados dos clientes que foram multiplexados para formarem o \textit{frame} SDH. Possui indicação de onde se localiza o primeiro \textit{byte} dos \textit{Virtual Containers} (VC) dentro da área de informação útil (\textit{payload}) e também pode conter \textit{bytes} provenientes de justificação dos VCs. É uma parte do cabeçalho processada em cada equipamento da rede
+ 
+\item{\bf \textit{Multiplex Section Overhead} (MSOH):} Parte do cabeçalho que é apenas processada em equipamentos onde existe inserção ou retiradas de canais multiplexados. Inclui informações de monitoramento e indicação de erros de multiplexação, controle de chaveamento de mecanismos de proteção, monitoramento de sincronismo e gerência de sistema.
+
+\end{enumerate}
+
 
 
 
