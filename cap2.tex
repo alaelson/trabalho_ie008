@@ -1,0 +1,46 @@
+\chapter{Tecnologia de Transporte}
+\label{cap:technology}
+FABIO faz a parte de Tecnologias 
+e Isaac faz a parte de multiplexação dessas tecnologias.
+
+\section{PDH}
+\label{sec:pdh}
+PDH VAI FICAR AQUI OU VAI SER FALADO SOMENTE NO HISTÓRICO?
+
+\section{SONET/SDH}
+\label{sec:sdh}
+\input{sectionSonetSDH}
+
+\section{OTN}
+\label{sec:otn}
+ALAELSON
+\section{Multiplixação}
+\label{sec:mux}
+subsessão dentro de cada tecnologia de transporte.
+
+\section{Relacionamento entre Camadas}
+\label{sec:layers}
+Nesta seção será apresentado o relacionamento transversal e longitudinal entre as camadas de redes.
+De modo geral, para explicar o relacionamento longitudinal, o modelo OSI é apresentado, visto na
+Figura~\ref{fig:modelo_OSI}. De acordo com (DIOGENES, 2004), a arquitetura do modelo OSI é dividida em 7 níveis,
+compreendendo do nível do usuário (Apresentação) até o nível de transmissão do pulso elétrico (Física).
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.8]{modelo_OSI.png}
+	\caption{Modelo OSI.}
+	\label{fig:modelo_OSI}
+\end{figure}
+
+No \textit{host} de origem, a camada de aplicação, responsável pelo interfaceamento do usuário com a rede, 
+encapsula seus dados para camada de apresentação. Esta camada traduz (codifica) os dados da aplicação 
+para a camada de Sessão, esta responsável por controlar a comunicação entre os host. Os dados da camada
+de Sessão são encapsulados dentro dos pacotes da camada de Transporte, que tem como função garantir
+a confiabilidade da transmissão fim-a-fim. Após isso, é passado a camada de Rede, que tem como função
+o gerenciamento dos melhores caminhos de dados a ser enviados pela rede. A camada de dados, tem com 
+função traduzir os dados provenientes da camada de transporte, e converter em bit, e entrega à
+camada Física, que é o próprio meio (fibra ótica, cabos coaxial, par trançado, etc.).
+
+Após envio dos dados para camada Física, o processo de interfaceamento entre camada é feito de modo inverso no \textit{host} de destino, onde que cada camada superior, desencapsula os dados da camada imediatamente inferior. Sendo que cada nível de camada no \textit{host} de origem, se comunica apenas com a
+camada de mesmo nível no \textit{host} de destino.
+
