@@ -29,21 +29,19 @@ Uma das principais características do \textit{frame} SDH é sua bidimensionalidad
  \label{fig:FrameSDH}
 \end{figure}
 
-O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalho ou \textit{overhead}, que é composto por 9 x N colunas (sendo N o nível da hierarquia) e 9 linhas e o \textit{payload}, composto por 261 x N colunas e 9 linhas. O \textit{payload} é a parte onde os dados dos clientes são inseridos para a transmissão. O cabeçalho, por sua vez, contém as informações do quadro STM-N referentes a desempenho, manutenção, monitoramento e indicações das localidades dos tributários multiplexados nos \textit{frames}, além de funções operacionais, permitindo uma gerência maior por parte dos nós da rede. Esta parte do \textit{frame} se subdivide em duas unidades básicas, a primeira delas sendo chamada de \textit{Section Overhead} (SOH) e a segunda de \textit{Administrative Unit Pointers}. A seguir, apresenta-se uma breve descrição das funcionalidade contidas em cada uma das partes mencionadas:
+O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalho ou \textit{overhead}, que é composto por 9 x N colunas (sendo N o nível da hierarquia) e 9 linhas e o \textit{payload}, composto por 261 x N colunas e 9 linhas. O \textit{payload} é a parte onde os dados dos clientes são inseridos para a transmissão. O cabeçalho, por sua vez, contém as informações do quadro \ac{STM}-N referentes a desempenho, manutenção, monitoramento e indicações das localidades dos tributários multiplexados nos \textit{frames}, além de funções operacionais, permitindo uma gerência maior por parte dos nós da rede. Esta parte do \textit{frame} se subdivide em duas unidades básicas, a primeira delas sendo chamada de \ac{SOH} e a segunda de \textit{Administrative Unit Pointers}. É interessante ressaltar que \ac{SOH} ainda é separado em duas partes, sendo elas \ac{RSOH} e \ac{MSOH}, gerando a estrutura ilustrada na Figura~\ref{fig:OverheadSDH} para o cabeçalho. A seguir, apresenta-se uma breve descrição das funcionalidade contidas em cada uma das partes mencionadas:
 
 \begin{itemize}
 
-\item{\bf \textit{Section Overhead} (SOH):} Esta seção se divide em duas principais partes, como indicado a seguir:
+\item{\bf \ac{SOH}:} Esta seção se divide em duas principais partes, como indicado a seguir:
 
-\subitem{\bf \textit{Regenerator Section Overhead} (RSOH):} Parte do cabeçalho que é processada em cada nó destinado a regeneração. De forma mais específica, essa é uma região do quadro SDH que contém informações que permitem o alinhamento e identificação de \textit{frame}, monitoramento de erro de regeneração, alarmes físicos externos ao equipamento e supervisão de sistema.
+\subitem{\bf \ac{RSOH}:} Parte do cabeçalho que é processada em cada nó destinado a regeneração. De forma mais específica, essa é uma região do quadro SDH que contém informações que permitem o alinhamento e identificação de \textit{frame}, monitoramento de erro de regeneração, alarmes físicos externos ao equipamento e supervisão de sistema.
  
-\subitem{\bf \textit{Multiplex Section Overhead} (MSOH):} Parte do cabeçalho que é apenas processada em equipamentos onde existe inserção ou retiradas de canais multiplexados. Inclui informações de monitoramento e indicação de erros de multiplexação, controle de chaveamento de mecanismos de proteção, monitoramento de sincronismo e gerência de sistema.
+\subitem{\bf \ac{MSOH}:} Parte do cabeçalho que é apenas processada em equipamentos onde existe inserção ou retiradas de canais multiplexados. Inclui informações de monitoramento e indicação de erros de multiplexação, controle de chaveamento de mecanismos de proteção, monitoramento de sincronismo e gerência de sistema.
 
-\item{\bf \textit{Administrative Unit Pointers}:} Esta é uma parte do cabeçalho destinada a prover informações de posição dos dados dos clientes que foram multiplexados para formarem o \textit{frame} SDH. Possui indicação de onde se localiza o primeiro \textit{byte} dos \textit{Virtual Containers} (VC) dentro da área de informação útil (\textit{payload}) e também pode conter \textit{bytes} provenientes de justificação dos VCs. É uma parte do cabeçalho processada em cada equipamento da rede
+\item{\bf \textit{Administrative Unit Pointers}:} Esta é uma parte do cabeçalho destinada a prover informações de posição dos dados dos clientes que foram multiplexados para formarem o \textit{frame} SDH. Possui indicação de onde se localiza o primeiro \textit{byte} dos \ac{VC} dentro da área de informação útil (\textit{payload}) e também pode conter \textit{bytes} provenientes de justificação dos \ac{VC}s. É uma parte do cabeçalho processada em cada equipamento da rede
 
 \end{itemize}
-
-A Figura~\ref{fig:OverheadSDH} ilustra a disposição utilizada para as partes RSOH e MSOH no cabeçalho de um quadro STM-1. 
 
 \begin{figure}[H]
  \centering
