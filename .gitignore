@@ -27,3 +27,5 @@
 *.snm
 *.synctex
 *.eps_tex
+*.tcp
+*.tps
