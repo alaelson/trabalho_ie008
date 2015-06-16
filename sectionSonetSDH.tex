@@ -31,9 +31,16 @@ Uma das principais características do \textit{frame} SDH é sua bidimensionalidad
 
 O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalho ou \textit{overhead}, que é composto por 9 x N colunas (sendo N o nível da hierarquia) e 9 linhas e o \textit{payload}, composto por 261 x N colunas e 9 linhas. O \textit{payload} é a parte onde os dados dos clientes são inseridos para a transmissão. O cabeçalho, por sua vez, contém as informações do quadro \ac{STM}-N referentes a desempenho, manutenção, monitoramento e indicações das localidades dos tributários multiplexados nos \textit{frames}, além de funções operacionais, permitindo uma gerência maior por parte dos nós da rede. Esta parte do \textit{frame} se subdivide em duas unidades básicas, a primeira delas sendo chamada de \ac{SOH} e a segunda de \textit{Administrative Unit Pointers}. É interessante ressaltar que \ac{SOH} ainda é separado em duas partes, sendo elas \ac{RSOH} e \ac{MSOH}, gerando a estrutura ilustrada na Figura~\ref{fig:OverheadSDH} para o cabeçalho. A seguir, apresenta-se uma breve descrição das funcionalidade contidas em cada uma das partes mencionadas:
 
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.7]{OverheadSDH.png}
+  \caption{RSOH e MSOH - ITU-T G.707~\cite{G707}.}
+ \label{fig:OverheadSDH}
+\end{figure}
+
 \begin{itemize}
 
-\item{\bf \ac{SOH}:} Esta seção se divide em duas principais partes, como indicado a seguir:
+\item{\bf \ac{SOH}:} Esta seção se divide em duas partes, como indicado a seguir:
 
 \subitem{\bf \ac{RSOH}:} Parte do cabeçalho que é processada em cada nó destinado a regeneração. De forma mais específica, essa é uma região do quadro SDH que contém informações que permitem o alinhamento e identificação de \textit{frame}, monitoramento de erro de regeneração, alarmes físicos externos ao equipamento e supervisão de sistema.
  
@@ -43,12 +50,17 @@ O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalh
 
 \end{itemize}
 
+\subsection{Camadas de SDH}
+
+A tecnologia SDH apresenta uma estruturação em camadas como apresentada na Figura~\ref{fig:SDHlayers}.
+
 \begin{figure}[H]
  \centering
- \includegraphics[scale=.7]{OverheadSDH.png}
-  \caption{RSOH e MSOH - ITU-T G.707~\cite{G707}.}
- \label{fig:OverheadSDH}
+ \includegraphics[scale=.7]{SDHlayers.png}
+  \caption{Estruturação em Camadas de SDH - ~\cite{BernalFilho2003}.}
+ \label{fig:SDHlayers}
 \end{figure}
+
 
 
 
