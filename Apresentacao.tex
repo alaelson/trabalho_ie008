@@ -99,9 +99,9 @@ Universidade Estadual de Campinas}
 	
 }
 
-\subsection{Sonet/SDH}
+\subsection{SONET/SDH}
 \frame{
-\frametitle{Os protocolos Sonet/SDH}
+\frametitle{Tecnologia SONET/SDH}
 \begin{itemize}
 		\item Limitações da tecnologia de transporte PDH.
 		\vspace{\baselineskip}
@@ -109,23 +109,70 @@ Universidade Estadual de Campinas}
 		\begin{itemize}
 				\item Início da pesquisa no ano de 1984.
 				%\item Proposta para o \textit{American National Standards Institute} (ANSI).
-				\item Inicio da padronização de \textit{Synchronous Optical Networking} (SONET) no ano de 1985.
+				\item Inicio da padronização de \textit{Synchronous Optical Networking} (SONET) no ano de 1985~\cite{Ballart2002}.
 		\end{itemize}
 		\vspace{\baselineskip}
 		\item \textit{International Telecommunication Union - Telecommunication Standardization Sector} (ITU-T).
 		\begin{itemize}
-				\item Interesse no padrão SONET.
+				\item Interesse no padrão SONET~\cite{Boehm1990}.
 				\item Propôs mudanças.
 				\item Definição do padrão \textit{Synchronous Digital Hierarchy} (SDH).
 		\end{itemize}
 		
 \end{itemize}
-	
 }
 
 \frame{
-\frametitle{Teste}
+\frametitle{Tecnologia SONET/SDH}
+\begin{itemize}
+		\item SONET e SDH guardam os mesmos conceitos tecnológicos.
+		\vspace{\baselineskip}
+		\item Principais diferenças entre SONET e SDH:
+		\begin{itemize}
+				\item Denominações de alguns parâmetros.
+				\item Taxas de transmissão das hierarquias.
+		\end{itemize}
+		\vspace{\baselineskip}
+		\item SONET/SDH possuem vantagens em relação ao PDH.
+\end{itemize}
+}
 
+\frame{
+\frametitle{Tecnologia SONET/SDH}
+\begin{itemize}
+		\item As vantagens da tecnologia SONET/SDH sobre PDH são:
+		\begin{itemize}
+				\vspace{\baselineskip}
+				\item Simplificações no processo de multiplexação.
+				\vspace{\baselineskip}
+				\item Informações de Gerenciamento.
+				\vspace{\baselineskip}
+				\item Interoperabilidade.
+				\vspace{\baselineskip}
+				\item Disponibilidade da rede.
+		\end{itemize}
+\end{itemize}
+}
+
+\frame{
+\frametitle{Estrutura do \textit{Frame} SDH}
+\begin{itemize}
+		\item Característica - \textit{Frame} bidimensional:
+		\begin{figure}[H]
+		 \centering
+			 \includegraphics[scale=.38]{FrameSDH.png}
+		  \caption{Estrutura do \textit{frame} SDH - ITU-T G.707~\cite{G707}.}
+     \label{fig:FrameSDH}
+    \end{figure}
+		
+\end{itemize}
+}
+
+\frame{
+\frametitle{Camadas de SDH}
+\begin{itemize}
+			\ite 	
+\end{itemize}
 }
 
 \subsection{A rede de transporte ótica (OTN)}
@@ -335,7 +382,7 @@ Quadro da OTN:
 \section{Estudo de Caso}
 \frame{ 
 \frametitle{\textit{Super Computing 2014}}  
-
+\cite{Ramaswami2010}
 }
 
 \frame{ 
@@ -346,9 +393,12 @@ Quadro da OTN:
 \end{center}
 }
 
+\section{Referências Bibliográficas}
 \frame{
-\transdissolve<1>[duration=0.3]
-\titlepage
+\frametitle{Referências Bibliográficas}
+%\addcontentsline{toc}{chapter}{\numberline{}Referências Bibliográficas}
+\bibliographystyle{IEEEtran}
+\bibliography{artigos,referencias,rfc}
 }
 
 \end{document}
