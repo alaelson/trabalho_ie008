@@ -30,7 +30,7 @@ Para SONET a taxa de sinal básica é $51,84 \, Mb/s$, chamada de "\textit{synchro
 \caption{\label{fig:muxSDH} Estrutura de multiplexação SONET. Adaptado de \cite{Ramaswami2010}.}
 \end{figure}
 
-\begin{table}
+\begin{table}[H]
 \centering
 \begin{tabular}{|l|r|}
 \hline
@@ -55,6 +55,25 @@ Para camadas clientes (de maior abstração), como IP ou Ethernet, que tem tamanho
 \includegraphics[width=1\textwidth]{image/vt.eps}
 \caption{\label{fig:vt}\textit{Virtual Tributaries}. Adaptado de \cite{Ramaswami2010}.}
 \end{figure}
+
+\subsection{Multiplexação SDH}
+
+Para SDH, a taxa básica é $155 \, Mb/s$ e é chamada STM-1 (\textit{synchronous transport module-1}). Que foi escolhido para acomodar as taxas PDH mais utilizadas (DS1 e DS3). A tabela \ref{tab:taxasSDH} mostra as taxas de transmissão definidas para SDH.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|r|} \hline
+SDH & Taxa de Bit (Mb/s) \\\hline
+STM-1 & $155,52$ \\
+STM-4 & $622,08$ \\
+STM-16 & $2488,32$ \\
+STM-64 & $9953,28$ \\
+STM-256 & $39814,32$ \\\hline
+\end{tabular}
+\caption{\label{tab:taxasSDH} As taxas de transmissão SDH e as nomenclaturas associadas às mesmas. Notar que existem taxas definidas para SONET que não existem em SDH.}
+\end{table}
+
+Em SDH, os \textit{Virtual Containers} (VCs) fazem o mesmo trabalho dos VTs em SONET. Os VCs tem quatro tamanhos: VC-11, VC-12, VC-2, VC-3 e VC-4, que carregam fluxos de $1,5$, $2$, $6$, $45$ e $140 \, Mb/s$. Diferentemente de SONET, em SDH tem-se uma hierarquia em dois estágios em que VC-11, VC-12 e VC-2 podem ser multiplexados em VC-3 e VC-3 e VC-4 podem ser multiplexados em sinais STM-1.
 
 \subsection{Estrutura do \textit{frame} SDH}
 
