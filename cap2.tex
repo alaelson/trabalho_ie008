@@ -17,7 +17,7 @@ Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transpo
 3 & 44.736 Mb/s & 34.368 Mb/s & 32.064 Mb/s \\
 4 & 139.264 Mb/s & 139.264 Mb/s & 97.728 Mb/s \\ \hline
 \end{tabular}
-\caption{Taxas de transmissão para PDH \cite{ramaswami} \label{tab1}}
+\caption{Taxas de transmissão para PDH \cite{ramaswami} \label{tab:PDH}}
 \end{table}
 
 \begin{enumerate}
@@ -36,24 +36,7 @@ Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transpo
 
 O termo multiplexação define a tarefa de enviar dois ou mais sinais utilizando o mesmo meio de transmissão. Isso pode ser obtido de diversas maneiras, como, por exemplo, divisão do tempo de acesso ao meio em turnos para cada usuário transmitir.
 
-Segundo \cite{Ramaswami2010}, o PDH utiliza uma multiplexação assíncrona, na qual cada terminal tem seu próprio \textit{clock}, levando a imprecisões entre as suas taxas de funcionamento, mesmo quando adotada um \textit{clock} nominal. Assim, para que haja correção nessas pequenas diferenças, deve ser inserir bits nos fluxos. Para que seja possível se captar um fluxo mais lento de informação multiplexado num fluxo mais rápido, é necessário uma estrutura chamada "montanha de multiplexadores" (ver Figura \ref{fig:muxPDH}.a), o que eleva o custo e complexidade das redes que usam esse tipo. A tabela \ref{tab:taxasPDH} mostra a nomenclatura da hierarquia de níveis de taxa de transmissão.
-
-\begin{table}
-\centering
-\makebox[\textwidth][c]{
-  \begin{tabular}{|l|l|l|l|l}
-  \hline
-  \multicolumn{2}{|c|}{América do Norte} & \multicolumn{2}{c|}{Europa}\\\hline
-  Nomenclatura & Taxa de transmissão & Nomenclatura & Taxa de transmissão\\\hline
-  DS0 & $0,064 \, Mb/s$ & E0 & $0,064 \, Mb/s$\\
-  DS1 & $1,544 \, Mb/s$  & E1 & $2,048 \, Mb/s$\\
-  DS2 & $6,312 \, Mb/s$  & E2 & $8,488 \, Mb/s$\\
-  DS3 & $44,264 \, Mb/s$  & E3 & $34,368 \, Mb/s$\\
-  DS4 & $139,264 \, Mb/s$  & E4 & $139,264 \, Mb/s$ \\\hline
-  \end{tabular}
-}
-\caption{\label{tab:taxasPDH}As taxas de transmissão de sinais assíncronos e quase-síncronos (como padronizado na América do Norte e na Europa). A sigla DS vem de "\textit{Digital Signal}". Adaptado de \cite{Ramaswami2010}.}
-\end{table}
+Segundo \cite{Ramaswami2010}, o PDH utiliza uma multiplexação assíncrona, na qual cada terminal tem seu próprio \textit{clock}, levando a imprecisões entre as suas taxas de funcionamento, mesmo quando adotada um \textit{clock} nominal. Assim, para que haja correção nessas pequenas diferenças, deve ser inserir bits nos fluxos. Para que seja possível se captar um fluxo mais lento de informação multiplexado num fluxo mais rápido, é necessário uma estrutura chamada "montanha de multiplexadores" (ver Figura \ref{fig:muxPDH}.a), o que eleva o custo e complexidade das redes que usam esse tipo. A tabela \ref{tab:PDH} mostra a nomenclatura da hierarquia de níveis de taxa de transmissão.
 
 \begin{figure}[H]
 \centering
