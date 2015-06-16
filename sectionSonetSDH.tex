@@ -18,6 +18,44 @@ SONET e SDH guardam os mesmos conceitos tecnológicos e as principais diferenças 
 
 A seguir, serão abordadas características importantes referentes a SDH. Porém, os conceitos também se aplicam ao padrão SONET, visto que SDH foi desenvolvido a partir do mesmo.
 
+\subsection{Multiplexação SONET}
+
+Ambos SONET e SDH usam métodos de multiplexação bastante sofisticados que podem ser implementados em circuitos integrados de longa escala. Comparando a figura \ref{fig:muxSDH} com a figura \ref{fig:muxPDH}, é possível notar a diferença de complexidade entre as redes SONET/SDH e PDH. Somente um componente é necessário para fazer o que a "montanha de multiplexadores" faz no PDH.
+
+Para SONET a taxa de sinal básica é $51,84 \, Mb/s$, chamada de "\textit{synchronous transport signal level-1}" ou STS-1. As outras taxas derivadas desta são chamadas STS-N e são obtidas alternando os bytes de N  \textit{frames} STS-1 alinhados. Como os \textit{clocks} dos sinais são sincronizados, não há necessidade de inserção de bits. Por esse mesmo motivo, sinais de taxas menores podem ser extraídos de um fluxo multiplexado sem necessidade de demultiplexar o sinal inteiro. A tabela \ref{tab:taxasSONET} traz as taxas de transmissão e nomenclatura SONET.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{image/mux_sonet.eps}
+\caption{\label{fig:muxSDH} Estrutura de multiplexação SONET. Adaptado de \cite{Ramaswami2010}.}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{|l|r|}
+\hline
+Nomenclatura & Taxa de Bit (Mb/s) \\\hline
+STS-1 & $51,84$ \\
+STS-3 & $155,52$ \\
+STS-12 & $622,08$ \\
+STS-24 & $1244,16$ \\
+STS-48 & $2488,32$ \\
+STS-192 & $9953,28$ \\
+STS-768 & $39.814,32$ \\\hline
+\end{tabular}
+\caption{\label{tab:taxasSONET} As taxas de transmissão SONET e as nomenclaturas associadas às mesmas. Adaptado de \cite{Ramaswami2010}.}
+\end{table}
+
+Em SONET, os fluxos de dados de taxa inferior a STS-1 são mapeados em \textit{Virtual Tributaries} ou VTs. Os VTs são divididos em quatro tamanhos: VT1.5, VT2, VT3 e VT6, que acomodam fluxos assíncronos e plesiócronos de $1,5$, $2$, $3$ e $6 \, Mb/s$, respectivamente. Esses VTs são agrupados em um grupo VT que podem ter quatro VT1.5, três VT2, dois VT3 ou um único VT6. Cada grupo é, então, intercalado byte-a-byte junto com um junto de \textit{overheads} de caminho para formar o SONET SPE (\textit{synchronous payload envelope}) básico. A figura \ref{fig:vt} mostra graficamente como funciona a hierarquia SONET. 
+
+Para camadas clientes (de maior abstração), como IP ou Ethernet, que tem tamanho de pacotes grandes, é usada a nomenclatura STS-Nc, em que o "c" denomina "concatenado". 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{image/vt.eps}
+\caption{\label{fig:vt}\textit{Virtual Tributaries}. Adaptado de \cite{Ramaswami2010}.}
+\end{figure}
+
 \subsection{Estrutura do \textit{frame} SDH}
 
 Uma das principais características do \textit{frame} SDH é sua bidimensionalidade, já que tal \textit{frame} é definido por uma quantidade de linhas e colunas como ilustrado na Figura~\ref{fig:FrameSDH}. O \textit{frame} SDH possui um número fixo de linhas e um número de colunas dependente da hierarquia SDH a que se está referenciando. De forma mais precisa, tal \textit{frame} possui 9 linhas e 270 x N colunas, onde N é o termo dependente da hierarquia e que pode ser obtido observando que as hierarquias são definidas seguindo o padrão \ac{STM}-N, para N igual a 1, 4, 16, 64 e 256 e é interessante ressaltar que para o caso STM-0 existem apenas 9 linhas e 90 colunas como já indicado na Figura~\ref{fig:FrameSDH}, correspondendo ao \textit{frame} STS-1 do padrão SONET. Cada linha nesta estrutura é tratada como um \textit{bit} enquanto cada coluna é tratada como um \textit{byte}. Outra característica importante é que independentemente do tamanho e consequentemente do número de bits do \textit{frame}, sua duração é sempre de 125 \(\mu s\), representando uma taxa de repetição de 8000 kHz herdada dos antigos sistemas PDH. Nessa estrutura, os bits são transmitidos, da esquerda para a direita, em cada linha até se alcançar o fim do \textit{frame}.
