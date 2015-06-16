@@ -6,49 +6,57 @@
 \usepackage{subfig}
 %\usepackage{sidecap}
 %\usepackage{beamerthemesplit} 
-%\setbeamercovered{transparent} % progressão transparente 
+\setbeamercovered{transparent} % progressão transparente 
 %\setbeamercovered{invisible}
 %\usetheme{Warsaw} % um dos temas
 %\usetheme{Montpellier} % um dos temas
-%\usetheme{Berkeley} % um dos temas
+\usetheme{Berkeley} % um dos temas
 %\usetheme{Antibes} % um dos temas 
-\title[Aprovisionamento de dinâmico de caminhos óticos na OTN G.709 com GMPLS e restrições de camada física]{Aprovisionamento dinâmico de caminhos óticos em redes de transporte ótica G.709 controladas por GMPLS e com restrições de camada física}
-\subtitle{
-\textit{Dissertação de Mestrado}}
-\author{Alaelson de Castro Jatobá Neto}
-\institute{Universidade Federal do ABC} 
-\date{05 de agosto de 2011} 
+%\usetheme{Skudai}
 
-%\pgfdeclareimage[height=0.4cm]{logo}{figuras/ufabc_logo.jpg}
-%\logo{\pgfuseimage{logo}}
+
+\title[Transporte 2]{Protocolos para redes óticas de transporte}
+\subtitle{
+\textit{Disciplina de Redes Óticas}}
+%\author[Alaelson Fábio\linebreak Isaac\linebreak Lailson Thyago]{Alaelson Jatobá\linebreak
+\author[]{Alaelson Jatobá\linebreak
+Fábio Barbosa\linebreak
+Isaac Souza\linebreak
+Lailson Santos\linebreak
+Thyago Monteiro}
+\institute[FEEC/Unicamp]{Programa de Pós-Graduação em Eng. Elétrica\linebreak
+Faculdade de Eng. Elétrica e Computação\linebreak
+Universidade Estadual de Campinas} 
+\date{17 de junho de 2015} 
+
+\pgfdeclareimage[height=1.5cm]{logo}{figuras/logo_unicamp_}
+\logo{\pgfuseimage{logo}}
 
 
 \begin{document} 
 %\newcommand*\oldmacro{}
 %\let\oldmacro\insertshortauthor% save previous definition
 %\renewcommand*\insertshortauthor{%
-  %\leftskip=.3cm% before the author could be a plus1fill ...
-  %\insertframenumber\,/\,\inserttotalframenumber\hfill\oldmacro}
+%  \leftskip=.3cm% before the author could be a plus1fill ...
+%  \insertframenumber\,/\,\inserttotalframenumber\hfill\oldmacro}
 
 %\setbeamertemplate{footline}[frame number]
 \setbeamertemplate{footline}[page number]
-\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{navigation symbols}{}
 
 \frame{
 \titlepage
 }
 
-\frame{
-\centering
-\huge Agradecimentos
 
-}
 
 \section[Sumário]{}
 \frame{
 \transdissolve<1>[duration=0.3]
 \frametitle{Sumário}
-\tableofcontents
+\begin{scriptsize}
+	\tableofcontents
+\end{scriptsize}
 }
 
 %Destaca o sunário no início de cada sessão
@@ -59,163 +67,45 @@
 %\tableofcontents[currentsection]
 %\end{frame}
 %}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introdução}
 \subsection{Motivação}
 \frame{
 \frametitle{Motivação}  
-
-\begin{itemize} 
-\item \textit{Wavelength Division Multiplexing} - WDM:
-\begin{itemize}
-	\item Maior capacidade de transmissão;
-	\item Funções de OAM\&P: manuais, demoradas e de alto custo;
-	\newline
-\end{itemize}
-
-\item Solução:
-\begin{itemize}
-\item \textit{Generalized Multiprotocol Label Switching} (GMPLS);
-%Automatização de funções de OAM\&P;
-\item \textit{Optical Transport Network - OTN};
-% Melhor monitoramento e análise de desempenho;
-\newline
-\end{itemize}
-\item Dificuldades:
-\begin{itemize}
-\item Poucos trabalhos sobre \textit{testbeds} com GMPLS e/ou OTN;
-\item Nenhum trabalho experimental com GMPLS e OTN foi feito no Brasil;
-\end{itemize}
-\end{itemize} 
-}
  
-
+}
+% 
+%
 \subsection{Objetivos}
-
+%
 \frame{ 
 \frametitle{Objetivos}  
 
-\begin{itemize} 
-\item Desenvolver uma aplicação de controle e monitoramento caminhos óticos:
+} 
 
-\begin{itemize}
-	\item Rede de transporte ótica ITU-T G.709;
-\item Plano de controle GMPLS;
-\item Considerar restrições de camada física.
-\newline
-\end{itemize}
-
-\item Parâmetros:
-\begin{itemize}
-	\item Intensidade de potência ótica;
-	\item Taxa de erros de bit (BER);
-	\item Alarmes do G.709;
-	\item Ganho dos amplificadores;
-	\newline
-\end{itemize}
-\item Desafio:
-
-\begin{itemize}
-	\item Desenvolver e testar o \textit{software} em um ambiente real.
-\end{itemize}
-
-\end{itemize} } 
-
-
-\section{Redes óticas}
-\subsection{Conceitos Básicos}
+\subsection{Histórico}
 \frame{
-\frametitle{Redes óticas}
-
-\begin{itemize}
-	\item São redes nas quais os dispositivos estão conectados por meio de enlaces de fibras óticas;
-	\newline
+\frametitle{Breve Histórico}
 	
-
-	\item Um caminho ótico é uma conexão fim a fim que utiliza um comprimento de onda em cada enlace ótico;
-	\newline
-	\item WDM:
-	\newline
-	\begin{itemize}
-		\item Canais WDM = Comprimentos de onda;
-		\item Grade do ITU-T: 80 canais ($100~GHz$);
-		\newline \newline
-		Exemplo: largura de banda = $3,2~Tbps$ (40~Gbps/canal)
-	\end{itemize}
-\end{itemize}
-}
-\frame{
-\frametitle{Redes óticas}
-Principais vantagens:
-\newline
-	\begin{itemize}
-		\item Baixa perda ($0,2~dB/Km$ na região de $1550~nm$);
-		\newline
-		\item Largura de banda;
-		\newline
-		\item Imunidade à interferência eletromagnética externa;
-		\newline
-		\item Não necessita de aterramento elétrico;
-		\newline
-		\item Maior segurança no transporte da informação.
-	\end{itemize}
-
-}
-
-\frame{
-\frametitle{Redes Óticas: Dispositivos óticos}
-\begin{itemize}
-	\item Os principais dispositivos WDM são:
-	
-	\begin{itemize}
-		\item Fibras óticas;
-		\item Acopladores;
-		\item Transponders;
-		\item Multiplexadores e demultiplexadores (OADM e ROAMD);
-		\item Comutadores óticos (OXC);
-		\item Amplificadores EDFA; 
-		\item Compensadores de dispersão.
-		\newline
-	\end{itemize}
-	\item Perdas de inserção degradam o sinal ótico;
-
-	\begin{itemize}
-		\item  Diminui qualidade da transmissão.
-	\end{itemize}
-	
-\end{itemize}
 }
 
 
+\section{Protocolos de transporte}
+
+\subsection{PDH}
 \frame{
-\frametitle{Redes Óticas: Efeitos degenerativos}
-Os efeitos degenerativos são:
-\newline
-\begin{itemize}
-	\item Lineares: 
-		\begin{itemize}
-			\item Não dependem da potência do sinal;
-			\item Não causam interferências entre canais WDM;
-			\newline
-			\newline
-			Exemplos: Dispersão Cromática (CD), Dispersão Modo de Polarização (PMD), Emissão espontânea amplificada (ASE).
-			\newline
-		\end{itemize}
+\frametitle{O protocolo PDH}
 	
-	\item Não-Lineares:
-		\begin{itemize}
-			\item Dependem da potência transmitida;
-			\item Causam interferência entre canais;
-			\newline
-			\newline
-			Exemplos: Auto modulação de fase (SPM), Modulação cruzada de fase (XPM), Mistura de Quatro ondas (FWM), Espalhamento estimulado de Brillouin (SBS) e o Espalhamento estimulado de Raman (SRS).
-		\end{itemize}
-	
-\end{itemize}
 }
 
-\section{A rede de transporte ótica (OTN)}
+\subsection{Sonet/SDH}
+\frame{
+\frametitle{Os protocolos Sonet/SDH}
+	
+}
+
+\subsection{A rede de transporte ótica (OTN)}
 \frame{
 \frametitle{A rede de transporte ótica (OTN)}
 \begin{itemize}
@@ -259,7 +149,8 @@ Os efeitos degenerativos são:
 
 
 }
-\subsection{O padrão ITU-T G.709}
+
+%\subsubsection{O padrão ITU-T G.709}
 \frame{
 \frametitle{O padrão G.709}
 
@@ -272,11 +163,12 @@ Os efeitos degenerativos são:
 
 \begin{figure}
 	\centering
-		\includegraphics[scale=.6]{cap3/otn_encapsulamento2.png}
+		\includegraphics[scale=.4]{cap3/otn_encapsulamento2.png}
 	\label{fig:otn_encapsulamento2}
 \end{figure}
 }
-\subsection{Principais alarmes e falhas}
+
+%\subsubsection{Principais alarmes e falhas}
 \frame{
 \frametitle{OTN: Alarmes e falhas}
 
@@ -297,16 +189,13 @@ Quadro da OTN:
 
 \begin{figure}
 	\centering
-		\includegraphics[scale=.55]{cap3/otn_overhead_geral.png}
+		\includegraphics[scale=.4]{cap3/otn_overhead_geral.png}
 	\label{fig:otn_frame2}
 \end{figure}
 }
 
-
-
-
-\section{GMPLS}
-\subsection{Conceitos Básicos}
+\section{Plano de Controle}
+\subsection{GMPLS}
 \frame{ 
 \frametitle{\textit{Generalized Multiprotocol Label Switch} (GMPLS)} 
 	\begin{itemize}
@@ -328,59 +217,61 @@ Quadro da OTN:
 \frame{  
 \frametitle{Protocolos do GMPLS} 
 		\begin{itemize}
-					\item Gerenciamento:
+				\item Gerenciamento:
 					\begin{itemize}
 						\item \textit{Link Management Protocol} (LMP)
 					\end{itemize}
-			\newline
-			\item Roteamento:
+				\vspace{\baselineskip}
+				\item Roteamento:
 				\begin{itemize}
 					\item \textit{Open Shortest Path First Traffic Engineering} (OSPF-TE)
 					\item \textit{Intermediate system to Intermediate System} (IS-IS)
 				\end{itemize}
-			\newline
+				\vspace{\baselineskip}
 				\item Sinalização:
 				\begin{itemize}
 					\item \textit{Resource ReSerVation Protocol Traffic Engineering} (RSVP-TE)
 					\item \textit{Constraint-based Label Distribution Protocol}(CR-LDP)
 				\end{itemize}
-\end{itemize}	
+		\end{itemize}
+	
 }
 
-%\subsection{Gerenciamento}
+%\subsubsection{Gerenciamento}
 \frame{ 
 \frametitle{Protocolo de Gerenciamento: LMP} 
 	\begin{itemize}
 			\item Checa a presença de atividade nos planos de controle e dados entre nós adjacentes;
-			\newline
+				\vspace{\baselineskip}
 			\item Executa rotinas de recuperação para o plano de controle e o plano de dados;
-			\newline
+				\vspace{\baselineskip}
 			\item Isola locais onde ocorreram falhas no plano de dados;
-			\newline
+				\vspace{\baselineskip}
 			\item Dissemina informações sobre o estado de nós e enlaces.
 			
-	\end{itemize}	
+	\end{itemize}
+		
 }
 
-%\subsection{Roteamento}
+%\subsubsection{Roteamento}
 \frame{  
 \frametitle{Protocolo de Roteamento: OSPF-TE} 
 	\begin{itemize}
 			\item Baseado no algoritmo do menor caminho (\textit{Shortest Path First})
-			\newline
+				\vspace{\baselineskip}
 			\item Características: 
 			
 \begin{itemize}
 	\item Considerar disponibilidade de recursos da rede (Restrições);
-		\newline
+			\vspace{\baselineskip}
 	\item Disseminar informações sobre a topologia, disponibilidade de recursos.
 \end{itemize}
 		\end{itemize}	
 	
 } 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Sinalização}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsubsection{Sinalização}
 \frame{ 
 \frametitle{Protocolo de Sinalização: RSVP-TE} 
 	
@@ -390,649 +281,39 @@ Quadro da OTN:
 	\begin{itemize}
 		\item Reserva de recursos;
 		\item Qualidade de serviço. 
-	\end{itemize}
-	
-		\newline
+	\end{itemize}	
+	\vspace{\baselineskip}
+
 	\item Foi aperfeiçoado para fazer sinalização em redes MPLS.
-	\newline
+	\vspace{\baselineskip}
+		
 	\item Características da sinalização:
 	\begin{itemize}
-	\item Transportar parâmetros de configuração de LSPs.
-	\item Alertar sobre o local e o tipo de falha ocorrida
-	\item Engenharia de tráfego.
+		\item Transportar parâmetros de configuração de LSPs.
+		\item Alertar sobre o local e o tipo de falha ocorrida
+		\item Engenharia de tráfego.
 	\end{itemize}
 \end{itemize}
+
 } 
 
+\subsection{ASON}
 \frame{ 
-\frametitle{RSVP-TE: Estabelecimento de LSPs} 
-	\begin{itemize}
-			\item Mensagens \textit{Path} transporta a requisição de LSPs;
-			\item Mensagem \textit{Resv} transporta o label e outros parâmetros para instalar o LSP.
-	\end{itemize}		
-		\newline
-\begin{figure}
-	\centering
-		\includegraphics[scale=.3]{figuras/estabelecimento6.png}
-\end{figure}
+\frametitle{\textit{Automaticaly Switched Optical Networks}}  
+
 }
-
-
-\frame{ 
-\frametitle{RSVP-TE: Manutenção de LSPs} 
-	\textit{Soft-State}: troca de mensagens frequentes.
-	\begin{itemize}
-			\item Mensagens \textit{Path} e \textit{Resv} de atualização.
-			\item A mensagem \textit{Path} contém a rota explícita.
-		\end{itemize}	
-	\newline
-	
-\begin{figure}
-	\centering
-		\includegraphics[scale=.3]{figuras/manutencao2.png}
-\end{figure}
-} 
-
-\frame{
  
-\frametitle{RSVP-TE: Remoção de LSPs} 
-	\begin{itemize}
-			\item \textit{PathTear} e/ou \textit{ResvTear}: remoção de LSPs.
-			\item Rota explícita.
-			\item Desligamento explicito ou \textit{timeout}.
-	\end{itemize}	
-	\newline	
-\begin{figure}
-	\centering
-		\includegraphics[scale=.3]{figuras/remocao3.png}
-\end{figure}
-} 
-
+\subsection{SDN}
 \frame{ 
-\frametitle{RSVP-TE: Mensagens de Erro} 
-	Erros podem acontecer devido à falhas em nós ou enlaces.
-	\begin{itemize}
-			\item Mensagens \textit{PathErr} e/ou \textit{ResvErr} são utilizadas.
-			\item Elas notificam sobre o local e o motivo da falha.
-	\end{itemize}	
-	\newline	
-\begin{figure}
-	\centering
-		\includegraphics[scale=.3]{figuras/falha5.png}
-\end{figure}
+\frametitle{\textit{Software Defined Networks}}  
 
 } 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\section{O problema IA-RWA e trabalhos relacionados}
-%\frame{ 
-%\transdissolve<1>[duration=0.3]
-%\frametitle{O RWA} 
-	%\begin{itemize}
-			%\item 
-			%\newline
-			%\item 
-			%\newline
-			%\item 
-			%
-			%\begin{itemize}
-				%\item 
-				%\item 
-			%\end{itemize}
-			%
-	%\end{itemize}	
-%}
-\section{Aplicação e Algoritmos}
+\section{Estudo de Caso}
 \frame{ 
-\frametitle{Arquitetura da Aplicação} 
-
-\begin{float}
-	\centering
-		\includegraphics[scale=.21]{cap5/arquitetura_do_sistema.png}
-	\label{fig:arquitetura_do_sistema}
-\end{float}
-
+\frametitle{\textit{Super Computing 2014}}  
 
 }
-
-\frame{ 
-\frametitle{Topologia da aplicação} 
-
-\begin{itemize}
-	\item Modelo integrado (\textit{peer})
-\end{itemize}
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=.8]{cap5/arq_comunicacao.png}
-	\label{fig:arquitetura_do_sistema}
-\end{figure}
-
-}
-
-\frame{ 
-\frametitle{Algoritmos} 
-
-\begin{itemize}
-	\item Plano de Controle: 
-\end{itemize}
-
-\begin{figure}
-	\centering
-		\includegraphics[scale=.3]{cap5/seqEstabelecimento_gray.png}
-	\label{fig:seqEstabelecimento_gray}
-\end{figure}
-
-}
-\frame{
-\frametitle{Algoritmo}
-
-Plano de Dados:
-
-\begin{itemize}
-	\item BIP-8 $> 10^{-9}$;
-	\item LOF:
-		
-		\begin{itemize}
-			\item Novos limites mínimos para $P_{in}$: $+5~dBm$ ou $+3~dBm$;
-			\newline
-		\end{itemize}
-	\item LOS: \textit{trap} do \textit{hardware} supervisor;
-	\item Verifica o ganho do pré-amplificador;
-	\newline
-	
-	\item Novos indicativos para mensagens \textit{NOTIFY}:
-	\begin{itemize}
-	\item \textit{OTN BELOW MINIMUM OPTICAL}: potência do sinal abaixo do limiar mínimo;
-	\item \textit{OTN ABOVE MAXIMUM OPTICAL}: potência do sinal acima do limiar máximo;
-	\item \textit{OTN BELOW MINIMUM ELECTRICAL}: alta taxa de erros de bit.
-\end{itemize}
-		
-\end{itemize}
-
-}
-
-
-%\subsection{Abordagens de Controle}
-%\frame{ 
-%\frametitle{Plano de Controle} 
-%
-%%\begin{itemize}
-	 %O simulador pode trabalhar com as seguintes abordagens de plano de controle:
-	 %\newline
-		%\begin{itemize}
-		%\item \textbf{Centralizada:} Um controlador central tem conhecimento sobre os recursos disponíveis de toda a rede.
-		%\newline
-	%\item \textbf{Distribuída:} Há um controlador em cada nó, neste caso, cada controlador só conhece seu próprio recurso. Há necessidade de sinalização para transportar os requisitos do LSP.
-		%\end{itemize}
-%
-%}
-
-\section{Experimentos e Resultados}
-\frame{
-\frametitle{Topologia da plataforma de testes, com enlace de dados de $10~Gbps$ e enlace de controle de $1~Gbps$.}
-\begin{figure}
-   \centering
-   \subfigure{\includegraphics[scale=.4]{figuras/Figura_6_1.png}}
-   \subfifure{\includegraphics[scale=.3]{figuras/Figura_6_1_legenda.png}}
-\end{figure}
-}
-
-\subsection{Cenários de teste}
-\frame{ 
-\frametitle{Cenários de Testes} 
-	Para testar a aplicação desenvolvida, seis cenários foram construídos:
-
-\begin{itemize}
-		\item \textbf{Cenário 1:} Aprovisionamento da conexão bem sucedido;
-		\item \textbf{Cenário 2:} Simulação de Alarmes BIP-8;
-		\item \textbf{Cenário 3:} Simulação de Alarmes LOF com DCM e FEC;
-    \item \textbf{Cenário 4:} Simulação de Alarmes LOF sem DCM na UFABC;
-    \item \textbf{Cenário 5:} Desativação da FEC no sentido na recepção do sinal ótico nó UFABC.
-		\item \textbf{Cenário 6:} Simulação de perda de sinal ótico;
-\end{itemize}
-}
-
-\frame{ 
-\frametitle{Cenário 1: Aprovisionamento da conexão bem sucedido}
-
-\begin{itemize}
-	\item Componentes do OLT da UFABC utilizados em uma conexão padrão.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.6]{cap6/olt_com_dcm.png}
-    %\caption{Componentes do OLT da UFABC utilizados em uma conexão padrão.}
-    \label{fig:cenario_com_compensador}
-\end{figure}
-
-}
-
-\frame{ 
-\frametitle{Cenário 1: Aprovisionamento da conexão com a rede já configurada}
-
-\begin{itemize}
-	\item Parâmetros de configuração padrão dos dispositivos
-\end{itemize}
-
-\begin{table}
-\begin{center}
-%\begin{threeparttable}
-%\caption{Parâmetros de configuração padrão dos dispositivos}
-\label{table:param_default}
-\begin{tabular}{llc} \hline
-\bfseries{Parâmetro} & \bfseries{Símbolo} & \bfseries{Valor}\\ \hline
-\small Comprimento de onda & ~$\lambda$ & $1554.54~nm$ \\ 
-\small Canal ITU-T para dados & ~$Ch_{dados}$ & C28 \\
-\small AGC do Pré amplificador  & ~$G_{in}$ & ativado \\
-\small Valor inicial do ganho do \textit{booster} & ~$G_b$ & $15~dB$\\
-\small Tempo de atualização (soft-state) & ~$t_{update}$& $20~s$ \\
-%Valor de incremento/decremento do ganho & ~$g$ & 1 \\
-%Valor inicial do ganho do \textit{booster} & ~$G_b$ & $15~dB$\\
-\small Tempo de \textit{timeout} & ~$t_{timeout}$ & $60~s$ \\
-\small Tempo de amostragem de potência  & ~$t_{s}$ & $100~ms$ \\
-\small Número de amostras recolhidas & ~$N_{amostras}$ & 10 \\
-\small Tempo de atualização do monitor & ~$t_{monitor}$& $40~s$ \\
-%Valor de incremento/decremento do ganho & ~$g$ & 1 \\
-\hline
-\end{tabular}
-%\end{threeparttable}
-\end{center}
-\end{table}
-}
-
-\frame{ 
-\frametitle{Cenário 1: Aprovisionamento da conexão com a rede já configurada}
-
-\begin{itemize}
-	\item Troca de mensagens para do estabelecimento do caminho ótico efetuado sem erros.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.5]{./cap6/conexao_padrao_gray.png}
-    %\caption{Diagrama de sequência da troca de mensagens no plano de controle entre os nós da UFABC e UNICAMP para do estabelecimento do caminho ótico efetuado sem erros.}
-    \label{fig:diag_seq_troca_de_msg}
-\end{figure}
-}
-
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8}
-
-
-\newline
-\begin{itemize}
-	\item Dois experimentos foram realizados.
-	\newline
-	\item A cada iteração de notificação no plano de controle:
-	\newline
-	\begin{itemize}
-	\item Aumento do ganho em $1~dB$;
-	\newline
-	\item Aumento de ganho em $3~dB$.
-	\end{itemize}
-\end{itemize}
-}
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8 (Exp. $1~dB$)}
-
-\begin{itemize}
-	\item Troca de mensagens para do estabelecimento do caminho ótico efetuado sem erros.
-\end{itemize}
-
- \begin{figure}[H]
-	\centering
-		\includegraphics[scale=.29]{cap6/exp1_bip8.1db/sequencia_BIP8_1db_gray.png}
-	\label{fig:sequencia_BIP8_1db}
-\end{figure}
-}
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8 (Exp. $1~dB$)}
-
-\begin{itemize}
-	\item Representação dos ganhos dos amplificadores da UFABC.
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=.39]{./cap6/exp1_bip8.1dB/amp_ufabc.png}
-\label{fig:exp_bip8_1dB_amp_ufabc}
-\end{center}
-\end{figure}
-}
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8 (Exp. $1~dB$)}
-\begin{itemize}
-	\item \small (a) Ganhos dos amplificadores (UFABC). 
-	\newline
-	\item \small (b) Potências recebida e transmitida (UNICAMP).
-\end{itemize}
-
-\begin{figure}
-  \centering
-  \subfloat[]{\label{fig:exp_bip8_1dB_amp_ufabc}\includegraphics[width=0.54\textwidth]{./cap6/exp1_bip8.1dB/amp_ufabc.png}}                
-  \subfloat[]{\label{fig:exp_bip8_1dB_trp_unicamp}\includegraphics[width=0.54\textwidth]{./cap6/exp1_bip8.1dB/trp_unicamp.png}}
-  \label{fig:comparativo_bip8_1db}
-\end{figure}
-
-%\begin{SCfigure}
-  %\centering
-  %\includegraphics[width=0.54\textwidth]{./cap6/exp1_bip8.1dB/amp_ufabc.png}
-  %\caption{Representação dos ganhos dos amplificadores da UFABC}
-%\end{SCfigure}
-
-}
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8 (Exp. $1~dB$)}
-
-\begin{itemize}
-	\item Potência recebida e da Taxa de erros de bit de paridade na (UNICAMP).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.37]{./cap6/exp1_bip8.1dB/bip8_unicamp.png}
-%\caption{Erros de paridade no nó UNICAMP devido à baixa potência do sinal recebido. Aumento de $1~dB$ no ganho do transmissor}
-%\caption{O gráfico representa a resposta da potência recebida na UNICAMP (linha vermelha) ao longo do tempo com relação ao aumento de $1~dB$ no ganho de saída do amplificador do nó UFABC. O gráfico também exibe a taxa de erros de bit de paridade (linha azul) do sinal recebido no \textit{transponder} da UNICAMP ao longo do tempo.}
-\label{fig:exp_bip8_1dB_erro_unicamp}
-\end{center}
-\end{float}
-
-}
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8 (Exp. $3~dB$)}
-
-\begin{itemize}
-	\item Ganhos dos amplificadores (UFABC).
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=.39]{./cap6/exp_bip8.3dB/amp_ufabc.png}
-
-\label{fig:exp_bip8_3dB_amp_ufabc}
-\end{center}
-\end{figure}
-}
-
-\frame{ 
-\frametitle{Cenário 2: Simulação de Alarmes BIP-8 (Exp. $3~dB$)}
-
-\begin{itemize}
-	\item Potência recebida;
-	\item Taxa de erros de bit de paridade (UNICAMP).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.36]{./cap6/exp_bip8.3dB/bip8_unicamp.png}
-\label{fig:exp_bip8_3dB_erro_unicamp}
-\end{center}
-\end{float}
-
-}
-
-\frame{ 
-\frametitle{Cenário 3: Simulação de Alarmes LOF com DCM e FEC ativos}
-
-\begin{itemize}
-	\item Potências recebida e transmitida (UFABC).
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-%\includegraphics[scale=3]{./cap6/graficos_antigos/exp_lof_cc/exp_lof_cc_trp_ufabc.png}
-\includegraphics[scale=.36]{./cap6/exp_lof_com_dcm/trp_ufabc.png}
-\label{fig:exp_lof_cc_trp_ufabc}
-\end{center}
-\end{figure}
-
-}
-
-\frame{ 
-\frametitle{Cenário 3: Simulação de Alarmes LOF com DCM e FEC ativos (Continuação 1)}
-
-\begin{itemize}
-	\item Ganhos dos amplificadores Pré e \textit{booster} (UFABC).
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=.35]{./cap6/exp_lof_com_dcm/amp_ufabc.png}
-\label{fig:exp_lof_cc_amp_ufabc}
-\end{center}
-\end{figure}
-}
-
-\frame{ 
-\frametitle{Cenário 3: Simulação de Alarmes LOF com DCM e FEC ativos (Continuação 2)}
-
-\begin{itemize}
-	\item Potências de entrada e saída (UNICAMP).
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=.36]{./cap6/exp_lof_com_dcm/trp_unicamp.png}
-\label{fig:exp_lof_cc_trp_unicamp}
-\end{center}
-\end{figure}
-}
-
-\frame{ 
-\frametitle{Cenário 4: Simulação de Alarmes LOF sem DCM }
-\begin{itemize}
-	\item Componentes do OLT da UFABC utilizados em uma conexão sem compensador de dispersão.
-\end{itemize}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=.6]{cap6/olt_sem_dcm.png}
-    \label{fig:cenario_com_compensador}
-\end{figure}
-
-}
-
-\frame{ 
-\frametitle{Cenário 4: Simulação de Alarmes LOF sem DCM (Continuação 1)}
-
-\begin{itemize}
-	\item Potências de entrada e saída no \textit{transponder} (UFABC).
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=.37]{./cap6/exp_lof_sem_dcm/trp_ufabc.png}
-\label{fig:exp_lof_sc_trp_ufabc}
-\end{center}
-\end{figure}
-
-}
-
-\frame{ 
-\frametitle{Cenário 4: Simulação de Alarmes LOF sem DCM (Continuação 2)}
-
-\begin{itemize}
-	\item Ganhos do amplificadores Pré e \textit{booster} (UFABC).
-\end{itemize}
-
-\begin{figure}
-\begin{center}
-\includegraphics[scale=.36]{./cap6/exp_lof_sem_dcm/amp_ufabc.png}
-\label{fig:exp_lof_sc_amp_ufabc}
-\end{center}
-\end{figure}
-
-}
-
-\frame{ 
-\frametitle{Cenário 4: Simulação de Alarmes LOF sem DCM (Continuação 3)}
-
-\begin{itemize}
-	\item Potências de entrada e saída (UNICAMP).
-\end{itemize}
-\begin{float}
-\begin{center}
-\includegraphics[scale=.37]{./cap6/exp_lof_sem_dcm/trp_unicamp.png}
-\label{fig:exp_lof_sc_trp_unicamp}
-\end{center}
-\end{float}
-
-}
-
-\frame{ 
-\frametitle{Cenário 5: Erros na ausência da FEC}
-
-\begin{itemize}
-	\item Potências de entrada e saída (UFABC).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.39]{./cap6/exp_fec/trp_ufabc.png}
-\label{fig:exp_fec_trp_ufabc}
-\end{center}
-\end{float}
-
-}
-
-\frame{ 
-\frametitle{Cenário 5: Erros na ausência da FEC (Continuação 1)}
-
-\begin{itemize}
-	\item Ganhos do amplificadores Pré e \textit{booster} (UFABC).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.39]{./cap6/exp_fec/amp_ufabc.png}
-\label{fig:exp_fec_amp_ufabc}
-\end{center}
-\end{float}
-
-}
-
-\frame{ 
-\frametitle{Cenário 5: Erros na ausência da FEC (Continuação 2)}
-
-\begin{itemize}
-	\item Potência recebida e taxa de erros de bit de paridade (UNICAMP).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.37]{./cap6/exp_fec/bip8_unicamp.png}
-\label{fig:exp_fec_erro_unicamp}
-\end{center}
-\end{float}
-
-}
-
-\frame{ 
-\frametitle{Cenário 6: Perda do sinal ótico}
-
-\begin{itemize}
-	\item Potências de entrada e saída (UFABC).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.39]{./cap6/exp_los/trp_ufabc.png}
-\label{fig:exp_los_trp_ufabc}
-\end{center}
-\end{float}
-}
-
-\frame{ 
-\frametitle{Cenário 6: Perda do sinal ótico (Continuação 1)}
-
-\begin{itemize}
-	\item Potência de entrada e saída (UNICAMP).
-\end{itemize}
-
-\begin{float}
-\begin{center}
-\includegraphics[scale=.39]{./cap6/exp_los/trp_unicamp.png}
-\label{fig:exp_los_trp_unicamp}
-\end{center}
-\end{float}
-}
-
-\frame{ 
-\frametitle{Cenário 6: Perda do sinal ótico (Continuação 2)}
-
-\begin{itemize}
-	\item Troca de mensagens para remoção do caminho ótico: \textit{loss of signal} (LOS).
-\end{itemize}
-
- \begin{figure}[H]
-	\centering
-		\includegraphics[scale=.5]{cap6/exp_los/seq_loss_of_signal_gray.png}
-\label{fig:diag_sec_los}
-\end{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusão}
-
-\frame{ 
-\transdissolve<1>[duration=0.3]
-\frametitle{Conclusão}
-\begin{itemize}
-	\item Modelo de \textit{peers} óticos no plano de controle GMPLS;
-	\newline
-	
-	\item Conhece as informações da camada ótica:
-	
-	\begin{itemize}
-		\item intensidade de potência;
-		\item ganho dos amplificadores;
-	\end{itemize}
-	
-	\newline
-	\item Capaz de monitorar os alarmes do G.709.
-\end{itemize}
-}
-
-\frame{ 
-\transdissolve<1>[duration=0.3]
-\frametitle{Conclusão}
-\begin{itemize}
-	\item O Algoritmo proposto tem baixa complexidade;
-	\newline
-	\item Não altera os protocolos do GMPLS;
-	\newline
-	\item Três novos indicativos de erros para as mensagens \textit{NOTIFY};
-		\newline
-	\item Aplicação desenvolvida: controle automático, dinâmico e distribuído dos caminhos óticos.
-
-	
-	
-\end{itemize}
-}
-
-%\frame{ 
-%\frametitle{\textit{TestBed}}
-%\begin{itemize}
-	%\item O servidor com plano de controle GMPLS estará conectado diretamente com o roteador e com o \textit{transponder}.
-	%%\newline
-	%
-	%\begin{itemize}
-		%\item É necessário implementar as interfaces de conexão com estes dispositivos.
-	%\end{itemize}
-	%\newline
-	%\item Cenário de \textit{testbed}: Link ótico entre a UFABC e a Unicamp.
-%\end{itemize}
-%}
-
 
 \frame{ 
 \frametitle{}
