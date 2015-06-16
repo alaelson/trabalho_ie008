@@ -52,7 +52,9 @@ O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalh
 
 \subsection{Camadas de SDH}
 
-A tecnologia SDH apresenta uma estruturação em camadas como apresentada na Figura~\ref{fig:SDHlayers}. Através de tal figura pode ser percebido que SDH possui quatro camadas, sendo elas a Camada de Via (\textit{Path layer}), Camada de Seção de Multiplexação (\textit{Multiplex Section Layer}), Camada de Seção de Regeneração (\textit{Regeneration Section Layer}) e Camada Física (\textit{Physical Layer}). Para o caso das redes ópticas, a Camada Física diz respeito a infraestrutura óptica de transmissão, com seus respectivos dispositivos~\cite{Alwayn2004}.
+A tecnologia SDH apresenta uma estruturação em camadas como apresentada na Figura~\ref{fig:SDHlayers}. Através de tal figura pode ser percebido que SDH possui quatro camadas, sendo elas a Camada de Via (\textit{Path layer}), Camada de Seção de Multiplexação (\textit{Multiplex Section Layer}), Camada de Seção de Regeneração (\textit{Regeneration Section Layer}) e Camada Física (\textit{Physical Layer}). Com exceção da Camada Física, as camadas possuem um conjunto de \textit{bytes} no \textit{Overhead} a que são relacionados e que são utilizadas para a realização de diversas funcionalidades, como avaliação de desempenho~\cite{Alwayn2004}.
+
+O conceito de via em SDH se refere a uma conexão lógica entre o ponto em que se monta o quadro SDH padrão, pela inserção de tributários e o ponto em que o quadro SDH padrão é desmontado, pela retirada de tributários, ou seja, se relaciona a uma conexão lógica fim-a-fim. A montagem do quadro SDH consiste na ação de inserir os dados dos clientes nas estruturas denominadas de \textit{Containers}, que consistem em unidades básicas de dados com bytes alocados para o transporte dos dados de mais baixas taxas dos clientes, por exemplo pode ser um sinal E1 da hierarquia PDH e associar a esses \textit{Containers} rótulos denominados de \ac{POH} com informações de controle. O processo de desmontagem realiza caminho inverso, retirando o \ac{POH} e o utilizando como informação para dar seguimento ao conteúdo dos \textit{Containers}. A Camada de Via é justamente responsável por realizar tais atividades e está relacionada à conexão fim-a-fim entre nós SDH onde se monta e desmonta o \textit{frame}. É possível que nós intermediários da rede possam realizar monitoramento de performance dos sinais da Camada de Via, porém, os \textit{bytes} de cabeçalho referentes a essa camada são somente iniciados do ponto de montagem e terminados no ponto de desmontagem do quadro SDH, por exemplo, nos \ac{TM}
 
 \begin{figure}[H]
  \centering
@@ -61,9 +63,30 @@ A tecnologia SDH apresenta uma estruturação em camadas como apresentada na Figur
  \label{fig:SDHlayers}
 \end{figure}
 
-O conceito de via em SDH se refere a uma conexão lógica entre o ponto em que se monta o quadro SDH padrão, pela inserção de tributários e o ponto em que o quadro SDH padrão é desmontado, pela retirada de tributários, ou seja, se relaciona a uma conexão lógica fim-a-fim. A montagem do quadro SDH consiste na ação de inserir os dados dos clientes nas estruturas denominadas de \textit{Containers}, que consistem em unidades básicas de dados com bytes alocados para o transporte dos dados de mais baixas taxas dos clientes, por exemplo pode ser um sinal E1 da hierarquia PDH e associar a esses \textit{Containers} rótulos denominados de \ac{POH} com informações de controle. O processo de desmontagem realiza caminho inverso, retirando o \ac{POH} e o utilizando como informação para dar seguimento ao conteúdo dos \textit{Containers}. A Camada de Via é justamente responsável por realizar tais atividades e está relacionada à conexão fim-a-fim entre nós SDH onde se monta e desmonta o \textit{frame}. É possível que nós intermediários da rede possam realizar monitoramento de performance dos sinais da Camada de Via, porém, os bits de cabeçalho referentes a essa camada são somente iniciados do ponto de montagem e terminados no ponto de desmontagem do quadro SDH.
-
 O processo descrito anteriormente é indicado na Figura~\ref{fig:SDHlayers}, onde se indica que os dados provenientes da Camada de Circuitos são inseridos em \ac{VC}s. E como também pode ser analisado, a Camada de Via se divide em Via de Baixa Ordem e Via de Alta Ordem. A diferença básica entre estas duas estruturas consiste no fato de que na Via de Baixa Ordem, dados são inseridos em \textit{Containers} de menor tamanho e na Via de Alta Ordem, os \textit{Containers} podem carregar mais de um \ac{VC} anteriormente montado ou carregar dados de clientes que sejam de mais altas taxas de transmissão.
+
+A Camada de Seção de Multiplexação é responsável por multiplexar um número de conexões da Camada de Via em um único link (meio de transmissão) entre dois nós. Assim, os \textit{bytes} de cabeçalho referentes a essa camada são acessados e processados em cada elemento da conexão responsável por realizar multiplexação. Por exemplo, a camada em questão é acessada nos \ac{TM}s e nos \ac{ADM}s.
+
+Por sua vez, a Camada de Seção de Regeneração é utilizada entre elementos adjacentes de um link \ac{SDH}, ou seja, ela é utilizada para o processamento dos \textit{frames} em todos os equipamentos da rede, sejam eles de passagem, extração ou inserção dos tributários~\cite{BernalFilho2003}. A Figura~\ref{fig:SDHlayersConection} apresenta a relação das camadas e dos diversos dispositivos presentes em uma rede, assim como descrito anteriormente. Esta Figura utiliza a mesma nomenclatura anteriormente descrita e insere um dispositivo específico de regeneração do \textit{frame}, referenciado na Figura~\ref{fig:SDHlayersConection} como \ac{REG}. 
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.7]{SDHlayersConection.png}
+  \caption{Exemplo de link SDH Ilustrando as Terminações das Camadas - ~\cite{BernalFilho2003}.}
+ \label{fig:SDHlayersConection}
+\end{figure} 
+
+A Camada Física diz respeito a infraestrutura de conexões que permite a transmissão dos \textit{frames}. Para o caso das Comunicações Ópticas, a Camada Física engloba todos os dispositivos ópticos envolvidos na transmissão na fibra óptica, como por exemplo \textit{lasers} e fotodetectores. É interessante ressaltar que o processamento dos \textit{frames} \ac{SDH} ocorre no domínio elétrico e por isso, esta camada também é responsável por adequar a transmissão dos \textit{frames} que originalmente estão no domínio elétrico através do meio de transmissão que se está utilizando. Continuando o exemplo relacionado as Comunicações Ópticas, a Camada Física define interfaces que permitem realizar a transmissão e recepção através das fibras ópticas com a utilização de dispositivos ópticos como \textit{lasers} e fotodetectores. O \ac{ITU-T} define interfaces físicas para a transmissão sobre fibras ópticas para SDH nas recomendações G.957 e G.691. Como exemplo, a Figura~\ref{fig:PhysicalSDH} ilustra estas interfaces, definindo os tipos de fibras, atenuações e dispersões aceitáveis do enlace e tipos de transmissores com relação ao comprimento de onda de operação, taxa de transmissão e comprimento do enlace.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.7]{PhysicalSDH.png}
+  \caption{Diferentes Interfaces Físicas para SDH - ~\cite{Ramaswami2010}.}
+ \label{fig:PhysicalSDH}
+\end{figure}
+
+Na Figura~\ref{fig:PhysicalSDH}, a primeira coluna referencia a taxa de transmissão de acordo com a hierarquia \ac{SDH}. A segunda coluna introduz uma nomenclatura que depende do comprimento do enlace, de acordo com as definições a seguir: \textit{Intraoffice Connections} é representado pela letra "I" e indica distâncias de aproximadamente 2 km; \textit{Short-haul Interoffice Connections}, que indica enlaces de distância de aproximadamente 15 km para o comprimento de onda de 1330 nm e 40 km para 1550 nm, é representada pela letra "S"; \textit{Long-haul Interoffice Connections}, representada pela letra "L" e corresponde a distância de 40 km para o comprimento de onda 1330 nm e 80 km para 1
+
 
 
 
