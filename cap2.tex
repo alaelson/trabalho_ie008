@@ -1,10 +1,37 @@
 \chapter{Tecnologia de Transporte}
 \label{cap:technology}
-FABIO faz a parte de Tecnologias 
-e Isaac faz a parte de multiplexação dessas tecnologias.
 
 \section{PDH}
 \label{sec:pdh}
+
+Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transporte baseava-se na Hierarquia Digital Plesiócrona-PDH ({do inglês, \it Plesiochnous Digital Hierarchy}), datada entre o início dos anos 70 até o final da década de 90. O PDH é um protocolo de comunicação tradicionalmente desenvolvido para telefonia e que permite o envio de vários sinais sobre o mesmo meio, seja cabo coaxial ou fibra óptica, utilizando técnicas de multiplexação no tempo e dados em formato digital. O termo plesiocróno se refere ao fato de que as diferentes terminações da rede operam com relógio quase que sincronizados. Como o foco das pesquisas naquele momento estava na comunicação de voz, demandava-se uma largura de banda de 8 kHz para comunicação bilateral, o que a 8 bits por amostra implicava na digitalização a uma taxa de 64 kb/s. Este valor tornou-se padrão e as transmissões de valores superiores foram niveladas em múltiplos desse, conforme destacado na tabela \ref{tab1}, na qual observa-se as taxas padronizadas na hierarquia. Porém, PDH sofria de muitos problemas, o que impulsionou pesquisas de um novo padrão de multiplexação que se consagrou na forma do SONET/SDH. As principais limitações do PDH, naquele momento eram:
+
+\begin{table}
+\centering
+\begin{tabular}{c|c|c|c}
+\hline
+{\bf Nível} & {\bf América do Norte} & {\bf Europa} & {\bf Japão} \\ \hline
+0 & 0.064 Mb/s & 0.064 Mb/s & 0.064 Mb/s \\
+1 & 1.544 Mb/s & 2.048 Mb/s & 1.544 Mb/s \\
+2 & 6.321 Mb/s & 8.448 Mb/s & 6.321 Mb/s \\
+3 & 44.736 Mb/s & 34.368 Mb/s & 32.064 Mb/s \\
+4 & 139.264 Mb/s & 139.264 Mb/s & 97.728 Mb/s \\ \hline
+\end{tabular}
+\caption{Taxas de transmissão para PDH \cite{ramaswami} \label{tab1}}
+\end{table}
+
+\begin{enumerate}
+
+
+\item {\bf Preenchimento de pacotes:} como cada terminal opera com um relógio individual ligeiramente próximo dos demais, pode ocorrer diferenças significativas entre dois relógios. Assim, antes de realizar a intercalação é preciso manter os enlaces no mesmo ritmo, o que é feito adicionando bit sem informação (bits vazios) que servem para  compensar diferenças de relógio, bits estes descartados na demultiplexação.
+
+\item {\bf Extração de níveis inferiores:} outra limitação era a dificuldade de extrair um sinal de ordem inferior de um de ordem superior, sem demultiplexar os passos intermediários, ou seja, para extrair o sinal de um enlace em determinado ponto era necessário uma demultiplexação sucessiva até o ponto desejado seguida de uma remultiplexação para reenvio do sinal.
+\item {\bf Gerenciamento:} PDH não incorporava informações de gerenciamento da rede, monitoramento e identificação de conectividade, relatório de falhas ou um caminho de comunicação de dados para transporte dessas informações. Isso ocorria devido a limitação de taxa transportada que não permitia alocação bits para essas funções.
+\item {\bf Compatibilidade:} a falta de descrição do formato de transmissão no meio implicava no desenvolvimento de diferentes formatos de codificação e interfaceamento, levando a um problema de incompatibilidade entre equipamentos de diferentes desenvolvedores.
+\item {\bf Disponibilidade da rede:} o tempo de restauração de falhas com o protocolo PDH variava entre segundos até minutos, valor muito superior aos protocolos sucessores.
+
+\end{enumerate}
+
 \subsection{Multiplexação PDH}
 
 O termo multiplexação define a tarefa de enviar dois ou mais sinais utilizando o mesmo meio de transmissão. Isso pode ser obtido de diversas maneiras, como, por exemplo, divisão do tempo de acesso ao meio em turnos para cada usuário transmitir.
@@ -37,35 +64,3 @@ Segundo \cite{Ramaswami2010}, o PDH utiliza uma multiplexação assíncrona, na qua
 \section{SONET/SDH}
 \label{sec:sdh}
 \input{sectionSonetSDH}
-
-\section{OTN}
-\label{sec:otn}
-ALAELSON
-\section{Multiplixação}
-\label{sec:mux}
-subsessão dentro de cada tecnologia de transporte.
-
-\section{Relacionamento entre Camadas}
-\label{sec:layers}
-Nesta seção será apresentado o relacionamento transversal e longitudinal entre as camadas de redes.
-De modo geral, para explicar o relacionamento longitudinal, o modelo OSI é apresentado, visto na
-Figura~\ref{fig:modelo_OSI}. De acordo com \cite{DIOGENES}, a arquitetura do modelo OSI é dividida em 7 níveis,
-compreendendo do nível do usuário (Apresentação) até o nível de transmissão do pulso elétrico (Física).
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[scale=.7]{modelo_OSI.png}
-	\caption{Modelo OSI. Fonte:(Cisco NETWORKING ACADEMY PROGRAM, 10 jun 2007).}
-	\label{fig:modelo_OSI}
-\end{figure}
-
-No \textit{host} de origem, a camada de aplicação, responsável pelo interfaceamento do usuário com a rede, encapsula seus dados para camada de apresentação. Esta camada traduz (codifica) os dados da aplicação para a camada de Sessão, esta responsável por controlar a comunicação entre os host. Os dados da camada de Sessão são encapsulados dentro dos pacotes da camada de Transporte, que tem como função garantir a confiabilidade da transmissão fim-a-fim. Após isso, é passado a camada de Rede, que tem como função o gerenciamento dos melhores caminhos de dados a ser enviados pela rede. A camada de dados, tem com função traduzir os dados provenientes da camada de transporte, e converter em bit, e entrega à camada Física, que é o próprio meio (fibra ótica, cabos coaxial, par trançado, etc.).
-
-Após envio dos dados para camada Física, o processo de interfaceamento entre camada é feito de modo inverso no \textit{host} de destino, onde que cada camada superior, desencapsula os dados da camada imediatamente inferior. Sendo que cada nível de camada no \textit{host} de origem, se comunica apenas com a camada de mesmo nível no \textit{host} de destino.
-
-\subsection{Referencias}
-\begin{itemize}
-	\item Cisco NETWORKING ACADEMY PROGRAM. Cisco. Disponível em:
-www.cisco.com, Acesso em: 10 jun 2005.
-	\item DIOGENES, Yuri. , 20042004.
-\end{itemize}

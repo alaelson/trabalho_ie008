@@ -1,0 +1,138 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[normalem]{ulem}
+\usepackage[brazil]{babel}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{subfigure}
+\usepackage{latexsym}
+\usepackage{setspace}  %Alteração dos espaçamento entre linhas
+\usepackage{blindtext}
+\usepackage{epstopdf}
+
+\usepackage{tikz}
+\usetikzlibrary{chains}
+
+\usepackage{epsfig,enumerate,subfigure,multirow}
+
+\usepackage{wrapfig}
+
+\setlength{\hoffset}{-1cm}
+\setlength{\voffset}{-1cm}
+\setlength{\textheight}{24cm}
+\setlength{\textwidth}{16cm}
+
+\doublespacing 
+
+
+\begin{document}
+
+\section{Introdução}
+
+De um ponto de vista geral, os sistemas de comunicações podem ser organizados em um hierarquia de camadas, tal como observado na figura \ref{fig1}, na qual cada segmentação permite o encapsulamento dos dados e assegura uma transmissão confiável e transparente. Neste contexto, o cliente insere tráfego de dados, vídeo e voz, utilizando a camada física como caminho interligando diversos nós na rede. Cada camada, encapsula informação útil a ser enviada, e para que a comunicação seja eficaz, é necessário que os protocolos de interfaceamento estejam bem definidos.
+
+Na camada de transporte, os protocolos mais utilizados atualmente em redes ópticas são: Rede Óptica Síncrona- SONET (do inglês, {\it Synchonous Optical Network}), Hierarquia Digital Síncrona -SDH(do inglês, {\it Synchonous Digital Hierarchy}), IP e ATM. SONET e SDH surgiram quase que simultaneamente por volta da década de 80, na América do Norte e Europa, respectivamente, devido a necessidade das companhias telefônicas em conectar suas redes e são utilizadas amplamente até hoje.
+
+\begin{figure}[!htb]
+
+
+\begin{center}
+
+\begin{tikzpicture}[
+	scale=0.75,
+	start chain=1 going below, 
+	start chain=2 going right,
+	node distance=1mm,
+	desc/.style={
+		scale=0.75,
+		on chain=2,
+		rectangle,
+		rounded corners,
+		draw=black, 
+		very thick,
+		text centered,
+		text width=8cm,
+		minimum height=12mm,
+		fill=blue!40
+		},
+	it/.style={
+		fill=blue!10
+	},
+	level/.style={
+		scale=0.75,
+		on chain=1,
+		minimum height=12mm,
+		text width=2cm,
+		text centered
+	},
+	every node/.style={font=\rm}
+]
+
+% Levels
+\node [level] (Level 5) {Camada 5};
+\node [level] (Level 4) {Camada 4};
+\node [level] (Level 3) {Camada 3};
+\node [level] (Level 2) {Camada 2};
+\node [level] (Level 1) {Camada 1};
+
+
+% Descriptions
+\chainin (Level 5); % Start right of Level 5
+% IT levels
+\node [desc, it] (Archives) {Aplicação};
+\node [desc, it, continue chain=going below] (ERP) {Redes};
+\node [desc] {Enlace};
+\node [desc] {Transporte};
+\node [desc] {Física};
+
+\end{tikzpicture}
+\caption{Hierarquia de camadas nos sistemas de comunicações \label{fig1}}
+\end{center}
+\end{figure}
+
+
+
+
+\section{Histórico/PDH}
+
+Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transporte baseava-se na Hierarquia Digital Plesiócrona-PDH ({do inglês, \it Plesiochnous Digital Hierarchy}), datada entre o início dos anos 70 até o final da década de 90. O PDH é um protocolo de comunicação tradicionalmente desenvolvido para telefonia e que permite o envio de vários sinais sobre o mesmo meio, seja cabo coaxial ou fibra óptica, utilizando técnicas de multiplexação no tempo e dados em formato digital. O termo plesiocróno se refere ao fato de que as diferentes terminações da rede operam com relógio quase que sincronizados. Como o foco das pesquisas naquele momento estava na comunicação de voz, demandava-se uma largura de banda de 8 kHz para comunicação bilateral, o que a 8 bits por amostra implicava na digitalização a uma taxa de 64 kb/s. Este valor tornou-se padrão e as transmissões de valores superiores foram niveladas em múltiplos desse, conforme destacado na tabela \ref{tab1}, na qual observa-se as taxas padronizadas na hierarquia. Porém, PDH sofria de muitos problemas, o que impulsionou pesquisas de um novo padrão de multiplexação que se consagrou na forma do SONET/SDH. As principais limitações do PDH, naquele momento eram:
+
+\begin{table}
+\centering
+\begin{tabular}{c|c|c|c}
+\hline
+{\bf Nível} & {\bf América do Norte} & {\bf Europa} & {\bf Japão} \\ \hline
+0 & 0.064 Mb/s & 0.064 Mb/s & 0.064 Mb/s \\
+1 & 1.544 Mb/s & 2.048 Mb/s & 1.544 Mb/s \\
+2 & 6.321 Mb/s & 8.448 Mb/s & 6.321 Mb/s \\
+3 & 44.736 Mb/s & 34.368 Mb/s & 32.064 Mb/s \\
+4 & 139.264 Mb/s & 139.264 Mb/s & 97.728 Mb/s \\ \hline
+\end{tabular}
+\caption{Taxas de transmissão para PDH \cite{ramaswami} \label{tab1}}
+\end{table}
+
+\begin{enumerate}
+
+
+\item {\bf Preenchimento de pacotes:} como cada terminal opera com um relógio individual ligeiramente próximo dos demais, pode ocorrer diferenças significativas entre dois relógios. Assim, antes de realizar a intercalação é preciso manter os enlaces no mesmo ritmo, o que é feito adicionando bit sem informação (bits vazios) que servem para  compensar diferenças de relógio, bits estes descartados na demultiplexação.
+
+\item {\bf Extração de níveis inferiores:} outra limitação era a dificuldade de extrair um sinal de ordem inferior de um de ordem superior, sem demultiplexar os passos intermediários, ou seja, para extrair o sinal de um enlace em determinado ponto era necessário uma demultiplexação sucessiva até o ponto desejado seguida de uma remultiplexação para reenvio do sinal.
+\item {\bf Gerenciamento:} PDH não incorporava informações de gerenciamento da rede, monitoramento e identificação de conectividade, relatório de falhas ou um caminho de comunicação de dados para transporte dessas informações. Isso ocorria devido a limitação de taxa transportada que não permitia alocação bits para essas funções.
+\item {\bf Compatibilidade:} a falta de descrição do formato de transmissão no meio implicava no desenvolvimento de diferentes formatos de codificação e interfaceamento, levando a um problema de incompatibilidade entre equipamentos de diferentes desenvolvedores.
+\item {\bf Disponibilidade da rede:} o tempo de restauração de falhas com o protocolo PDH variava entre segundos até minutos, valor muito superior aos protocolos sucessores.
+
+\end{enumerate}
+
+\begin{thebibliography}{10}
+
+
+ \bibitem{ramaswami} RAMASWAMI, Rajiv; SIVARAJAN, Kumar; SASAKI, Galen. {\bf Optical networks: a practical perspective}. Morgan Kaufmann, 2009.
+
+\end{thebibliography}
+
+\end{document}
