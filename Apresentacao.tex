@@ -83,7 +83,7 @@ Universidade Estadual de Campinas}
 \frame{
 \frametitle{Motivação}  
 \begin{itemize}
-		\item Novos serviços demandam mais banda: Netflix corresponde a 31\% do tráfego agregado da América do Norte ~\cite{netflix}
+		\item Novos serviços demandam mais banda: Netflix corresponde a 31\% do tráfego agregado da América do Norte~\cite{netflix}
 		\item Os meios para transmissão massiva desse dados são caros para instalar e expandir
 		\item Solução: criação de tecnologias de transporte que compartilhem o meio para o maior número de usuários possível
 \end{itemize}
@@ -101,15 +101,15 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 \frame{
 \frametitle{Breve Histórico}
 \begin{itemize}
-		\item PDH: Hierarquia Digital Plesiócrona (final dos anos 70 até os anos 90).
-		\item SONET: Rede Ótica Síncrona (meados dos anos 80 até 2000).
-		\item SDH: Hierarquia Digital Síncrona (meados dos anos 80 até 2000).
-		\item ATM: Modo de Transferencia Assíncrona (final dos anos 80 até 2000).
+		\item PDH: \textit{Plesiochronous Digital Hierarchy} (final dos anos 70 até os anos 90).
+		\item SONET: \textit{Synchronous Optical Network} (meados dos anos 80 até 2000).
+		\item SDH: \textit{Synchronous Digital Hierarchy} (meados dos anos 80 até 2000).
+		\item ATM: \textit{Asynchronous Transfer Mode} (final dos anos 80 até 2000).
 		\item Atualmente (convergência):
 		\begin{itemize}
-				\item OTN
-				\item ASON
-				\item GMPLS
+				\item OTN: \textit{Optical Transport Network}
+				\item ASON: \textit{Automatically Switched Optical Network}
+				\item GMPLS: \textit{Generalized Multi-Protocol Label Switching} 
 		\end{itemize}
 \end{itemize}
 }
@@ -121,20 +121,48 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 \frame{
 \frametitle{O protocolo PDH}
 \begin{itemize}
-		\item Desenvolvido para telefonia.
+		\item Desenvolvido para telefonia: interconexão de centrais de comutação de dados.
 		\item Envio de vários sinais sobre o mesmo meio: técnicas de multiplexação no tempo com dados em formato digital.
-		\item Terminais operam com relógio quase sincronizado.
+		\item Terminais operam com relógio quase sincronizado: necessidade de inserção de bits de justificação.
 \end{itemize}
+}
+\frame{
+\frametitle{Hierarquia PDH}
+\begin{itemize}
+		\item Canais PDH são agrupados formando níveis hierárquicos
+				\begin{itemize}
+					\item 32 canais de 64 Kbps (voz) formam 1 canal com 2,048 Mbps (E1 - primeira ordem no padrão Europeu)
+					\item 4 canais de primeira ordem formam 1 de segunda
+				\end{itemize}
+\end{itemize}
+\begin{table}
+\centering
+\begin{tabular}{c|c|c|c}
+\hline
+{\bf Nível} & {\bf América do Norte} & {\bf Europa} & {\bf Japão} \\ \hline
+0 & 0.064 Mb/s & 0.064 Mb/s & 0.064 Mb/s \\
+1 & 1.544 Mb/s & 2.048 Mb/s & 1.544 Mb/s \\
+2 & 6.321 Mb/s & 8.448 Mb/s & 6.321 Mb/s \\
+3 & 44.736 Mb/s & 34.368 Mb/s & 32.064 Mb/s \\
+4 & 139.264 Mb/s & 139.264 Mb/s & 97.728 Mb/s \\ \hline
+\end{tabular}
+\end{table}
+\begin{center}
+\tiny{Fonte: Ramaswami~\cite{Ramaswami2010}}
+\end{center}
 }
 \frame{
 \frametitle{A multiplexação PDH}
 \begin{itemize}
-		\item Complexa (e custosa).
+		\item Complexa (e custosa): montanha de multiplexadores
 \end{itemize}
 \begin{figure}[H]
 \centering
 \includegraphics[width=1\textwidth]{image/mux_pdh.eps}
 \end{figure}
+\begin{center}
+\tiny{Fonte: Adaptado de Ramaswami~\cite{Ramaswami2010}}
+\end{center}
 }
 
 \subsection{SONET/SDH}
@@ -147,14 +175,14 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 		\begin{itemize}
 				\item Início da pesquisa no ano de 1984.
 				%\item Proposta para o \textit{American National Standards Institute} (ANSI).
-				\item Inicio da padronização de \textit{Synchronous Optical Networking} (SONET) no ano de 1985~\cite{Ballart2002}.
+				\item Inicio da padronização de SONET no ano de 1985~\cite{Ballart2002}.
 		\end{itemize}
 		\vspace{\baselineskip}
 		\item \textit{International Telecommunication Union - Telecommunication Standardization Sector} (ITU-T).
 		\begin{itemize}
 				\item Interesse no padrão SONET~\cite{Boehm1990}.
 				\item Propôs mudanças.
-				\item Definição do padrão \textit{Synchronous Digital Hierarchy} (SDH).
+				\item Definição do padrão SDH.
 		\end{itemize}
 		
 \end{itemize}
@@ -251,6 +279,56 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 	 \tiny{Fonte: (Bernal Filho, 2003)~\cite{BernalFilho2003}}
 	\end{center}
 \end{itemize}
+}
+
+\frame{
+\frametitle{Multiplexação SONET}
+\begin{itemize}
+	\item Somente 1 componente para fazer o que a ``montanha de multiplexadores''  faz
+	\item A taxa de sinal básica é $51,84 \, Mb/s$, chamada de \textit{Synchronous Transport Signal level-1} ou STS-1 (672 canais de voz)
+\end{itemize}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r}
+\hline
+Nível & Taxa de Bit (Mb/s) \\\hline
+STS-1 & $51,84$ \\
+STS-3 & $155,52$ \\
+STS-12 & $622,08$ \\
+STS-24 & $1244,16$ \\
+STS-48 & $2488,32$ \\
+STS-192 & $9953,28$ \\
+STS-768 & $39.814,32$ \\\hline
+\end{tabular}
+\end{table}
+\begin{center}
+\tiny{Fonte: Adaptado de Ramaswami~\cite{Ramaswami2010}}
+\end{center}
+}
+
+\frame{
+\frametitle{Multiplexação SDH}
+\begin{itemize}
+	\item A taxa de sinal básica é $155 \, Mb/s$ e é chamada STM-1 (\textit{Synchronous Transport Module-1})
+	\begin{itemize}
+		\item Foi escolhida para acomodar taxas PDH mais utilizadas (níveis 1 e 3)
+	\end{itemize}
+\end{itemize}
+\begin{table}[H]
+\centering
+\begin{tabular}{l|r}
+\hline
+Nível & Taxa de Bit (Mb/s) \\\hline
+STM-1 & $155,52$ \\
+STM-4 & $622,08$ \\
+STM-16 & $2488,32$ \\
+STM-64 & $9953,28$ \\
+STM-256 & $39814,32$ \\\hline
+\end{tabular}
+\end{table}
+\begin{center}
+\tiny{Fonte: Adaptado de Ramaswami~\cite{Ramaswami2010}}
+\end{center}
 }
 
 \subsection{A rede de transporte ótica (OTN)}
