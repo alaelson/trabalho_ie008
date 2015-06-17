@@ -4,6 +4,7 @@
 \usepackage{amssymb,amsmath} %para usar simbolos matematicos 
 \usepackage{palatino} 
 \usepackage{subfig}
+\usepackage{epstopdf}
 %\usepackage{sidecap}
 %\usepackage{beamerthemesplit} 
 \setbeamercovered{transparent} % progressão transparente 
@@ -73,7 +74,19 @@ Universidade Estadual de Campinas}
 \subsection{Motivação}
 \frame{
 \frametitle{Motivação}  
- 
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{figuras/cresc_trafego.png}
+\end{figure}
+\tiny{Fonte: http://motherboard.vice.com/blog/the-next-five-years-of-explosive-internet-growth-in-seven-graphs}
+}
+\frame{
+\frametitle{Motivação}  
+\begin{itemize}
+		\item Novos serviços demandam mais banda: Netflix corresponde a 31\% do tráfego agregado da América do Norte ~\cite{netflix}
+		\item Os meios para transmissão massiva desse dados são caros para instalar e expandir
+		\item Solução: criação de tecnologias de transporte que compartilhem o meio para o maior número de usuários possível
+\end{itemize}
 }
 % 
 %
@@ -81,13 +94,24 @@ Universidade Estadual de Campinas}
 %
 \frame{ 
 \frametitle{Objetivos}  
-
+O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecnologias de transporte óptico, explicitando os aspectos técnicos de cada uma. Além disso, o trabalho também traz algumas perspectivas para o futuro dessas tecnologias.
 } 
 
 \subsection{Histórico}
 \frame{
 \frametitle{Breve Histórico}
-	
+\begin{itemize}
+		\item PDH: Hierarquia Digital Plesiócrona (final dos anos 70 até os anos 90).
+		\item SONET: Rede Ótica Síncrona (meados dos anos 80 até 2000).
+		\item SDH: Hierarquia Digital Síncrona (meados dos anos 80 até 2000).
+		\item ATM: Modo de Transferencia Assíncrona (final dos anos 80 até 2000).
+		\item Atualmente (convergência):
+		\begin{itemize}
+				\item OTN
+				\item ASON
+				\item GMPLS
+		\end{itemize}
+\end{itemize}
 }
 
 
@@ -96,7 +120,21 @@ Universidade Estadual de Campinas}
 \subsection{PDH}
 \frame{
 \frametitle{O protocolo PDH}
-	
+\begin{itemize}
+		\item Desenvolvido para telefonia.
+		\item Envio de vários sinais sobre o mesmo meio: técnicas de multiplexação no tempo com dados em formato digital.
+		\item Terminais operam com relógio quase sincronizado.
+\end{itemize}
+}
+\frame{
+\frametitle{A multiplexação PDH}
+\begin{itemize}
+		\item Complexa (e custosa).
+\end{itemize}
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{image/mux_pdh.eps}
+\end{figure}
 }
 
 \subsection{SONET/SDH}
