@@ -61,13 +61,13 @@ Universidade Estadual de Campinas}
 }
 
 %Destaca o sunário no início de cada sessão
-%\AtBeginSection[]
-%{
-%\begin{frame}
-%\frametitle{Sumário}
-%\tableofcontents[currentsection]
-%\end{frame}
-%}
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Sumário}
+\tableofcontents[currentsection]
+\end{frame}
+}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introdução}
@@ -114,7 +114,14 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 \end{itemize}
 }
 
-
+%Destaca o sunário no início de cada sessão
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Sumário}
+\tableofcontents[currentsection]
+\end{frame}
+}
 \section{Protocolos de transporte}
 
 \subsection{PDH}
@@ -375,17 +382,17 @@ STM-256 & $39814,32$ \\\hline
 \setbeamertemplate{description item}[align left]	
 	\begin{description}[Meio fisico ]	
 	
-		\item <1>[Sessão de multiplexação ótica (OMS)]: Faz mux/demux e gerencia um ou vários comprimentos de onda dentro do sinal ótico no transmissor/receptor
+		\item <1-3>[Sessão de multiplexação ótica (OMS)]: Faz mux/demux e gerencia um ou vários comprimentos de onda dentro do sinal ótico no transmissor/receptor
 		\begin{itemize}
-			\item <2->Processa o cabeçalho que assegura a integridade da informação de multiplexação multi-canal;
-			\item <3->funções de OAM\&P da sessão de multiplexação;
+			\item <2>Processa o cabeçalho que assegura a integridade da informação de multiplexação multi-canal;
+			\item <3>funções de OAM\&P da sessão de multiplexação;
 		\end{itemize}
 	
-	\item <4->[Sessão de transporte ótica (OTS)]: Mídias óticas: fibras monomodo ITU-T G.652, G.653 e G.655. 
+	\item <4-5>[Sessão de transporte ótica (OTS)]: Mídias óticas: fibras monomodo ITU-T G.652, G.653 e G.655. 
 		\begin{itemize}
-			\item <5->\textit{Overhead} para funções de OAM\&P;
+			\item <5>\textit{Overhead} para funções de OAM\&P;
 		\end{itemize}
-	\item <6-> [Meio Físico]: definido pelo tipo de fibra ótica usada na rede ótica, é o servidor da transmissão ótica.
+	\item <6> [Meio Físico]: definido pelo tipo de fibra ótica usada na rede ótica, é o servidor da transmissão ótica.
 \end{description}
 
 }
@@ -463,19 +470,35 @@ Os domínios de aplicação das interfaces são~\cite{G872}:
 \end{figure}
 }
 
-%\subsubsection{Principais alarmes e falhas}
+\frame{
+\frametitle{Comparação entre OTN e SONET/SDH.}
+\begin{table}[H]
+\begin{center}
+%\begin{threeparttable}
+\label{tab:taxas}
+\begin{tabular}{lc|lc} \hline
+\textbf{OTN OTU$_k$} & \textbf{Taxa (Gbps)} & \textbf{SONET/SDH} & \textbf{Taxa (Gbps)}\\ \hline
+OTU-1 & $2.666$ & OC-48/STM-16 & $2.488$\\ 
+OTU-2 & $10.709$ & OC-192/STM-64 & $9.953$\\ 
+OTU-3 & $43.018$ & OC-768/STM-256 & $39.813$\\ 
+OTU-4 & $99.532$ &\\
+\hline
+\end{tabular}
+%\end{threeparttable}
+\end{center}
+\end{table}
+
+
+
+}
+
 \frame{
 \frametitle{OTN: Alarmes e falhas}
 
 Alarmes e Falhas monitorados: 
 \begin{itemize}
-	\item \textit{Loss of frame} (LOF): FAS (FA-OH);
-	\item \textit{Bit Interleaved Parity} 8 (BIP-8): 
-	
-	\begin{itemize}
-		\item PM (ODU-H) e SM (OTH-OH);
-	\end{itemize}
-	
+	\item \textit{Loss of frame} (LOF): \textit{Frame Alignment Signal} (FA-OH);
+	\item \textit{Bit Interleaved Parity} 8 (BIP-8): ODU-OH e OTU-OH
 	\item \textit{Loss of Signal} (LOS): Leitura do fotodetector;
 	\newline
 \end{itemize}
@@ -484,7 +507,7 @@ Quadro da OTN:
 
 \begin{figure}
 	\centering
-		\includegraphics[scale=.4]{cap3/otn_overhead_geral.png}
+		\includegraphics[scale=.5]{cap3/otn_overhead_geral.png}
 	\label{fig:otn_frame2}
 \end{figure}
 }
@@ -507,6 +530,9 @@ Quadro da OTN:
 	\end{itemize}
 
 }
+
+
+
 
 
 \frame{  
@@ -533,44 +559,49 @@ Quadro da OTN:
 }
 
 %\subsubsection{Gerenciamento}
-\frame{ 
-\frametitle{Protocolo de Gerenciamento: LMP} 
-	\begin{itemize}
-			\item Checa a presença de atividade nos planos de controle e dados entre nós adjacentes;
-				\vspace{\baselineskip}
-			\item Executa rotinas de recuperação para o plano de controle e o plano de dados;
-				\vspace{\baselineskip}
-			\item Isola locais onde ocorreram falhas no plano de dados;
-				\vspace{\baselineskip}
-			\item Dissemina informações sobre o estado de nós e enlaces.
-			
-	\end{itemize}
-		
-}
+%\frame{ 
+%\frametitle{Protocolo de Gerenciamento: LMP} 
+%	\begin{itemize}
+%			\item Checa a presença de atividade nos planos de controle e dados entre nós adjacentes;
+%				\vspace{\baselineskip}
+%			\item Executa rotinas de recuperação para o plano de controle e o plano de dados;
+%				\vspace{\baselineskip}
+%			\item Isola locais onde ocorreram falhas no plano de dados;
+%				\vspace{\baselineskip}
+%			\item Dissemina informações sobre o estado de nós e enlaces.
+%			
+%	\end{itemize}
+%		
+%}
 
 %\subsubsection{Roteamento}
-\frame{  
-\frametitle{Protocolo de Roteamento: OSPF-TE} 
-	\begin{itemize}
-			\item Baseado no algoritmo do menor caminho (\textit{Shortest Path First})
-				\vspace{\baselineskip}
-			\item Características: 
-			
-\begin{itemize}
-	\item Considerar disponibilidade de recursos da rede (Restrições);
-			\vspace{\baselineskip}
-	\item Disseminar informações sobre a topologia, disponibilidade de recursos.
-\end{itemize}
-		\end{itemize}	
-	
-} 
+%\frame{  
+%\frametitle{Protocolo de Roteamento: OSPF-TE} 
+%	\begin{itemize}
+%			\item Baseado no algoritmo do menor caminho (\textit{Shortest Path First})
+%				\vspace{\baselineskip}
+%			\item Características: 
+%			
+%\begin{itemize}
+%	\item Considerar disponibilidade de recursos da rede (Restrições);
+%			\vspace{\baselineskip}
+%	\item Disseminar informações sobre a topologia, disponibilidade de recursos.
+%\end{itemize}
+%		\end{itemize}	
+%	
+%} 
 
 %
 %\subsection{ASON}
-%\frame{ 
-%\frametitle{\textit{Automaticaly Switched Optical Networks}}  
-%
-%}
+\frame{ 
+\frametitle{Tipos de \textit{Label Switch Path (LSP)}}  
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{figuras/hierarquiaLSPs2_old}
+\end{figure}
+
+%\tiny{Fonte: Padtec Report}
+}
  
 \subsection{SDN}
 \frame{ 
@@ -580,29 +611,21 @@ Conceitos básicos de SDN \cite{Kreutz2014}:
 	\begin{itemize} 
 	\item <1-> Separação do plano de controle do plano de dados;
 	\item <2-> Plano de controle centralizado; 
-	\item <3-> Programabilidade do plano de controle: 
-		\begin{itemize}
-			\item <4-> Utiliza o conceito de \textit{Application Programming Interfaces} (APIs);
-			\item <5-> Políticas podem ser implementadas e alteradas de acordo com o estado e com as necessidades do sistema;
-			\item <6-> Abstração em redes virtuais, com diferentes políticas, e ainda compartilhando a mesma infraestrutura física (hardware).
-		\end{itemize}
+	\item <3-> Programabilidade do plano de controle;
+	\item Uso de APIs padronizadas.
 	\end{itemize}
 
 }
 
 \frame{ 
 \frametitle{\textit{Software Defined Networks: Conceitos Basicos}}  
-
-	\begin{itemize} 
-	\item Uso de APIs padronizadas:				
-	\vspace{\baselineskip}
-		\begin{itemize}
-			\item <1-> API \textit{Northbound}: recebe requisições das aplicações clientes da rede;
-			\item <2-> API \textit{Southbound}: comunica-se com um infraestrutura de hardware; 
-			\item[OBS:] <3-> \textbf{O protocolo OpenFlow tem sido amplamente utilizado como API \textit{Southbound}. }
-		\end{itemize} 
-	\end{itemize}
-
+	\begin{figure}[H]
+	\centering
+	\includegraphics[scale=.4]{figuras/sdn_changes.png}
+	\end{figure}
+	\begin{center}
+	\tiny{Fonte: Lopez (2014)}
+	\end{center}
 }
 
 \frame{ 
@@ -622,44 +645,55 @@ Conceitos básicos de SDN \cite{Kreutz2014}:
  
 
 \section{Estudo de Caso}
+
 \frame{ 
-\frametitle{\textit{Super Computing 2014}}  
-
-\begin{itemize}
-
-
-	\item A \textit{Super Computing} (\textit{The Internation Conference for High Performance Computing, Networking, Storage and Analysis} - SC14) 
-%é a uma das principais conferências de computação de alto desempenho do mundo. 
-
-\item IEEE (IEEE \textit{Computer Society}) e ACM (\textit{Association for Computing Machinery}) 
-
-\item New Orleans, LA, USA, no período de 16 a 21 de novembro 2014.
-
-\item Instituto de Tecnologia da Califórnia (Caltech) e \textit{European Organization for Nuclear Research} CERN):
-	\begin{itemize}
-		\item Apoio no Brasil: Universidade Estadual Paulista (UNESP) e Padtec S/A 
-	\end{itemize}
-\end{itemize}
+\frametitle{}
+\begin{center}
+\transdissolve<1>[duration=0.3]
+	\Huge Super Computing!
+\end{center}
 }
-\frame{ 
-\frametitle{\textit{Super Computing 2014}}  
 
-\begin{itemize}
-		\item <1-3>Objetivo:
-		\begin{itemize}
-		\item <2>utilizar uma rede ótica dinâmica e reconfigurável baseada em SDN
+%\frame{ 
+%\frametitle{\textit{Super Computing 2014}}  
+%
+%\begin{itemize}
+%
+%
+%	\item A \textit{Super Computing} (\textit{The Internation Conference for High Performance Computing, Networking, Storage and Analysis} - SC14) 
+%%é a uma das principais conferências de computação de alto desempenho do mundo. 
+%
+%\item IEEE (IEEE \textit{Computer Society}) e ACM (\textit{Association for Computing Machinery}) 
+%
+%\item New Orleans, LA, USA, no período de 16 a 21 de novembro 2014.
+%
+%\item Instituto de Tecnologia da Califórnia (Caltech) e \textit{European Organization for Nuclear Research} CERN):
+%	\begin{itemize}
+%		\item Apoio no Brasil: Universidade Estadual Paulista (UNESP) e Padtec S/A 
+%	\end{itemize}
+%\end{itemize}
+%}
+%\frame{ 
+%\frametitle{\textit{Super Computing 2014}}  
+%
+%\begin{itemize}
+%		\item <1-3>Objetivo:
+%		\begin{itemize}
+%		\item <2>utilizar uma rede ótica dinâmica e reconfigurável baseada em SDN
+%
+%		\item <3>Transmitir super alta taxa de transmissão de dados (1Tbps) em uma rede de escala global.
+%		\end{itemize}
+%				
+%		\item<4-7>Desafios:
+%			\begin{itemize}
+%			\item <5->Os ROADMs (\textit{Reconfigurable Optical Add/Drop Muntiplexers}) da Padtec não suportam OpenFlow;
+%			\item <6->Funções como controle, aprovisionamento e remoção de canais óticos foram necessárias; 
+%			\item <7->Uma API da Padtec permitiu o desenvolvimento de um plug-in para o controlador SDN OpenDayLight (ODL).
+%			\end{itemize}
+%\end{itemize}
+%}
 
-		\item <3>Transmitir super alta taxa de transmissão de dados (1Tbps) em uma rede de escala global.
-		\end{itemize}
-				
-		\item<4-7>Desafios:
-			\begin{itemize}
-			\item <5->Os ROADMs (\textit{Reconfigurable Optical Add/Drop Muntiplexers}) da Padtec não suportam OpenFlow;
-			\item <6->Funções como controle, aprovisionamento e remoção de canais óticos foram necessárias; 
-			\item <7->Uma API da Padtec permitiu o desenvolvimento de um plug-in para o controlador SDN OpenDayLight (ODL).
-			\end{itemize}
-\end{itemize}
-}
+
 \frame{ 
 \frametitle{}
 \begin{center}
