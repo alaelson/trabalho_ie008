@@ -359,7 +359,7 @@ STM-256 & $39814,32$ \\\hline
 \setbeamertemplate{description item}[align left]
 	\begin{description}[Canal]
 
-		\item [Canal Ótico (\ac{OCh})]: estabelece a comunicação ótica fim a fim no domínio ótico. 
+		\item [Canal Ótico (OCh)]: estabelece a comunicação ótica fim a fim no domínio ótico. 
 			\begin{itemize}
 				\item <2> O sinal cliente é encapsulado;
 				 \item<3> roteamento flexível; 
@@ -375,13 +375,13 @@ STM-256 & $39814,32$ \\\hline
 \setbeamertemplate{description item}[align left]	
 	\begin{description}[Meio fisico ]	
 	
-		\item <1-3>[Sessão de multiplexação ótica (\ac{OMS})]: Faz mux/demux e gerencia um ou vários comprimentos de onda dentro do sinal ótico no transmissor/receptor
+		\item <1>[Sessão de multiplexação ótica (OMS)]: Faz mux/demux e gerencia um ou vários comprimentos de onda dentro do sinal ótico no transmissor/receptor
 		\begin{itemize}
 			\item <2->Processa o cabeçalho que assegura a integridade da informação de multiplexação multi-canal;
 			\item <3->funções de OAM\&P da sessão de multiplexação;
 		\end{itemize}
 	
-	\item <4-5>[Sessão de transporte ótica (\ac{OTS})]: Mídias óticas: fibras monomodo \ac{ITU-T} G.652, G.653 e G.655. 
+	\item <4->[Sessão de transporte ótica (OTS)]: Mídias óticas: fibras monomodo ITU-T G.652, G.653 e G.655. 
 		\begin{itemize}
 			\item <5->\textit{Overhead} para funções de OAM\&P;
 		\end{itemize}
@@ -564,52 +564,86 @@ Quadro da OTN:
 		\end{itemize}	
 	
 } 
+
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsubsection{Sinalização}
-\frame{ 
-\frametitle{Protocolo de Sinalização: RSVP-TE} 
-	
-\begin{itemize}
-	\item Projetado original:
-	
-	\begin{itemize}
-		\item Reserva de recursos;
-		\item Qualidade de serviço. 
-	\end{itemize}	
-	\vspace{\baselineskip}
-
-	\item Foi aperfeiçoado para fazer sinalização em redes MPLS.
-	\vspace{\baselineskip}
-		
-	\item Características da sinalização:
-	\begin{itemize}
-		\item Transportar parâmetros de configuração de LSPs.
-		\item Alertar sobre o local e o tipo de falha ocorrida
-		\item Engenharia de tráfego.
-	\end{itemize}
-\end{itemize}
-
-} 
-
-\subsection{ASON}
-\frame{ 
-\frametitle{\textit{Automaticaly Switched Optical Networks}}  
-
-}
+%\subsection{ASON}
+%\frame{ 
+%\frametitle{\textit{Automaticaly Switched Optical Networks}}  
+%
+%}
  
 \subsection{SDN}
 \frame{ 
 \frametitle{\textit{Software Defined Networks}}  
+Conceitos básicos de SDN \cite{Kreutz2014}:
+
+	\begin{itemize} 
+	\item <1-> Separação do plano de controle do plano de dados;
+	\item <2-> Plano de controle centralizado; 
+	\item <3-> Programabilidade do plano de controle: 
+		\begin{itemize}
+			\item <4-> Utiliza o conceito de \textit{Application Programming Interfaces} (APIs);
+			\item <5-> Políticas podem ser implementadas e alteradas de acordo com o estado e com as necessidades do sistema;
+			\item <6-> Abstração em redes virtuais, com diferentes políticas, e ainda compartilhando a mesma infraestrutura física (hardware).
+		\end{itemize}
+	\end{itemize}
+
+}
+
+\frame{ 
+\frametitle{\textit{Software Defined Networks: Conceitos Basicos}}  
+
+	\begin{itemize} 
+	\item Uso de APIs padronizadas:				
+	\vspace{\baselineskip}
+		\begin{itemize}
+			\item <1-> API \textit{Northbound}: recebe requisições das aplicações clientes da rede;
+			\item <2-> API \textit{Southbound}: comunica-se com um infraestrutura de hardware; 
+			\item[OBS:] <3-> \textbf{O protocolo OpenFlow tem sido amplamente utilizado como API \textit{Southbound}. }
+		\end{itemize} 
+	\end{itemize}
 
 } 
 
 \section{Estudo de Caso}
 \frame{ 
 \frametitle{\textit{Super Computing 2014}}  
-\cite{Ramaswami2010}
-}
 
+\begin{itemize}
+
+
+	\item A \textit{Super Computing} (\textit{The Internation Conference for High Performance Computing, Networking, Storage and Analysis} - SC14) 
+%é a uma das principais conferências de computação de alto desempenho do mundo. 
+
+\item IEEE (IEEE \textit{Computer Society}) e ACM (\textit{Association for Computing Machinery}) 
+
+\item New Orleans, LA, USA, no período de 16 a 21 de novembro 2014.
+
+\item Instituto de Tecnologia da Califórnia (Caltech) e \textit{European Organization for Nuclear Research} CERN):
+	\begin{itemize}
+		\item Apoio no Brasil: Universidade Estadual Paulista (UNESP) e Padtec S/A 
+	\end{itemize}
+\end{itemize}
+}
+\frame{ 
+\frametitle{\textit{Super Computing 2014}}  
+
+\begin{itemize}
+		\item <1-3>Objetivo:
+		\begin{itemize}
+		\item <2>utilizar uma rede ótica dinâmica e reconfigurável baseada em SDN
+
+		\item <3>Transmitir super alta taxa de transmissão de dados (1Tbps) em uma rede de escala global.
+		\end{itemize}
+				
+		\item<4-7>Desafios:
+			\begin{itemize}
+			\item <5->Os ROADMs (\textit{Reconfigurable Optical Add/Drop Muntiplexers}) da Padtec não suportam OpenFlow;
+			\item <6->Funções como controle, aprovisionamento e remoção de canais óticos foram necessárias; 
+			\item <7->Uma API da Padtec permitiu o desenvolvimento de um plug-in para o controlador SDN OpenDayLight (ODL).
+			\end{itemize}
+\end{itemize}
+}
 \frame{ 
 \frametitle{}
 \begin{center}
@@ -623,7 +657,7 @@ Quadro da OTN:
 \frametitle{Referências}
 %\addcontentsline{toc}{chapter}{\numberline{}Referências Bibliográficas}
 \bibliographystyle{IEEEtran}
-\bibliography{artigos,referencias,rfc}
+\scriptsize\bibliography{artigos,referencias,rfc}
 \end{frame}
 
 \end{document}
