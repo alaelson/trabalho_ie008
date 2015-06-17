@@ -65,7 +65,9 @@ Universidade Estadual de Campinas}
 {
 \begin{frame}
 \frametitle{Sumário}
+\begin{scriptsize}
 \tableofcontents[currentsection]
+\end{scriptsize}
 \end{frame}
 }
 %
@@ -112,16 +114,10 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 				\item GMPLS: \textit{Generalized Multi-Protocol Label Switching} 
 		\end{itemize}
 \end{itemize}
+\tiny{Fonte: Slides da Disciplina de Redes Ópticas~\cite{rudge}}
 }
 
-%Destaca o sunário no início de cada sessão
-\AtBeginSection[]
-{
-\begin{frame}
-\frametitle{Sumário}
-\tableofcontents[currentsection]
-\end{frame}
-}
+
 \section{Protocolos de transporte}
 
 \subsection{PDH}
@@ -471,25 +467,37 @@ Os domínios de aplicação das interfaces são~\cite{G872}:
 }
 
 \frame{
-\frametitle{Comparação entre OTN e SONET/SDH.}
-\begin{table}[H]
-\begin{center}
-%\begin{threeparttable}
-\label{tab:taxas}
-\begin{tabular}{lc|lc} \hline
-\textbf{OTN OTU$_k$} & \textbf{Taxa (Gbps)} & \textbf{SONET/SDH} & \textbf{Taxa (Gbps)}\\ \hline
-OTU-1 & $2.666$ & OC-48/STM-16 & $2.488$\\ 
-OTU-2 & $10.709$ & OC-192/STM-64 & $9.953$\\ 
-OTU-3 & $43.018$ & OC-768/STM-256 & $39.813$\\ 
-OTU-4 & $99.532$ &\\
-\hline
-\end{tabular}
-%\end{threeparttable}
-\end{center}
-\end{table}
+\frametitle{G709: Características}
+\begin{itemize}
 
 
+\item Interfaces e taxas de bit da OTN:
+	\begin{scriptsize}
+	\begin{table}[H]
+	\begin{center}
+	%\begin{threeparttable}
+	\label{tab:taxas}
+	\begin{tabular}{lc|lc} \hline
+	\textbf{OTN OTU$_k$} & \textbf{Taxa (Gbps)} & \textbf{SONET/SDH} & \textbf{Taxa (Gbps)}\\ \hline
+	OTU-1 & $2.666$ & OC-48/STM-16 & $2.488$\\ 
+	OTU-2 & $10.709$ & OC-192/STM-64 & $9.953$\\ 
+	OTU-3 & $43.018$ & OC-768/STM-256 & $39.813$\\ 
+	OTU-4 & $99.532$ &\\
+	\hline
+	\end{tabular}
+	%\end{threeparttable}
+	\end{center}
+	\end{table}
+	\end{scriptsize}
 
+\item Relacionamento longitudinal entre as camadas:
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=.14]{figuras/otn_g_709_terminations.png}
+	\end{figure}
+
+\end{itemize}
 }
 
 \frame{
@@ -654,45 +662,35 @@ Conceitos básicos de SDN \cite{Kreutz2014}:
 \end{center}
 }
 
-%\frame{ 
-%\frametitle{\textit{Super Computing 2014}}  
-%
-%\begin{itemize}
-%
-%
-%	\item A \textit{Super Computing} (\textit{The Internation Conference for High Performance Computing, Networking, Storage and Analysis} - SC14) 
-%%é a uma das principais conferências de computação de alto desempenho do mundo. 
-%
-%\item IEEE (IEEE \textit{Computer Society}) e ACM (\textit{Association for Computing Machinery}) 
-%
-%\item New Orleans, LA, USA, no período de 16 a 21 de novembro 2014.
-%
-%\item Instituto de Tecnologia da Califórnia (Caltech) e \textit{European Organization for Nuclear Research} CERN):
-%	\begin{itemize}
-%		\item Apoio no Brasil: Universidade Estadual Paulista (UNESP) e Padtec S/A 
-%	\end{itemize}
-%\end{itemize}
-%}
-%\frame{ 
-%\frametitle{\textit{Super Computing 2014}}  
-%
-%\begin{itemize}
-%		\item <1-3>Objetivo:
-%		\begin{itemize}
-%		\item <2>utilizar uma rede ótica dinâmica e reconfigurável baseada em SDN
-%
-%		\item <3>Transmitir super alta taxa de transmissão de dados (1Tbps) em uma rede de escala global.
-%		\end{itemize}
-%				
-%		\item<4-7>Desafios:
-%			\begin{itemize}
-%			\item <5->Os ROADMs (\textit{Reconfigurable Optical Add/Drop Muntiplexers}) da Padtec não suportam OpenFlow;
-%			\item <6->Funções como controle, aprovisionamento e remoção de canais óticos foram necessárias; 
-%			\item <7->Uma API da Padtec permitiu o desenvolvimento de um plug-in para o controlador SDN OpenDayLight (ODL).
-%			\end{itemize}
-%\end{itemize}
-%}
 
+\section{Conclusão}
+\frame{
+\frametitle{Conclusão}
+\begin{itemize}
+	\item O aumento no tráfego de dados impulsiona a geração de novas tecnologias;
+	\item Empresas e institutos de pesquisa trabalham para suprir essa demanda;
+	\item Avanço e desenvolvimento de novas Tecnologias;
+	\item Desafios:
+	\begin{itemize}
+	\item Padronização;
+	\item Internet das Coisas (IoT);
+	\item Flexibilidade, escalabilidade, programabilidade e redução de custos;
+	\item 5G \textit{Mobile}.
+	\end{itemize}
+\end{itemize}
+\begin{center}
+\textbf{Futuro da Internet ?}
+\end{center}
+%	
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.6\textwidth]{figuras/patentes_europa.jpg}
+%\end{figure}
+%\begin{center}
+%	\tiny{Fonte: EPO (\url{http://www.epo.org/about-us/annual-reports-statistics/statistics/patent-applications.html})}
+%\end{center}
+}
 
 \frame{ 
 \frametitle{}
