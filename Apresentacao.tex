@@ -253,19 +253,18 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 \end{itemize}
 }
 
-\subsection{A rede de transporte ótica (OTN)}
+\subsection{OTN}
 \frame{
-\frametitle{A rede de transporte ótica (OTN)}
-\begin{itemize}
-	\item Avaliação de desempenho e monitoramento da rede ótica.
-	\item Estrutura de cabeçalhos simples e eficiente
-	
-	\item Arquitetura da OTN (Recomendação ITU-T G.872):
-	
+\frametitle{A Rede de Transporte Ótica (OTN)}
 	\begin{itemize}
-		\item Especifica as camadas para o monitoramento do sinal ótico.
+		\item Avaliação de desempenho e monitoramento da rede ótica.
+		\item Estrutura de cabeçalhos simples e eficiente
+	
+		\item Arquitetura da OTN (Recomendação ITU-T G.872)~\cite{G872};	
+		\begin{itemize}
+			\item Especifica as camadas para o monitoramento do sinal ótico.
+		\end{itemize}
 	\end{itemize}
-\end{itemize}
 	
 	
 	\begin{figure}
@@ -274,25 +273,94 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 		\label{fig:otn_architecture_camadas}
 	\end{figure}
 	
+}
+
+\frame{
+\transdissolve<1>[duration=0.3]
+\frametitle{Camadas da Arquitetura da OTN}
+\setbeamertemplate{description item}[align left]
+	\begin{description}[Canal]
+
+		\item [Canal Ótico (\ac{OCh})]: estabelece a comunicação ótica fim a fim no domínio ótico. 
+			\begin{itemize}
+				\item <2> O sinal cliente é encapsulado;
+				 \item<3> roteamento flexível; 
+				 \item<4> cabeçalho que assegura a integridade do canal;
+				 \item<5> aplica de funções de operação, administração, manutenção e provisionamento (OAM\&P), como troca de parâmetros de qualidade de serviço e funções de sobrevivência do canal ótico.
+			\end{itemize}
+			
+	\end{description}
+}
+
+\frame{
+\frametitle{Camadas da Arquitetura da OTN}
+\setbeamertemplate{description item}[align left]	
+	\begin{description}[Meio fisico ]	
+	
+		\item <1-3>[Sessão de multiplexação ótica (\ac{OMS})]: Faz mux/demux e gerencia um ou vários comprimentos de onda dentro do sinal ótico no transmissor/receptor
+		\begin{itemize}
+			\item <2->Processa o cabeçalho que assegura a integridade da informação de multiplexação multi-canal;
+			\item <3->funções de OAM\&P da sessão de multiplexação;
+		\end{itemize}
+	
+	\item <4-5>[Sessão de transporte ótica (\ac{OTS})]: Mídias óticas: fibras monomodo \ac{ITU-T} G.652, G.653 e G.655. 
+		\begin{itemize}
+			\item <5->\textit{Overhead} para funções de OAM\&P;
+		\end{itemize}
+	\item <6-> [Meio Físico]: definido pelo tipo de fibra ótica usada na rede ótica, é o servidor da transmissão ótica.
+\end{description}
+
+}
+
+\frame{
+\frametitle{Arquitetura da OTN: Operação}
+
+Esboço de operação de cada camada em uma conexão que possui amplificadores e regeneradores no percurso do sinal ótico entre os terminais.
+	
+	\begin{figure}
+		\centering
+			\includegraphics[scale=.6]{cap3/otn_g_872_terminations.png}
+		\label{fig:otn_architecture_camadas}
+	\end{figure}
 	
 }
+
 \frame{
-\frametitle{O padrão G.709}	
+\frametitle{Arquitetura da OTN: Domínios e Interfaces}
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=.37]{./cap3/otn_interfaces.png}
+ \label{fig:otn_interfaces}
+\end{figure}
+
+Os domínios de aplicação das interfaces são~\cite{G872}:
+
+\begin{itemize}
+      \item Inter-Domínio (IrDI): processamento 3R (regeneração, reformatação e retemporização) do sinal ótico.
+      \item Intra-Domínio (IaDI): sem conversão óptica-eletro-óptica (O-E-O).
+\end{itemize}
+	
+}
+
+
+\frame{
+\frametitle{Interfaces: Padrão ITU-T G.709}	
 
 	\begin{itemize}
-	\item OTN (ITU-T G.709) ou Digital Wrapper;
-	\item Interfaces e taxas de dados;
-	\item Transporte e monitoramento para sinais clientes;
-	\item Tipos de tecnologias suportadas:
+	\item <1-> OTN (ITU-T G.709)\cite{G709} ou \textit{Digital Wrapper};
+	\item <2-> Funções de OAM\&P herdadas da experiência em Sonet/SDH.
+	\item <3-> Interfaces e taxas de dados;
+	\item <4-> Transporte e monitoramento para sinais clientes;
+	\item <5-6>Tipos de tecnologias suportadas:
 	
 	\begin{itemize}
-		\item SONET/SDH, ATM, Virtual Concatenator (VCAT), Generic Framing Procedure (GFP), Storage Area Network (SAN), Fibre Channel, etc.
+		\item <6->SONET/SDH, ATM, \textit{Virtual Concatenator} (VCAT), \textit{Generic Framing Procedure} (GFP), \textit{Storage Area Network} (SAN), \textit{Fibre Channel}, etc.
 	\end{itemize}
 	
-	\item Hierarquia de camadas digitais (OTH);
-	\item FEC: maior alcance do sinal ótico.
-
-		
+	\item <7-> Hierarquia de camadas digitais (OTH);
+	\item <8-> \textit{Forward Error Correction} (FEC): maior alcance do sinal ótico.
+	
 	\end{itemize}
 
 
@@ -305,7 +373,8 @@ O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecno
 \begin{itemize}
 	\item Hierarquia da OTN;
 	\item Encapsulamento e desencapsulamento de sinais clientes;
-	\item Cada camada adiciona seu cabeçalho.
+	\item Cada camada adiciona seu cabeçalho;
+	
 \end{itemize}
 
 
@@ -471,12 +540,12 @@ Quadro da OTN:
 \end{center}
 }
 
-\section{Referências Bibliográficas}
-\frame{
-\frametitle{Referências Bibliográficas}
+\section{Referências}
+\begin{frame}[allowframebreaks]
+\frametitle{Referências}
 %\addcontentsline{toc}{chapter}{\numberline{}Referências Bibliográficas}
 \bibliographystyle{IEEEtran}
 \bibliography{artigos,referencias,rfc}
-}
+\end{frame}
 
 \end{document}
