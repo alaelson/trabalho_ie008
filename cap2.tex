@@ -4,9 +4,9 @@
 \section{PDH}
 \label{sec:pdh}
 
-Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transporte baseava-se na Hierarquia Digital Plesiócrona-PDH ({do inglês, \it Plesiochnous Digital Hierarchy}), datada entre o início dos anos 70 até o final da década de 90. O PDH é um protocolo de comunicação tradicionalmente desenvolvido para telefonia e que permite o envio de vários sinais sobre o mesmo meio, seja cabo coaxial ou fibra óptica, utilizando técnicas de multiplexação no tempo e dados em formato digital. O termo plesiocróno se refere ao fato de que as diferentes terminações da rede operam com relógio quase que sincronizados. Como o foco das pesquisas naquele momento estava na comunicação de voz, demandava-se uma largura de banda de 8 kHz para comunicação bilateral, o que a 8 bits por amostra implicava na digitalização a uma taxa de 64 kb/s. Este valor tornou-se padrão e as transmissões de valores superiores foram niveladas em múltiplos desse, conforme destacado na tabela \ref{tab1}, na qual observa-se as taxas padronizadas na hierarquia. Porém, PDH sofria de muitos problemas, o que impulsionou pesquisas de um novo padrão de multiplexação que se consagrou na forma do SONET/SDH. As principais limitações do PDH, naquele momento eram:
+Por volta da década de 1970, a infraestrutura de transporte baseava-se em \ac{PDH}. O PDH é um protocolo de comunicação tradicionalmente desenvolvido para telefonia e que permite o envio de vários sinais sobre o mesmo meio, seja cabo coaxial ou fibra óptica, utilizando técnicas de multiplexação no tempo e dados em formato digital. O termo plesiocróno se refere ao fato de que as diferentes terminações da rede operam com relógio quase que sincronizados. Como o foco das pesquisas naquele momento estava na comunicação de voz, demandava-se uma largura de banda de 8 kHz para comunicação bilateral, o que a 8 bits por amostra implicava na digitalização a uma taxa de 64 kb/s. Este valor tornou-se padrão e as transmissões de valores superiores foram niveladas em múltiplos desse, conforme destacado na tabela \ref{tab:PDH}, na qual observa-se as taxas padronizadas na hierarquia. Porém, PDH sofria de muitos problemas, o que impulsionou pesquisas de um novo padrão de multiplexação que se consagrou na forma de \ac{SONET} e \ac{SDH}. As principais limitações do PDH, naquele momento eram:
 
-\begin{table}
+\begin{table}[!htb]
 \centering
 \begin{tabular}{c|c|c|c}
 \hline
@@ -17,7 +17,8 @@ Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transpo
 3 & 44.736 Mb/s & 34.368 Mb/s & 32.064 Mb/s \\
 4 & 139.264 Mb/s & 139.264 Mb/s & 97.728 Mb/s \\ \hline
 \end{tabular}
-\caption{Taxas de transmissão para PDH \cite{ramaswami} \label{tab:PDH}}
+\caption{Taxas de transmissão para PDH~\cite{Ramaswami2010} 
+\label{tab:PDH}}
 \end{table}
 
 \begin{enumerate}
@@ -36,11 +37,11 @@ Anteriormente a popularização dos padrões SONET/SDH, a infraestrutura de transpo
 
 O termo multiplexação define a tarefa de enviar dois ou mais sinais utilizando o mesmo meio de transmissão. Isso pode ser obtido de diversas maneiras, como, por exemplo, divisão do tempo de acesso ao meio em turnos para cada usuário transmitir.
 
-O PDH utiliza uma multiplexação assíncrona, na qual cada terminal tem seu próprio \textit{clock}, levando a imprecisões entre as suas taxas de funcionamento, mesmo quando adotada um \textit{clock} nominal. Assim, para que haja correção nessas pequenas diferenças, deve ser inserir bits nos fluxos. Para que seja possível se captar um fluxo mais lento de informação multiplexado num fluxo mais rápido, é necessário uma estrutura chamada "montanha de multiplexadores" (ver Figura \ref{fig:muxPDH}.a), o que eleva o custo e complexidade das redes que usam esse tipo. A tabela \ref{tab:PDH} mostra a nomenclatura da hierarquia de níveis de taxa de transmissão.
+O PDH utiliza uma multiplexação assíncrona, na qual cada terminal tem seu próprio \textit{clock}, levando a imprecisões entre as suas taxas de funcionamento, mesmo quando adotada um \textit{clock} nominal. Assim, para que haja correção nessas pequenas diferenças, deve ser inserir bits nos fluxos. Para que seja possível se captar um fluxo mais lento de informação multiplexado num fluxo mais rápido, é necessário uma estrutura chamada ``montanha de multiplexadores'' (ver Figura \ref{fig:muxPDH}), o que eleva o custo e complexidade das redes que usam esse tipo. A tabela \ref{tab:PDH} mostra a nomenclatura da hierarquia de níveis de taxa de transmissão.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=1\textwidth]{image/mux_pdh.eps}
+\includegraphics[width=.9\textwidth]{image/mux_pdh.eps}
 \caption{\label{fig:muxPDH} Estrutura de multiplexação PDH: a ``montanha de multiplexadores''. Adaptado de \cite{Ramaswami2010}.}
 \end{figure}
 

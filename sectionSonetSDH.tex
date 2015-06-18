@@ -24,15 +24,15 @@ Ambos SONET e SDH usam métodos de multiplexação bastante sofisticados que podem 
 
 Para SONET a taxa de sinal básica é $51,84 \, Mb/s$, chamada de \textit{synchronous transport signal level-1} ou STS-1. As outras taxas derivadas desta são chamadas STS-N e são obtidas alternando os bytes de N  \textit{frames} STS-1 alinhados. Como os \textit{clocks} dos sinais são sincronizados, não há necessidade de inserção de bits. Por esse mesmo motivo, sinais de taxas menores podem ser extraídos de um fluxo multiplexado sem necessidade de demultiplexar o sinal inteiro. A tabela \ref{tab:taxasSONET} traz as taxas de transmissão e nomenclatura SONET.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
-\includegraphics[width=0.5\textwidth]{image/mux_sonet.eps}
+\includegraphics[width=0.7\textwidth]{image/mux_sonet.eps}
 \caption{\label{fig:muxSDH} Estrutura de multiplexação SONET. Adaptado de \cite{Ramaswami2010}.}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
-\begin{tabular}{|l|r|}
+\begin{tabular}{c|c}
 \hline
 Nomenclatura & Taxa de Bit (Mb/s) \\\hline
 STS-1 & $51,84$ \\
@@ -50,7 +50,7 @@ Em SONET, os fluxos de dados de taxa inferior a STS-1 são mapeados em \textit{Vi
 
 Para camadas clientes (de maior abstração), como IP ou Ethernet, que tem tamanho de pacotes grandes, é usada a nomenclatura STS-Nc, em que o "c" denomina "concatenado". 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
 \centering
 \includegraphics[width=1\textwidth]{image/vt.eps}
 \caption{\label{fig:vt}\textit{Virtual Tributaries}. Adaptado de \cite{Ramaswami2010}.}
@@ -60,9 +60,9 @@ Para camadas clientes (de maior abstração), como IP ou Ethernet, que tem tamanho
 
 Para SDH, a taxa básica é $155 \, Mb/s$ e é chamada STM-1 (\textit{synchronous transport module-1}). Que foi escolhido para acomodar as taxas PDH mais utilizadas (DS1 e DS3). A tabela \ref{tab:taxasSDH} mostra as taxas de transmissão definidas para SDH.
 
-\begin{table}[H]
+\begin{table}[!htb]
 \centering
-\begin{tabular}{|l|r|} \hline
+\begin{tabular}{c|c} \hline
 SDH & Taxa de Bit (Mb/s) \\\hline
 STM-1 & $155,52$ \\
 STM-4 & $622,08$ \\
@@ -79,7 +79,7 @@ Em SDH, os \textit{Virtual Containers} (VCs) fazem o mesmo trabalho dos VTs em S
 
 Uma das principais características do \textit{frame} SDH é sua bidimensionalidade, já que tal \textit{frame} é definido por uma quantidade de linhas e colunas como ilustrado na Figura~\ref{fig:FrameSDH}. O \textit{frame} SDH possui um número fixo de linhas e um número de colunas dependente da hierarquia SDH a que se está referenciando. De forma mais precisa, tal \textit{frame} possui 9 linhas e 270 x N colunas, onde N é o termo dependente da hierarquia e que pode ser obtido observando que as hierarquias são definidas seguindo o padrão \ac{STM}-N, para N igual a 1, 4, 16, 64 e 256 e é interessante ressaltar que para o caso STM-0 existem apenas 9 linhas e 90 colunas como já indicado na Figura~\ref{fig:FrameSDH}, correspondendo ao \textit{frame} STS-1 do padrão SONET. Cada linha nesta estrutura é tratada como um \textit{bit} enquanto cada coluna é tratada como um \textit{byte}. Outra característica importante é que independentemente do tamanho e consequentemente do número de bits do \textit{frame}, sua duração é sempre de 125 \(\mu s\), representando uma taxa de repetição de 8000 kHz herdada dos antigos sistemas PDH. Nessa estrutura, os bits são transmitidos, da esquerda para a direita, em cada linha até se alcançar o fim do \textit{frame}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
  \centering
  \includegraphics[scale=.6]{FrameSDH.png}
   \caption{Estrutura do \textit{frame} SDH - ITU-T G.707~\cite{G707}.}
@@ -88,7 +88,7 @@ Uma das principais características do \textit{frame} SDH é sua bidimensionalidad
 
 O \textit{frame} SDH é formado por duas principais partes, sendo elas o cabeçalho ou \textit{overhead}, que é composto por 9 x N colunas (sendo N o nível da hierarquia) e 9 linhas e o \textit{payload}, composto por 261 x N colunas e 9 linhas. O \textit{payload} é a parte onde os dados dos clientes são inseridos para a transmissão. O cabeçalho, por sua vez, contém as informações do quadro \ac{STM}-N referentes a desempenho, manutenção, monitoramento e indicações das localidades dos tributários multiplexados nos \textit{frames}, além de funções operacionais, permitindo uma gerência maior por parte dos nós da rede. Esta parte do \textit{frame} se subdivide em duas unidades básicas, a primeira delas sendo chamada de \ac{SOH} e a segunda de \textit{Administrative Unit Pointers}. É interessante ressaltar que \ac{SOH} ainda é separado em duas partes, sendo elas \ac{RSOH} e \ac{MSOH}, gerando a estrutura ilustrada na Figura~\ref{fig:OverheadSDH} para o cabeçalho. A seguir, apresenta-se uma breve descrição das funcionalidade contidas em cada uma das partes mencionadas:
 
-\begin{figure}[H]
+\begin{figure}[!htb]
  \centering
  \includegraphics[scale=.7]{OverheadSDH.png}
   \caption{RSOH e MSOH - ITU-T G.707~\cite{G707}.}
@@ -113,7 +113,7 @@ A tecnologia SDH apresenta uma estruturação em camadas como apresentada na Figur
 
 O conceito de via em SDH se refere a uma conexão lógica entre o ponto em que se monta o quadro SDH padrão, pela inserção de tributários e o ponto em que o quadro SDH padrão é desmontado, pela retirada de tributários, ou seja, se relaciona a uma conexão lógica fim-a-fim. A montagem do quadro SDH consiste na ação de inserir os dados dos clientes nas estruturas denominadas de \textit{Containers}, que consistem em unidades básicas de dados com bytes alocados para o transporte dos dados de mais baixas taxas dos clientes, por exemplo pode ser um sinal E1 da hierarquia PDH e associar a esses \textit{Containers} rótulos denominados de \ac{POH} com informações de controle. O processo de desmontagem realiza caminho inverso, retirando o \ac{POH} e o utilizando como informação para dar seguimento ao conteúdo dos \textit{Containers}. A Camada de Via é justamente responsável por realizar tais atividades e está relacionada à conexão fim-a-fim entre nós SDH onde se monta e desmonta o \textit{frame}. É possível que nós intermediários da rede possam realizar monitoramento de performance dos sinais da Camada de Via, porém, os \textit{bytes} de cabeçalho referentes a essa camada são somente iniciados do ponto de montagem e terminados no ponto de desmontagem do quadro SDH, por exemplo, nos \ac{TM}
 
-\begin{figure}[H]
+\begin{figure}[!htb]
  \centering
  \includegraphics[scale=.7]{SDHlayers.png}
   \caption{Estruturação em Camadas de SDH - ~\cite{BernalFilho2003}.}
@@ -126,7 +126,7 @@ A Camada de Seção de Multiplexação é responsável por multiplexar um número de co
 
 Por sua vez, a Camada de Seção de Regeneração é utilizada entre elementos adjacentes de um link \ac{SDH}, ou seja, ela é utilizada para o processamento dos \textit{frames} em todos os equipamentos da rede, sejam eles de passagem, extração ou inserção dos tributários~\cite{BernalFilho2003}. A Figura~\ref{fig:SDHlayersConection} apresenta a relação das camadas e dos diversos dispositivos presentes em uma rede, assim como descrito anteriormente. Esta Figura utiliza a mesma nomenclatura anteriormente descrita e insere um dispositivo específico de regeneração do \textit{frame}, referenciado na Figura~\ref{fig:SDHlayersConection} como \ac{REG}. 
 
-\begin{figure}[H]
+\begin{figure}[!htb]
  \centering
  \includegraphics[scale=.7]{SDHlayersConection.png}
   \caption{Exemplo de link SDH Ilustrando as Terminações das Camadas - ~\cite{BernalFilho2003}.}
@@ -135,7 +135,7 @@ Por sua vez, a Camada de Seção de Regeneração é utilizada entre elementos adjace
 
 A Camada Física diz respeito a infraestrutura de conexões que permite a transmissão dos \textit{frames}. Para o caso das Comunicações Ópticas, a Camada Física engloba todos os dispositivos ópticos envolvidos na transmissão na fibra óptica, como por exemplo \textit{lasers} e fotodetectores. É interessante ressaltar que o processamento dos \textit{frames} \ac{SDH} ocorre no domínio elétrico e por isso, esta camada também é responsável por adequar a transmissão dos \textit{frames} que originalmente estão no domínio elétrico através do meio de transmissão que se está utilizando. Continuando o exemplo relacionado as Comunicações Ópticas, a Camada Física define interfaces que permitem realizar a transmissão e recepção através das fibras ópticas com a utilização de dispositivos ópticos como \textit{lasers} e fotodetectores. O \ac{ITU-T} define interfaces físicas para a transmissão sobre fibras ópticas para SDH nas recomendações G.957 e G.691. Como exemplo, a Figura~\ref{fig:PhysicalSDH} ilustra estas interfaces, definindo os tipos de fibras, atenuações e dispersões aceitáveis do enlace e tipos de transmissores com relação ao comprimento de onda de operação, taxa de transmissão e comprimento do enlace.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
  \centering
  \includegraphics[scale=.7]{PhysicalSDH.png}
   \caption{Diferentes Interfaces Físicas para SDH - ~\cite{Ramaswami2010}.}
