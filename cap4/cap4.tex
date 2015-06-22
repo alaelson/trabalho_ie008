@@ -1,15 +1,18 @@
-\chapter{Plano de Controle GMPLS}
-\label{cap:gmpls}
+\chapter{Plano de Controle}
+\label{cap:controlplane}
+
+\section{GMPLS}
+\label{sec:gmpls}
 
 O \ac{IETF} especificou um novo plano de controle chamado \ac{GMPLS}~\cite{Farrel2006, Bernstein2003}, que é capaz de operar com diferentes tecnologias de transporte, tais como: pacotes/células \ac{IP}/\ac{ATM} (\aclu{PSC} -- \ac{PSC}), dados na camada de enlace (\aclu{L2SC} -- \ac{L2SC}), quadros de tempo (\ac{TDM}), fibras óticas (\aclu{FSC} -- \ac{FSC}) e comprimentos de onda (\ac{LSC} -- \ac{LSC}). O \ac{GMPLS} consiste em uma generalização do conjunto de protocolos do \ac{MPLS}~\cite{rfc3031}, seu precursor, pois este comuta apenas pacotes \ac{IP} e \ac{L2SC}. A capacidade de comutação por rótulo consiste em atribuir um identificador referente a uma categoria ou classe. Então, os dados podem ser encaminhados de um roteador para outro simplesmente verificando este identificador. 
 
-Nas redes GMPLS, os roteadores responsáveis pela transmissão de dados são denominados \acp{LSR} e o caminho de dados entre os \acp{LSR} origem e destino é chamado de \ac{LSP}. Neste trabalho, os \acp{LSP} estabelecidos pelo plano de controle \ac{GMPLS} serão formados por caminhos comutados por comprimentos de onda, também chamados de caminhos óticos conforme apresentado nos Capítulos~\ref{cap:rede_otica} e~\ref{cap:g709}. 
+Nas redes GMPLS, os roteadores responsáveis pela transmissão de dados são denominados \acp{LSR} e o caminho de dados entre os \acp{LSR} origem e destino é chamado de \ac{LSP}. Neste trabalho, os \acp{LSP} estabelecidos pelo plano de controle \ac{GMPLS} serão formados por caminhos comutados por comprimentos de onda, também chamados de caminhos óticos.
 
 O \ac{GMPLS} permite que os \acp{LSP} sejam organizados como uma hierarquia formada de acordo com o tipo de comutação. Na Figura~\ref{fig:hierarquiaLSPs} pode-se observar a formação de uma hierarquia em que um \ac{LSP} de maior ordem (fibra) é capaz de transmitir diversos comprimentos de onda (\ac{LSC}), esse por sua vez, pode transportar \acp{LSP} baseados na divisão de tempo (\ac{TDM}), enquanto que em cada quadro de tempo são multiplexados \acp{LSP} de pacotes (\ac{PSC}).
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=.8]{cap4/hierarquiaLSPs2.png}
+		\includegraphics[scale=.8]{cap4/hierarquiaLSPs2_old.png}
 	\caption{Hierarquia de LSPs utilizando diferentes capacidades de multiplexação.}
 	\label{fig:hierarquiaLSPs}
 \end{figure}
@@ -31,79 +34,30 @@ A arquitetura do \ac{GMPLS} permite que a troca de informações entre as camadas 
 	\item \textbf{Distribuída:} Há um controlador em cada nó e as informações de estado encontram-se nos bancos de dados contidos nos nós. Ao receber uma requisição, é necessário que cada controlador verifique localmente se é possível atendê-la. Neste caso faz-se necessário alguma forma de disseminação de informações.
 \end{itemize}
 
-\section{Protocolo GMPLS RSVP-TE}
-\label{sec:rsvp}
 
-A primeira versão do \ac{RSVP}~\cite{rfc2205} foi especificada somente como um protocolo de reserva de recursos, que fazia parte de uma arquitetura de Qualidade de Serviço -- \ac{QoS} montada para atender os requisitos de algumas aplicações~\cite{Gozdecki2003}, tais como voz sobre \ac{IP} -- \ac{VoIP}, \textit{streams} multimídia sob demanda e vídeo-conferência. Devido à sua extensibilidade e flexibilidade, começou a ser utilizado como protocolo de sinalização do \ac{MPLS}, sendo responsável por transportar informações para o estabelecimento de \acp{LSP}. Posteriormente, ele foi aperfeiçoado para fazer engenharia de tráfego, provendo mecanismos de rápido rerroteamento e controle de falhas~\cite{rfc2702,rfc3209}, passando então a ser chamado \ac{RSVP-TE}. O \ac{RSVP-TE} introduziu o conceito de túneis comutados por rótulos (\textit{LSP tunnels}), em que um túnel pode ser entendido como um ``tubo'' que conecta uma origem a um destino, sendo chamados de \textit{ingresso} e \textit{egresso}, respectivamente. Os túneis \acp{LSP} permitem executar políticas de otimização, isto é, roteamento automático ou manual (em caso de falha ou congestionamento ou a fim de evitar a passagem pelo núcleo da rede)~\cite{rfc3209}.
+\section{\textit{Software Defined Networking - SDN}}
+\label{sec:sdn}
 
-Com o surgimento do \ac{GMPLS}, o \ac{RSVP-TE} recebeu várias atualizações, tais como~\cite{rfc3471, rfc3473}: (\textit{i}) possibilidade de estabelecer \ac{LSP} bidirecionais; (\textit{ii}) sugestão de rótulo pela origem; (\textit{iii}) novos objetos para notificação de falhas e (\textit{iv}) novos mecanismos de proteção e restauração. Entretanto, não houve mudanças nos procedimentos de estabelecimento, manutenção e remoção de conexões, apenas foram criados novos tipos de mensagens e objetos de dados, que aprimoraram as funcionalidades do protocolo.
+\aclu{SDN} é uma abordagem de redes de computadores que permite que administradores de redes administrem serviços de rede através de abstrações de funcionalidades de baixo nível. SDN é uma arquitetura proposta para ser dinâmica, gerenciável, custo efetiva e adaptável para ser utilizada para em aplicações atuais, as quais requerem alta largura de banda. 
+Em redes óticas, equipamentos como \ac{OXC} e \ac{ROADM} podem ser gerenciados e controlados por um controlador SDN com os mesmos conceitos aplicados aos roteadores em redes IP.
 
-\begin{figure}[H]
-	\centering
-		\includegraphics{cap4/cabecalhoRSVP2.png}
-	\caption{Estrutura do cabeçalho comum (\textit{Common Header}) e de objetos de dados (\textit{Object Header}) do protocolo RSVP.}
-	\label{fig:cabecalhoRSVP}
-\end{figure}
-
-Os pacotes ou mensagens do protocolo \ac{RSVP} podem ser datagramas \ac{IP} puros, identificados pelo número 46~\cite{ianaProtocolNumber}, ou podem ser encapsulados dentro do protocolo \ac{UDP}. As mensagens \ac{RSVP} possuem um cabeçalho comum (\textit{Common Header}), que através do campo \textit{MESSAGE TYPE} identifica o tipo de mensagem. Atualmente estão padronizadas 15 diferentes tipos de mensagens que são utilizadas pelo plano de controle \ac{GMPLS}~\cite{Komolafe2007}. Cada uma delas pode transportar diferentes objetos em seu conteúdo. Estes objetos também possuem um cabeçalho padrão, onde o campo \textit{CLASS NUMBER} faz a distinção entre eles. Além disso, foi feita a padronização de 70 objetos de dados~\cite{Komolafe2007}. A instituição \ac{IANA} é responsável pela coordenação dos recursos associados aos protocolos da Internet. Em seu sítio~\cite{ianaRSVP} é encontrado a lista com os tipos de mensagens e objetos do protocolo \ac{RSVP}. A Figura~\ref{fig:cabecalhoRSVP} ilustra os cabeçalhos utilizados por esse protocolo.
-
-\subsection{Estabelecimento de LSPs}
-
- 
-Na fase de estabelecimento, uma série de mensagens são trocadas entre nós \ac{RSVP} de origem e destino. A mensagem \textit{PATH} é transmitida no sentido do destinatário e contém as informações do pedido de estabelecimento de um caminho comutado por rótulo. Ela transporta os seguintes objetos, entre outros~\cite{rfc3209,rfc2210,rfc3473}: 
+São conceitos básicos de SDN~\cite{Jain2013,Kreutz2014}:
 \begin{itemize}
-	\item \textit{SESSION OBJECT}: contém o identificador para o \ac{LSP} e endereço do destino, podendo ser dos tipos \ac{IPv4} ou \ac{IPv6};
-	\item \textit{SENDER TEMPLATE OBJECT}: identifica a origem transportando o seu endereço (\ac{IPv4} ou \ac{IPv6});
-	\item \textit{SENDER TSPEC OBJECT}: utilizado para caracterizar o fluxo que irá passar pelo \ac{LSP};
-	\item \textit{GENERALIZED LABEL REQUEST OBJECT}: responsável por transportar os requisitos de comutação do \ac{LSP};
-	\item \textit{RSVP HOP}: utilizado para registrar o nó anterior a cada passo dado pela mensagem.
+
+\item \textbf{Separação do plano de controle do plano de dados:} Esse é o aspecto chave da SDN, em que o plano de dados, responsável pelo encaminhamento de pacotes, está separado do plano de controle, responsável lógica de controle utilizada para encaminhar os pacotes. Por exemplo, um roteador precisa ter uma tabela de encaminhamento para encaminhar os pacotes que chegam nas interfaces de entrada para as devidas interfaces de saída. A tabela de encaminhamento, por sua vez é populada pelo plano de controle por meio de um algoritmo de roteamento. Com a separação, o plano de controle é implementado em um controlador externo. Deixando o dispositivo somente com a função de encaminhar os pacotes. A parte do topo da Figura~\ref{fig:sdn_concepts} ilustra a aplicação desse conceito.
+
+\item \textbf{Plano de controle centralizado:} Tem a vantagem de ter a visão geral do estado da rede e pode tomar decisões muito mais rápidas que um plano de controle completamente distribuído, que é o caso da Internet atual. A resiliência do plano de controle centralizado pode ser feita utilizando-se um controlador principal e outros que estão em estado \textit{standby}, em que um deles assume o controle em caso de falha do principal. A parte do centro da Figura~\ref{fig:sdn_concepts} ilustra a aplicação desse conceito.
+
+\item \textbf{Programabilidade do plano de controle:} Lançando-se mão de um plano de controle centralizado torna-se fácil gerenciar a rede para implementar alterações pela simples mudança do paradigma de controle. Utilizando-se de \textit{application programming interfaces} (APIs) apropriadas, uma variedade de políticas podem ser implementadas e alteradas de acordo com o estado e com as necessidades do sistema. Além disso, permite que a rede possa ser divida em redes virtuais, com diferentes políticas e ainda compartilhando a mesma infraestrutura física (hardware). A parte do baixo da Figura~\ref{fig:sdn_concepts} ilustra a aplicação desse conceito.
+
+\item \textbf{Uso de APIs padronizadas:} O plano de controle tem dois tipos de interfaces de programação de aplicações (application programming interfaces ? APIs) chamadas de \textit{Northbound} e \textit{Southbound}. A API \textit{Northbound} é resposável pela comunicação com as aplicações clientes da rede. Já a API \textit{Southbound} comunica-se com um infraestrutura de \textit{hardware}. O protocolo OpenFlow tem sido amplamente utilizado como API \textit{Southbound}. Uma lista com outros protocolos candidatos a serem utilizados em alternativa ao OpenFlow pode ser encontrada em~\cite{Jain2013}.
+
 \end{itemize}
 
 \begin{figure}[H]
 	\centering
-		\includegraphics[scale=.6]{cap4/estabelecimento3.png}
-	\caption{Diagrama de sequências da troca de mensagens RSVP necessárias ao estabelecimento de um LSP.}
-	\label{fig:gmpls_estabelecimento}
+	\includegraphics[scale=.4]{figuras/sdn_changes.png}
+	\caption{Aplicação dos conceitos básicos de SDN. A Figura do topo refere-se à retirada do \textit{software} de controle que roda dentro do equipamento de rede (\textit{blackbox}) para uma arquitetura aberta e com o uso de APIs padronizadas; a Figura do centro ilustra a evolução de uma rede, em que os equipamentos de rede possuem um comportamento autônomo, para uma rede em que a decisão é tomada por um controlador centralizado; A Figura de baixo ilustra o esforço de se um \textit{Operational Support System - OSS} em operar diversos equipamentos evoluindo para o ambiente SDN~\cite{Lopez2014}.}
+	\label{fig:sdn_concepts}
 \end{figure}
-
-A sinalização para o estabelecimento das conexões é ilustrada na Figura~\ref{fig:gmpls_estabelecimento}. Nessa fase, uma mensagem \textit{PATH} é enviada nó a nó até alcançar o destino. A cada passagem por um nó intermediário alguns procedimentos são executados, tais como: (\textit{i}) analisar os requisitos do \ac{LSP}; (\textit{ii}) atualizar o objeto \textit{RSVP HOP}; (\textit{iii}) gravar o estado da mensagem (\textit{PATHSTATE}) no nó. Além disso, a mensagem \textit{PATH} guarda as informações da rota que está atravessando no objeto \textit{RECORD ROUTE OBJECT} cujo objetivo é evitar \textit{loops} na rede. O \ac{RSVP} dá suporte ao uso de rotas explícitas através do objeto (\textit{EXPLICIT ROUTE OBJECT}) que pode ser adicionado a essa mensagem.
-
-Quando a mensagem \textit{PATH} chega ao destino, o plano de controle escolhe um rótulo (\textit{label}) relativo ao \ac{LSP} especificado no objeto \textit{GENERALIZED LABEL REQUEST}. A mensagem \textit{RESV}é criada com esse rótulo e depois enviada no caminho de volta à origem (sentido \textit{upstream}) percorrendo exatamente o caminho contrário da mensagem \textit{PATH}. Para isto, ela faz uso da informação contida nos estados \textit{PATHSTATE} armazenados nos nós em que mensagem \textit{PATH} atravessou. Então, o plano de controle em cada nó insere o rótulo recebido nas interfaces do roteador (entrada e saída) e grava as informações dos contidas nos objetos da mensagem \textit{RESV} no estado (\textit{RESVSTATE}). Se esta mensagem chegar à origem sem erros, imediatamente o \ac{LSP} será ativado e os dados já poderão ser transmitidos.
-
-O protocolo \ac{RSVP-TE} permite que uma mensagem \textit{RESV} carregue diferentes rótulos que são referentes a enlaces específicos do caminho. Para isso, a mensagem \textit{RESV} deve conter um par de objetos \textit{FILTER SPEC} e \textit{GENERALIZED LABEL} para cada enlace específico. O objeto \textit{GENERALIZED LABEL} transporta o rótulo atribuído ao enlace. Ele sempre deve ser precedido por um objeto \textit{FILTER SPEC}, cuja função é identificar o roteador e a interface de destino do rótulo. Os conteúdos das mensagens \textit{PATH} e \textit{RESV} podem ser visualizados nas Figuras \ref{fig:rsvppacketpath} e \ref{fig:rsvppacketresv}, respectivamente.
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[scale=1]{cap4/rsvp-packet-path.png}
-	\caption{Estrutura da mensagem \textit{PATH} do protocolo RSVP-TE.}
-	\label{fig:rsvppacketpath}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-		\includegraphics[scale=1]{cap4/rsvp-packet-resv.png}
-	\caption{Estrutura da mensagem \textit{RESV} do protocolo RSVP-TE.}
-	\label{fig:rsvppacketresv}
-\end{figure}
-
-\subsection{Manutenção de LSPs}
-
-O \ac{RSVP-TE} permite manter um estado de atividade flexível (\textit{soft-state}) das conexões através troca de mensagens \textit{PATH} e \textit{RESV} de atualização. A diferença entre as mensagens de atualização e as de estabelecimento consiste na obrigatoriedade da mensagem de atualização percorrer exatamente a mesma rota da mensagem \textit{PATH} original. Assim, para manter o caminho ativo, as novas mensagens \textit{PATH} devem transportar um objeto \textit{EXPLICIT ROUTE}, que contém todos os nós da rota por onde a mensagem deverá ser transmitida. Se uma mensagem de atualização não puder seguir por algum enlace do caminho devido a algum erro, uma nova rota é calculada somente contornando o local da falha. Logo, a mensagem deve seguir pelos nós do caminho que não foram prejudicados. Se não for possível restabelecer o \ac{LSP} utilizando o rerroteamento do local onde a falha ocorreu, mensagens \textit{PATHTEAR} e/ou \textit{RESVTEAR} ou mensagens de erro serão enviadas para remover o \ac{LSP}. Caso não seja possível remover os estados armazenados nos nós onde a falha ocorreu, os tempos de vida dos estados locais irão expirar, e consequentemente, serão removidos automaticamente. Este tipo de operação de interrupção das atividades do caminho estabelecido e de tempo de vida finito dos estados do caminho em cada nó não é encontrado no mecanismo de estado de atividade fixo (\textit{hard-state}). Logo, para que um \textit{hard-state} \ac{LSP} seja rerroteado por outro caminho é necessário antes removê-lo totalmente, para depois restabelecê-lo utilizando a nova rota. O \ac{CR-LDP}~\cite{rfc3472} é um exemplo de protocolo que faz uso do mecanismo \textit{hard-state}. Este protocolo também é suportado pelo \ac{GMPLS}.
-
-
-\subsection{Remoção de LSPs}
-
-Um \ac{LSP} pode ser removido em duas situações: (\textit{i}) em função do mecanismo \textit{soft-state} e (\textit{ii}) remoção explícita por algum \ac{LSR} do caminho. A ação natural de remoção dever ser tomada pelo \ac{LSR} de ingresso, que envia uma mensagem \textit{PATHTEAR} propagando-se nó-a-nó até o destino. A cada passo, o plano de controle local apaga os estados (\textit{PATHSTATE} e \textit{RESVSTATE}), depois ele encaminha a mensagem para o próximo \textit{hop}.
-
-Se a decisão de remover o \c{LSP} for tomada pelo destino ou por um \ac{LSR} intermediário, uma mensagem \textit{RESVTEAR} é enviada rumo à origem, que durante a sua propagação remove somente o \textit{RESVSTATE} dos nós intermediários.
-
-\subsection{LSPs Bidirecionais}
-
-A especificação do protocolo \ac{RSVP-TE} documentado sob a \ac{RFC} 3209~\cite{rfc3209} definiu um método para o estabelecimento de \ac{LSP} bidirecionais. Neste caso, entretanto, era necessária a execução de duas trocas de sinalização, uma para o sentido origem-destino (\textit{downstream}) e outra no sentido destino-origem (\textit{upstream}). Na \ac{RFC} 3473~\cite{rfc3473}, que define os requisitos do \ac{GMPLS} para o protocolo \ac{RSVP-TE}, a necessidade de sinalização em sentidos opostos foi extinta, devido ao novo objeto \textit{UPSTREAM LABEL}.  Então, para aprovisionar conexões bidirecionais basta a origem enviar um rótulo de \textit{upstream} em uma mensagem \textit{PATH} que contenha esse novo objeto. Logo, o rótulo transmitido deve possui o mesmo formato do \textit{GENERALIZED LABEL} que será transportado pela \textit{RESV}. Assim o processo de estabelecimento de \acp{LSP} bidirecionais é simplificado. O exemplo ilustrado na Figura~\ref{fig:rsvppacketresv} também é válido para conexões nos dois sentidos. Neste caso, o destino instala imediatamente o rótulo de \textit{upstream} recebido na mensagem \textit{PATH}, que pode naquele instante começar a transmitir dados para a origem. 
-
-\subsection{Mensagens de Erros}
-
-No caso de erros durante a instalação ou atividade de um \ac{LSP}, mensagens \textit{PATH ERROR} e \textit{RESV ERROR} são utilizadas para indicar o local das falhas e também o motivo de sua ocorrência. A mensagem \textit{PATH ERROR} é enviada pelo destino ou por um nó intermediário em direção à origem, mas só poderá alterar os estados dos nós intermediários se uma \textit{flag} do objeto \textit{ERROR SPEC} estiver configurada com indicativo \textit{Path\_State\_Removed}~\cite{rfc3473}. Por outro lado, a mensagem \textit{RESV ERROR} propaga-se na direção do destino. Se necessário, ela poderá modificar o \textit{RESVSTATE} do nó intermediário baseada no indicativo de erro transportado.
-
-Quando duas mensagens \textit{RESV} estão concorrendo pelo mesmo recurso de um enlace, poderá acontecer o erro chamado de contenção, que significa que o recurso será alocado para uma das requisições, e consequentemente, a outra requisição será bloqueada. Neste caso, o local onde ocorreu o bloqueio deverá retornar mensagens \textit{PATH ERROR} e \textit{RESV ERROR} relativas à requisição bloqueada informando que o recurso não está mais disponível.
 
