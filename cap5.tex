@@ -1,5 +1,76 @@
 \chapter{Estudo de Caso: SuperComputing 2014}
 \label{cap:case}
 
-falar do chip otn da padtec
-Alaelson
+	A Super Computing (\textit{The Internation Conference for High Performance Computing, Networking, Storage and Analysis} - SC14) é a uma das principais conferências de computação de alto desempenho do mundo. Organizado pela IEEE (IEEE \textit{Computer Society}) e pela ACM (\textit{Association for Computing Machinery}), em 2104 aconteceu em New Orleans, LA, USA, no período de 16 a 21 de novembro.
+	
+	Com o objetivo de utilizar uma rede ótica dinâmica e reconfigurável baseada em SDN em uma demonstração de super alta taxa de transmissão de dados na SC14 (1Tbps), o Instituto de Tecnologia da Califórnia (Caltech), o \textit{European Organization for Nuclear Research} (CERN), juntamente com a Universidade Estadual Paulista (UNESP), fizeram uma parceria com a empresa brasileira Padtec S/A para usar equipamentos tipo ROADMs em sua rede ótica. Entretanto, tal equipamento ainda não suporta funções de SDN, como o uso do protocolo OpenFlow, sendo necessário o desenvolvimento de funções como controle, aprovisionamento e remoção de canais óticos. Devido à experiência em SDN e redes óticas dos professores da Universidade de Campinas, a Unicamp foi convidada apoiar o desenvolvimento de um \textit{software} que pudesse adaptar o controlador SDN para usar os ROADMs da Padtec. 
+	
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.5]{figuras/sc14_complete.png}
+	\caption{\textit{Overview} completo da topologia de rede utilizada na SC14.}
+	\label{fig:sc14_topology}
+\end{figure}
+	
+	A Figura~\ref{fig:sc14_topology} ilustra a Topologia de Rede disponível na feira, em que um anel contendo 3 ROADMs utilizam 10 conexões de 100Gbps para transmitir até 1Tbps dentro da conferência, que contou com 3 \textit{Booths} no \textit{showfloor}, ver Figura~\ref{fig:sc14_topology}:
+\begin{itemize}
+\item Caltech: Contendo  1 ROADM com 10 transponders de 100G OTN OTU4, 1 switch Brocade com 4 interfaces de 100GbE e um switch Extreme com 6 interfaces 100GbE, ambos os switches suportam OpenFlow;
+\item iCAIR: Contendo 1 ROADM com 6 transpoders de 100G OTN OTU4;
+\item Vanderbilt: 1 ROADM com 4 transpoders de 100G OTN OTU4.
+\end{itemize}	
+
+	Além disso, pode-se observar na Figura~\ref{fig:sc14_topology} que a rede interna da conferência conecta-se com outras redes globais como a Internet2 e ESNet, e então, conecta-se com os servidores rodando no Caltech, na Universidade de Victoria, Na Unesp (São Paulo), ao CERN (Suíça) e na Universidade de Michigan.
+	
+	A Figura\ref{fig:sc14_roadm} ilustra o ROADM da empresa Padtec S.A. e a Figura~\ref{fig:sc14_rack} mostra os Racks com os switches Extreme (esquerda) e Brocade (direita), além de servidores de aplicação e \textit{storage}.  
+	
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.8]{figuras/roadm.png}
+	\caption{Padtec ROAM utilizado na SC14.}
+	\label{fig:sc14_roadm}
+\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.8]{figuras/rack.png}
+	\caption{Rack contendo Servidores, \textit{Storage}, e switches OpenFlow}
+	\label{fig:sc14_rack}
+\end{figure}
+
+Como resultado, conseguiu-se manter uma taxa de transferência agregada com todos os nós da rede, inclusive os pontos globalmente distribuídos, que alcançou de 1.4 Tbps utilizando-se transfência memória para memória. A taxa de pico alcançada foi de 1.55Tbps, como pode ser verificada na Figura~\ref{fig:sc14_mm}. 
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.5]{figuras/sc14_1_5T_memory_memory}
+	\caption{Gráfico com tráfego agregado de todos os links, alcançando 1.55 Tbps em transfência memória para memória.}
+	\label{fig:sc14_mm}
+\end{figure}
+
+Já em transfência de disco para memória, a taxa superior de 1Tbps foi alcançada, como pode ser visualizado na Figura~\ref{fig:sc14_dm}.
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.5]{figuras/sc14_1T_disc_memory.png}
+	\caption{Gráfico com tráfego agregado de todos os links, alcançando 1.55 Tbps em transfência memória para memória.}
+	\label{fig:sc14_dm}
+\end{figure}
+
+	Utilizando-se uma API da Padtec, foi possível o desenvolvimento de um \textit{plug-in} para o controlador SDN OpenDayLight (ODL)~\cite{ODL2015}.
+Tal plugin, foi capaz de aprovisionar canais óticos à medida que mais largura de banda era requisitada durante as transmissões de dados. À medida que o tráfego de diminuia, pôde-se se remover canais óticos dinamicamente. A Figura~\ref{fig:sc14_plugin} ilustra o relacionamento entre o componente desenvolvido pela Unicamp e seu relacionamento com o controlador e o \textit{software} de gerenciamento do ROADM. Pode-se perceber que uma aplicação envia dados para o controlador ODL, que aciona o plugin ODL para enviar comandos ao \textit{software} de gerencia do ROADM, que por sua vez, configura o equipamento com a instrução recebida, por exemplo, alocar um canal, configurar equipamentos internos, pedir informações de rota e topologia, verificar e/ou configurar interfaces óticas.
+	
+	\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.5]{figuras/sc14_sdn_arc.png}
+	\caption{\textit{Overview} completo da topologia de rede utilizada na SC14.}
+	\label{fig:sc14_plugin}
+\end{figure}
+
+Com o sucesso da aplicação desenvolvida e apresentada na SC14, os circuitos óticos do anel contendo os três estandes na conferência foram apresentados em foram de uma aplicação foi desenvolvida para mostrar em tempo real os canais e suas capacidades de utilização, como pode ser observado na Figura~\ref{fig:sc14_circuitos}.
+
+
+\begin{figure}[H]
+	\centering
+		\includegraphics[scale=.5]{figuras/sc14_circuitos.png}
+	\caption{Circuitos ativados e suas respectivas capacidades de utilização dinamicamente alocados durante a SC14.}
+	\label{fig:sc14_circuitos}
+\end{figure}
