@@ -1,25 +1,66 @@
 %% ********** CAPA ********************
 \thispagestyle{empty}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\def\OneHeader{ 
 \begin{center}
-{\Large \textbf{Universidade Estadual de Campinas - UNICAMP} \\ \vspace{2ex}
-\Large \textbf{Faculdade de Eng. Elétrica e de Computação - FEEC} \\ \vspace{2ex}
-\Large \textbf{Disciplina IE008 - Redes Óticas} \\ \vspace{2ex}
+\begin{normalsize}
+	\textbf{Universidade Estadual de Campinas - UNICAMP} \\ \vspace{1ex}
+	\textbf{Faculdade de Eng. Elétrica e de Computação - FEEC} \\ \vspace{1ex}
+	\textbf{Disciplina IE008 - Redes Óticas} \\ \vspace{2ex}
+\end{normalsize}
+\end{center}
+}
+
+\begin{figure}[ht]
+ 
+%	\begin{subfigure}{width=0.3\textwidth}
+	%\includegraphics[width=0.9\linewidth, height=3cm]{figuras/logo\_unicamp\_} 
+%	\begin{minipage}[b][0.01\textheight][c]{}
+\parbox{0.11\textwidth}{
+	\includegraphics[scale=.13]{figuras/logo_unicamp_.png}
+	} 
+%	 \end{minipage}
+	\hspace{0.025\textwidth}%
+	\begin{minipage}[b][0.01\textheight][c]{0.69\linewidth} \OneHeader \end{minipage}
+	\hspace{0.025\textwidth}%
+\parbox{0.13\textwidth}{
+%	\begin{minipage}[b][0.01\textheight][c]{0.85\textwidth}
+	\includegraphics[width=0.13\textwidth]{figuras/logo_feec}
+%	 \end{minipage}
+}
+ 
+\end{figure}
+
+
+
+
+%\textbf{Universidade Estadual de Campinas - UNICAMP} \\ \vspace{1ex}
+%	\textbf{Faculdade de Eng. Elétrica e de Computação - FEEC} \\ \vspace{1ex}
+%	\textbf{Disciplina IE008 - Redes Óticas} \\ \vspace{2ex}
+
+%\Large \textbf{Universidade Estadual de Campinas - UNICAMP} \\ \vspace{1ex}
+%\Large \textbf{Faculdade de Eng. Elétrica e de Computação - FEEC} \\ \vspace{1ex}
+%\Large \textbf{Disciplina IE008 - Redes Óticas} \\ \vspace{2ex}
 
 %\vspace{0.75in} {\Large \textbf{Dissertação de Mestrado}} \\
-
-\vspace{0.95in} {\LARGE \textbf{Protocolos de Transporte para Redes Óticas:}}\\
+\begin{center}
+{
+\vspace{1.5in} {\LARGE \textbf{Protocolos de Transporte para Redes Óticas:}}\\
 \vspace{2ex} {\LARGE \textbf{SONET/SDH, OTN e GMPLS }} \\
 
-\vspace{0.95in} {\Large \textbf{Alaelson Jatobá}} \\
-\vspace{2ex}  {\Large \textbf{Fábio}} \\
-\vspace{2ex}  {\Large \textbf{Lailson}} \\
-\vspace{2ex}  {\Large \textbf{Isaac}} \\
-\vspace{2ex}  {\Large \textbf{Thyago}} \\
+\vspace{1.5in} {\Large \textbf{Alaelson Jatobá}} \\
+\vspace{1ex}  {\Large \textbf{Fábio Barbosa}} \\
+\vspace{1ex}  {\Large \textbf{Isaac Souza}} \\
+\vspace{1ex}  {\Large \textbf{Lailson Santos}} \\
+\vspace{1ex}  {\Large \textbf{Thyago Monteiro}} \\
 }
 
 
-\vspace{2.02in}{\Large \textbf{Campinas}} \\ \vspace{2ex}
-{\Large \textbf{Julho de 2015}}
+\vspace{1.5in}{\Large \textbf{Campinas}} \\ \vspace{2ex}
+{\Large \textbf{Junho de 2015}}
 \end{center}
 
 \newpage
