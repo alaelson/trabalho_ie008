@@ -1,68 +1,75 @@
 \chapter{Introdução}
 \label{cap:introduction}
 
-\section{Objetivo}
+As redes de comunicações de dados continua em acelerado crescimento, impulsionado pelo tráfego gerado por serviços de vídeo sob demanda, \ac{IPTV} pelos, compartilhamentos de arquivos, e principalmente pelo ``boom'' de dispositivos móveis conectados à Internet. De acordo com a Cisco Visual Networking Index~\cite{Cisco2015}, o tráfego global da Internet irá alcançar 1.1 zettabytes/ano ou 88.4 exabytes/mês até 2016, e praticamente dobra até 2019. Dessa forma, para que se possa acomodar tais taxas de crescimento, as redes de comunicações óticas multiplexadas por divisão de comprimento de onda (\aclu{WDM} -- \ac{WDM}) continuam sendo a tecnologia mais importante devido a sua altíssima capacidade de transmissão e longo alcance, além de outras propriedades.
 
-O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecnologias de transporte óptico, explicitando os aspectos técnicos de cada uma.
+Para dar suporte as redes \ac{WDM}, faz-se necessário o contínuo desenvolvimento das tecnologias de comunicações óticas, de seus protocolos de transporte, controle eficiente da rede além de técnicas de resiliência e sobrevivência em caso de falhas.
 
-\section{Introdução}
+%De um ponto de vista geral, os sistemas de comunicações podem ser organizados em um hierarquia de camadas, tal como observado na Figura~\ref{fig:Camadas}, na qual cada segmentação permite o encapsulamento dos dados e assegura uma transmissão confiável e transparente. Neste contexto, o cliente insere tráfego de dados, vídeo e voz, utilizando a camada física como caminho interligando diversos nós na rede. Cada camada, encapsula informação útil a ser enviada, e para que a comunicação seja eficaz, é necessário que os protocolos de interfaceamento estejam bem definidos.
 
-De um ponto de vista geral, os sistemas de comunicações podem ser organizados em um hierarquia de camadas, tal como observado na figura \ref{fig:Camadas}, na qual cada segmentação permite o encapsulamento dos dados e assegura uma transmissão confiável e transparente. Neste contexto, o cliente insere tráfego de dados, vídeo e voz, utilizando a camada física como caminho interligando diversos nós na rede. Cada camada, encapsula informação útil a ser enviada, e para que a comunicação seja eficaz, é necessário que os protocolos de interfaceamento estejam bem definidos.
+Neste trabalho serão apresentadas alguns dos protocolos de redes óticas de transporte, que tem a função de encaminhar os dados e transmiti-los sobre o meio físico, e de plano de controle, para que a rede possa ser melhor gerenciada e controlada. Assim o Capítulo~\ref{cap:technology} apresenta as principais tecnologias óticas de transporte: Hierarquia Digital Plesiócroa (\aclu{PDH} -- \ac{PDH}), Rede Ótica Síncrona (\aclu{SONET} -- \ac{SONET}), Hierarquia Digital Síncrona (\aclu{SDH} -- \ac{SDH}) e a Rede de Transporte Ótica (\aclu{OTN} -- \ac{OTN}). O Capitulo~\ref{cap:controlplane} apresenta os protocolos de plano de controle para redes óticas, como o \aclu{GMPLS} (\ac{GMPLS}) e as Redes Definidas por Software (\aclu{SDN} -- \ac{SDN}). O capítulo~\ref{cap:case} traz um estudo de caso de aplicação de altíssima capacidade de transmissão apresetando na conferência \textit{Super Computing 2014}, por fim a conclusão é apresentada no Capítulo~\ref{cap:conclusion}.
 
-Na camada de transporte, os protocolos mais utilizados atualmente em redes ópticas são: Rede Óptica Síncrona- SONET (do inglês, {\it Synchonous Optical Network}), Hierarquia Digital Síncrona - SDH(do inglês, {\it Synchonous Digital Hierarchy}), IP e ATM. SONET e SDH surgiram quase que simultaneamente por volta da década de 80, na América do Norte e Europa, respectivamente, devido a necessidade das companhias telefônicas em conectar suas redes e são utilizadas amplamente até hoje.
+ 
+% SONET e SDH surgiram quase que simultaneamente por volta da década de 80, na América do Norte e Europa, respectivamente, devido a necessidade das companhias telefônicas em conectar suas redes e são utilizadas amplamente até hoje.
 
-\begin{figure}[!htb]
+%Este trabalho, apresenta as principais tecnologias de transporte ótico e seus aspectos técnicos.
 
-\begin{center}
+%\section{Objetivo}
 
-\begin{tikzpicture}[
-	scale=0.75,
-	start chain=1 going below, 
-	start chain=2 going right,
-	node distance=1mm,
-	desc/.style={
-		scale=0.75,
-		on chain=2,
-		rectangle,
-		rounded corners,
-		draw=black, 
-		very thick,
-		text centered,
-		text width=8cm,
-		minimum height=12mm,
-		fill=blue!40
-		},
-	it/.style={
-		fill=blue!10
-	},
-	level/.style={
-		scale=0.75,
-		on chain=1,
-		minimum height=12mm,
-		text width=2cm,
-		text centered
-	},
-	every node/.style={font=\rm}
-]
+%O objetivo deste trabalho é fazer uma breve explanação sobre as principais tecnologias de transporte óptico, explicitando os aspectos técnicos de cada uma.
 
-% Levels
-\node [level] (Level 5) {Camada 5};
-\node [level] (Level 4) {Camada 4};
-\node [level] (Level 3) {Camada 3};
-\node [level] (Level 2) {Camada 2};
-\node [level] (Level 1) {Camada 1};
-
-
-% Descriptions
-\chainin (Level 5); % Start right of Level 5
-% IT levels
-\node [desc, it] (Archives) {Aplicação};
-\node [desc, it, continue chain=going below] (ERP) {Redes};
-\node [desc] {Enlace};
-\node [desc] {Transporte};
-\node [desc] {Física};
-
-\end{tikzpicture}
-\caption{Hierarquia de camadas nos sistemas de comunicações \label{fig:Camadas}}
-\end{center}
-\end{figure}
+%\begin{figure}[!htb]
+%
+%\begin{center}
+%
+%\begin{tikzpicture}[
+%	scale=0.75,
+%	start chain=1 going below, 
+%	start chain=2 going right,
+%	node distance=1mm,
+%	desc/.style={
+%		scale=0.75,
+%		on chain=2,
+%		rectangle,
+%		rounded corners,
+%		draw=black, 
+%		very thick,
+%		text centered,
+%		text width=8cm,
+%		minimum height=12mm,
+%		fill=blue!40
+%		},
+%	it/.style={
+%		fill=blue!10
+%	},
+%	level/.style={
+%		scale=0.75,
+%		on chain=1,
+%		minimum height=12mm,
+%		text width=2cm,
+%		text centered
+%	},
+%	every node/.style={font=\rm}
+%]
+%
+%% Levels
+%\node [level] (Level 5) {Camada 5};
+%\node [level] (Level 4) {Camada 4};
+%\node [level] (Level 3) {Camada 3};
+%\node [level] (Level 2) {Camada 2};
+%\node [level] (Level 1) {Camada 1};
+%
+%
+%% Descriptions
+%\chainin (Level 5); % Start right of Level 5
+%% IT levels
+%\node [desc, it] (Archives) {Aplicação};
+%\node [desc, it, continue chain=going below] (ERP) {Redes};
+%\node [desc] {Enlace};
+%\node [desc] {Transporte};
+%\node [desc] {Física};
+%
+%\end{tikzpicture}
+%\caption{Hierarquia de camadas nos sistemas de comunicações \label{fig:Camadas}}
+%\end{center}
+%\end{figure}
